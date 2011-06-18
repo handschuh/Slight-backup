@@ -152,8 +152,17 @@ public class BackupActivity extends ListActivity {
 				deleteFileDialog.show();
 				break;
 			}
+			case CONTEXTMENU_IMPORT: {
+				Intent intent = new Intent(this, ImportActivity.class);
+				
+				intent.putExtra(Strings.EXTRA_FILE, listAdapter.getItem(((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position).toString());
+				intent.putExtra(Strings.EXTRA_COUNT, -1);
+				startActivity(intent);
+				break;
+			}
 			default: {
 				startActivityForResult(new Intent(this, ExportActivity.class).putExtra(Strings.EXPORTTYPE, item.getItemId()), EXPORTACTIVITY_ID);
+				break;
 			}
 		}
 		return true;
@@ -251,14 +260,11 @@ public class BackupActivity extends ListActivity {
         setListAdapter(listAdapter);
         getListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+				menu.setHeaderTitle(((TextView) ((AdapterView.AdapterContextMenuInfo) menuInfo).targetView.findViewById(android.R.id.text1)).getText());
 				menu.add(0, CONTEXTMENU_IMPORT, Menu.NONE, R.string.button_import);
 				menu.add(0, CONTEXTMENU_DELETEFILE, Menu.NONE, R.string.contextmenu_deletefile);
 			}
         });
 	}
 
-	
-
-	
-	
 }
