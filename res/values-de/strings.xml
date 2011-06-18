@@ -6,6 +6,7 @@
     <string name="menu_exportbookmarks">Lesezeichen exportieren</string>
     <string name="menu_exportuserdictionary">Benutzerwörterbuch exportieren</string>
     <string name="menu_about">Info</string>
+    <string name="contextmenu_deletefile">Datei löschen</string>
     <string name="error_nosdcard">Keine SD-Karte vorhanden.</string>
     <string name="error_unsupportedsmsstructure">Nicht unterstützte SMS-Datenbankstruktur.</string>
     <string name="error_couldnotcreatebackupfolder">Konnte den backup-Ordner nicht auf der SD-Karte erstellen.</string>
@@ -26,4 +27,5 @@
     <string name="userdictionary">Benutzerwörterbuch</string>
     <string name="dialog_export">Exportieren</string>
     <string name="dialog_licenseagreement">Lizenz</string>
+    <string name="question_deletefile">Wollen Sie wirklich die Datei %s löschen?</string>
 </resources>

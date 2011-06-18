@@ -6,6 +6,7 @@
     <string name="menu_exportbookmarks">Export bookmarks</string>
     <string name="menu_exportuserdictionary">Export user-dictionary</string>
     <string name="menu_about">About</string>
+    <string name="contextmenu_deletefile">Delete file</string>
     <string name="error_nosdcard">No SD-card present.</string>
     <string name="error_unsupportedsmsstructure">Unsupported SMS-database structure.</string>
     <string name="error_couldnotcreatebackupfolder">Could not create backupfolder on SD-card.</string>
@@ -49,4 +50,5 @@
     <string name="userdictionary">user-dictionary</string>
     <string name="dialog_export">Export</string>
     <string name="dialog_licenseagreement">License</string>
+    <string name="question_deletefile">Do you really want to delete the file %s?</string>
 </resources>
