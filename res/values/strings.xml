@@ -36,7 +36,7 @@
 		THE SOFTWARE.
 	</string>
 	
-	<string name="license_intro">This software is distributed under the MIT open source license and its source code is available under http://github.com/handschuh/Slight-Backup\n</string>
+	<string name="license_intro">This software is distributed under the MIT open source license and its source code is available under http://github.com/handschuh/Slight-backup\n</string>
     <string name="message_exportedto">Exported into %s.</string>
     <string name="message_importsuccessful">Import successful.</string>
     <string name="listentry_items">%s items in </string>
