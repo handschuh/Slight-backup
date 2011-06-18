@@ -13,7 +13,7 @@
     <string name="hint_nobackupsfound">Keine Backups gefunden - zum erstellen, Menüknopf drücken.</string>
     <string name="hint_noexportdata">Keine Daten für den Export vorhanden.</string>
     <string name="hint_exporting">Exportiere %s ...</string>
-	<string name="license_intro">Diese Software ist unter der MIT Open-Source-Lizenz veröffentlicht und der Quellcode befindet sich unter http://github.com/handschuh/Slight-backup\n</string>
+	<string name="license_intro">Diese Software ist unter der MIT Open-Source-Lizenz veröffentlicht und der Quellcode befindet sich unter http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Nach %s exportiert.</string>
     <string name="message_importsuccessful">Import erfolgreich.</string>
     <string name="listentry_items">%s Einträge in </string>

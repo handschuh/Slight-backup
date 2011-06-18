@@ -64,6 +64,8 @@ public final class Strings {
 	
 	public static final String PREFERENCE_LICENSEACCEPTED = "license.accepted";
 	
+	public static final String THREENEWLINES = "\n\n\n";
+	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",
 		"address",

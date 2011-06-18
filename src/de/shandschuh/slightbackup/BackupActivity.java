@@ -31,10 +31,12 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.DialogInterface.OnKeyListener;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -133,7 +135,7 @@ public class BackupActivity extends ListActivity {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.dismiss();
 					
-					Editor editor = BackupActivity.this.getPreferences(MODE_PRIVATE).edit();
+					Editor editor = getPreferences(MODE_PRIVATE).edit();
 					
 					editor.putBoolean(Strings.PREFERENCE_LICENSEACCEPTED, true);
 					editor.commit();
@@ -142,13 +144,22 @@ public class BackupActivity extends ListActivity {
 					setContent();
 				}
 			});
-			builder.setMessage(new StringBuilder(getString(R.string.license_intro)).append("\n\n").append(getString(R.string.license)));
+			builder.setMessage(new StringBuilder(getString(R.string.license_intro)).append(Strings.THREENEWLINES).append(getString(R.string.license)));
+			builder.setOnKeyListener(new OnKeyListener() {
+				public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+					if (keyCode == KeyEvent.KEYCODE_BACK) {
+						dialog.cancel();
+						finish();
+					}
+					return true;
+				}
+			});
 			return builder.create();
 		} else if (id == DIALOG_ABOUT) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			
 			builder.setTitle(R.string.menu_about);
-			builder.setMessage(new StringBuilder(getString(R.string.license_intro)).append("\n\n").append(getString(R.string.license)));
+			builder.setMessage(new StringBuilder(getString(R.string.license_intro)).append(Strings.THREENEWLINES).append(getString(R.string.license)));
 			builder.setPositiveButton(android.R.string.ok, new OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.cancel();
