@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical"
+	android:id="@+id/main_layout">
+    	<ListView android:id="@android:id/list" android:layout_width="fill_parent"
+    		android:layout_height="wrap_content"
+    		android:layout_gravity="fill"
+    		android:layout_weight="1"
+    		android:drawSelectorOnTop="false" />
+		<TextView 
+			android:id="@id/android:empty"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:text="@string/hint_nobackupsfound"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:gravity="center" />
+</FrameLayout>
