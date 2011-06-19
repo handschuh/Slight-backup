@@ -24,7 +24,9 @@
 package de.shandschuh.slightbackup;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FilenameFilter;
+import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -39,6 +41,10 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 public class BackupFilesListAdapter extends BaseExpandableListAdapter {
+	private static final String BRACKED = " (";
+	
+	private static final String DASH = " - ";
+	
 	private DateFormat dateFormat = DateFormat.getDateInstance();
 	
 	private DateFormat timeFormat = DateFormat.getTimeInstance();
@@ -48,9 +54,12 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 	private Vector<Date> dates;
 	
 	private Map<Date, Vector<File>> data;
+	
+	private Context context;
 
 	public BackupFilesListAdapter(Context context) {
-		layoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.context = context;
+		layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		dates = new Vector<Date>();
 		data = new HashMap<Date, Vector<File>>();
 		
@@ -80,10 +89,45 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		
 		File file = getChild(groupPosition, childPosition);
 		
+		long date = file.lastModified();
+		
 		String filename = file.toString();
 		
-		((TextView) view.findViewById(android.R.id.text1)).setText(new StringBuilder(timeFormat.format(new Date(file.lastModified()))).append(": ").append(filename.substring(filename.lastIndexOf('/')+1, filename.indexOf('_'))));
-		((TextView) view.findViewById(android.R.id.text2)).setText(filename);
+		TextView text2 = (TextView) view.findViewById(android.R.id.text2);
+
+		text2.setText(filename);
+
+		int count = -1;
+
+		try {
+			InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
+
+			char[] buffer = new char[100]; // the info should be within the first 100 characters
+
+			reader.read(buffer);
+			reader.close();
+
+			String string = new String(buffer);
+
+			int index = string.indexOf(Strings.COUNT);
+
+			if (index > 0) {
+				count = Integer.parseInt(string.substring(index+7, string.indexOf('"', index+8)));
+				text2.setText(new StringBuilder(String.format(context.getString(R.string.listentry_items), count)).append(' ').append(filename));
+			} 
+			index = string.indexOf(Strings.DATE);
+			if (index > 0) {
+				date = Long.parseLong(string.substring(index+6, string.indexOf('"', index+7)));
+			} else {
+				date = Long.parseLong(filename.substring(filename.lastIndexOf('_')+1, filename.lastIndexOf(Strings.FILE_EXTENSION)));
+			}
+
+		} catch (Exception e) {
+
+		}
+
+		view.setTag(count);
+		((TextView) view.findViewById(android.R.id.text1)).setText(new StringBuilder(timeFormat.format(new Date(date))).append(DASH).append(filename.substring(filename.lastIndexOf('/')+1, filename.indexOf('_'))));
 		return view;
 	}
 
@@ -106,7 +150,11 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 		View view = convertView == null ? layoutInflater.inflate(android.R.layout.simple_expandable_list_item_1, null) : convertView;
 
-		((TextView) view.findViewById(android.R.id.text1)).setText(dateFormat.format(getGroup(groupPosition)));
+		if (isExpanded) {
+			((TextView) view.findViewById(android.R.id.text1)).setText(dateFormat.format(getGroup(groupPosition)));
+		} else {
+			((TextView) view.findViewById(android.R.id.text1)).setText(new StringBuilder(dateFormat.format(getGroup(groupPosition))).append(BRACKED).append(getChildrenCount(groupPosition)).append(')'));
+		}
 		return view;
 	}
 

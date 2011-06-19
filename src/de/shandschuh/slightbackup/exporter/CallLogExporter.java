@@ -25,13 +25,12 @@ package de.shandschuh.slightbackup.exporter;
 
 import android.content.Context;
 import android.provider.CallLog;
-import android.widget.ProgressBar;
 import de.shandschuh.slightbackup.Strings;
 
 public class CallLogExporter extends SimpleExporter {
 
-	public CallLogExporter(Context context, ProgressBar progressBar) {
-		super(context, Strings.TAG_CALL, CallLog.Calls.CONTENT_URI, progressBar);
+	public CallLogExporter(Context context, ExportTask exportTask) {
+		super(context, Strings.TAG_CALL, CallLog.Calls.CONTENT_URI, exportTask);
 	}
 
 	@Override

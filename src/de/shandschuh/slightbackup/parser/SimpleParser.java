@@ -33,15 +33,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.widget.ProgressBar;
+import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class SimpleParser extends DefaultHandler {
 	private static final String AND = " and ";
 	
 	private static final String DB_ARG = "=?";
-	
-	private static final String EMPTY = "";
 	
 	private static final String COUNT = "count";
 	
@@ -57,9 +55,7 @@ public abstract class SimpleParser extends DefaultHandler {
 	
 	private Uri contentUri;
 	
-	private ProgressBar progressBar;
-	
-	Runnable runnable; // package scope for performance reasons
+	private ImportTask importTask;
 	
 	private String[] existanceFields;
 	
@@ -71,20 +67,17 @@ public abstract class SimpleParser extends DefaultHandler {
 	
 	private boolean canceled;
 	
-	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, final ProgressBar progressBar, String[] existanceFields) {
+	private int position;
+	
+	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, final ImportTask importTask, String[] existanceFields) {
 		this.context = context;
 		this.tag = tag;
 		this.fields = fields;
+		this.importTask = importTask;
 		values = new String[fields.length];
 		tagEntered = false;
 		this.contentUri = contentUri;
-		this.progressBar = progressBar;
-		runnable = new Runnable() {
-			public void run() {
-				SimpleParser.this.progressBar.setProgress(SimpleParser.this.progressBar.getProgress()+1);
-			}
-		};
-		progressBar.setProgress(0);
+		this.importTask = importTask;
 		this.existanceFields = existanceFields;
 		if (existanceFields != null) {
 			existanceLength = existanceFields.length;
@@ -97,10 +90,11 @@ public abstract class SimpleParser extends DefaultHandler {
 			}
 		}
 		canceled = false;
+		position = 0;
 	}
 	
-	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, final ProgressBar progressBar) {
-		this(context, tag, fields, contentUri, progressBar, null);
+	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask) {
+		this(context, tag, fields, contentUri, importTask, null);
 	}
 	
 	@Override
@@ -109,15 +103,15 @@ public abstract class SimpleParser extends DefaultHandler {
 			if (tag.equals(localName)) {
 				tagEntered = true;
 				for (int n = 0, i = values.length; n < i; n++) {
-					values[n] = attributes.getValue(EMPTY, fields[n]);
+					values[n] = attributes.getValue(Strings.EMPTY, fields[n]);
 				}
 				startMainElement();
 			} else {
-				String count = attributes.getValue(EMPTY, COUNT);
+				String count = attributes.getValue(Strings.EMPTY, COUNT);
 				
 				if (count != null) {
 					try {
-						progressBar.setMax(Integer.parseInt(count));
+						importTask.progress(BackupTask.MESSAGE_COUNT, Integer.parseInt(count));
 					} catch (Exception e) {
 						
 					}
@@ -169,7 +163,7 @@ public abstract class SimpleParser extends DefaultHandler {
 				context.getContentResolver().insert(contentUri, contentValues); 
 			}
 			cursor.close();
-			progressBar.post(runnable);
+			importTask.progress(BackupTask.MESSAGE_PROGRESS, ++position);
 		}
 	}
 	
@@ -237,17 +231,17 @@ public abstract class SimpleParser extends DefaultHandler {
 		return result;
 	}
 	
-	public static SimpleParser createParserByFilename(String filename, Context context, ProgressBar progressBar) {
+	public static SimpleParser createParserByFilename(String filename, Context context, ImportTask importTask) {
 		filename = filename.substring(filename.lastIndexOf('/')+1);
 		
 		if (filename.startsWith(Strings.CALLLOGS)) {
-			return new CallLogParser(context, progressBar);
+			return new CallLogParser(context, importTask);
 		} else if (filename.startsWith(Strings.MESSAGES)) {
-			return new MessageParser(context, progressBar);
+			return new MessageParser(context, importTask);
 		} else if (filename.startsWith(Strings.BOOKMARKS)) {
-			return new BookmarkParser(context, progressBar);
+			return new BookmarkParser(context, importTask);
 		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
-			return new UserDictionaryParser(context, progressBar);
+			return new UserDictionaryParser(context, importTask);
 		}
 		return null;
 	}

@@ -23,15 +23,14 @@
 
 package de.shandschuh.slightbackup.exporter;
 
-import de.shandschuh.slightbackup.Strings;
 import android.content.Context;
 import android.provider.Browser;
-import android.widget.ProgressBar;
+import de.shandschuh.slightbackup.Strings;
 
 public class BookmarkExporter extends SimpleExporter {
 
-	public BookmarkExporter(Context context, ProgressBar progressBar) {
-		super(context, Strings.TAG_BOOKMARK, Browser.BOOKMARKS_URI, Browser.BookmarkColumns.BOOKMARK+"=1", progressBar);
+	public BookmarkExporter(Context context, ExportTask exportTask) {
+		super(context, Strings.TAG_BOOKMARK, Browser.BOOKMARKS_URI, Browser.BookmarkColumns.BOOKMARK+"=1", exportTask);
 	}
 
 	@Override

@@ -25,19 +25,18 @@ package de.shandschuh.slightbackup.parser;
 
 import android.content.Context;
 import android.provider.UserDictionary;
-import android.widget.ProgressBar;
 import de.shandschuh.slightbackup.Strings;
 
 public class UserDictionaryParser extends SimpleParser {
 
-	public UserDictionaryParser(Context context, ProgressBar progressBar) {
+	public UserDictionaryParser(Context context, ImportTask importTask) {
 		super(context, Strings.TAG_WORD, new String[] {UserDictionary.Words.APP_ID,
 				UserDictionary.Words.CONTENT_ITEM_TYPE,
 				UserDictionary.Words.CONTENT_TYPE,
 				UserDictionary.Words.FREQUENCY,
 				UserDictionary.Words.LOCALE,
 				UserDictionary.Words.WORD,
-		}, UserDictionary.Words.CONTENT_URI, progressBar);
+		}, UserDictionary.Words.CONTENT_URI, importTask);
 	}
 
 }

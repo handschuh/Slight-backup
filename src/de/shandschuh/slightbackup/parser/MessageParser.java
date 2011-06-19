@@ -28,7 +28,6 @@ import org.xml.sax.SAXException;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
-import android.widget.ProgressBar;
 import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
@@ -37,8 +36,8 @@ public class MessageParser extends SimpleParser {
 	
 	private StringBuilder messageStringBuilder;
 	
-	public MessageParser(Context context, ProgressBar progressBar) {
-		super(context, Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, progressBar);
+	public MessageParser(Context context, ImportTask importTask) {
+		super(context, Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, importTask);
 	}
 	
 	@Override

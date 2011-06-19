@@ -28,8 +28,8 @@ import java.io.File;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.SharedPreferences.Editor;
@@ -47,17 +47,19 @@ import android.view.View.OnCreateContextMenuListener;
 import android.widget.ExpandableListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import de.shandschuh.slightbackup.exporter.ExportTask;
+import de.shandschuh.slightbackup.parser.ImportTask;
 
 public class BackupActivity extends ExpandableListActivity {
 	public static final Uri SMS_URI = Uri.parse("content://sms");
 	
-	public static final int MENU_EXPORTSMS_ID = 1;
+	public static final int MENU_EXPORTSMS_ID = 4;
 	
-	public static final int MENU_EXPORTCALLLOG_ID = 2;
+	public static final int MENU_EXPORTCALLLOG_ID = 8;
 	
-	public static final int MENU_EXPORTBOOKMARKS_ID = 3;
+	public static final int MENU_EXPORTBOOKMARKS_ID = 12;
 	
-	public static final int MENU_EXPORTUSERDICTIONARY = 4;
+	public static final int MENU_EXPORTUSERDICTIONARY = 16;
 	
 	private static final int CONTEXTMENU_IMPORT = 21;
 	
@@ -65,12 +67,11 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	private static final int MENU_ABOUT_ID = 9;
 	
-	private static final int EXPORTACTIVITY_ID = 1;
-	
 	private static final int DIALOG_LICENSEAGREEMENT = 1;
 	
 	private static final int DIALOG_ABOUT = 2;
 	
+	public static final int DIALOG_EXPORT = 4;
 	
 	public static final String DIR_NAME = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/backup/").toString();
 	
@@ -79,6 +80,10 @@ public class BackupActivity extends ExpandableListActivity {
 	public BackupFilesListAdapter listAdapter;
 	
 	private AlertDialog deleteFileDialog;
+	
+	private ProgressDialog exportDialog;
+	
+	private ProgressDialog importDialog;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -158,42 +163,47 @@ public class BackupActivity extends ExpandableListActivity {
 				break;
 			}
 			case CONTEXTMENU_IMPORT: {
-				long packedPosition = ((ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo()).packedPosition;
+				ExpandableListView.ExpandableListContextMenuInfo menuInfo = (ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo();
+				
+				long packedPosition = menuInfo.packedPosition;
 				
 				if (ExpandableListView.getPackedPositionType(packedPosition) != ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
 					break; 
 				}
-				
-				Intent intent = new Intent(this, ImportActivity.class);
-				
-				intent.putExtra(Strings.EXTRA_FILE, listAdapter.getChild(ExpandableListView.getPackedPositionGroup(packedPosition), ExpandableListView.getPackedPositionChild(packedPosition)).toString());
-				intent.putExtra(Strings.EXTRA_COUNT, -1);
-				startActivity(intent);
+				if (importDialog == null) {
+					importDialog = new ProgressDialog(this);
+				}
+				checkProgressDialog(importDialog);
+				new ImportTask(importDialog, listAdapter.getChild(ExpandableListView.getPackedPositionGroup(packedPosition), ExpandableListView.getPackedPositionChild(packedPosition)), (Integer) menuInfo.targetView.getTag());
 				break;
 			}
 			default: {
-				startActivityForResult(new Intent(this, ExportActivity.class).putExtra(Strings.EXPORTTYPE, item.getItemId()), EXPORTACTIVITY_ID);
+				if (exportDialog == null) {
+					exportDialog = new ProgressDialog(this);
+				}
+				checkProgressDialog(exportDialog);
+				new ExportTask(exportDialog, listAdapter).execute(item.getItemId());
 				break;
 			}
 		}
 		return true;
+	}	
+	
+	private void checkProgressDialog(ProgressDialog dialog) {
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		dialog.setProgress(0);
+		dialog.setMax(100);
+		dialog.setMessage(Strings.EMPTY); // we just have to set some non-null value to enable the title
 	}
 	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK && requestCode == EXPORTACTIVITY_ID) {
-			listAdapter.add(new File(data.getStringExtra(Strings.EXTRA_FILE)));
-		}
-	}
-	
-
 	@Override
 	public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-		Intent intent = new Intent(this, ImportActivity.class);
-		
-		intent.putExtra(Strings.EXTRA_FILE, listAdapter.getChild(groupPosition, childPosition).toString());
-		intent.putExtra(Strings.EXTRA_COUNT, (Integer) v.getTag());
-		startActivity(intent);
+		if (importDialog == null) {
+			importDialog = new ProgressDialog(this);
+		}
+		checkProgressDialog(importDialog);
+		new ImportTask(importDialog, listAdapter.getChild(groupPosition, childPosition), (Integer) v.getTag());
+
 		return true;
 	}
 
@@ -258,6 +268,7 @@ public class BackupActivity extends ExpandableListActivity {
 		scrollView.addView(textView);
 		scrollView.setPadding(0, 0, 2, 0);
 		
+		textView.setTextColor(textView.getTextColors().getDefaultColor()); // disables color change on selection
 		textView.setPadding(5, 0, 5, 0);
 		textView.setTextSize(15);
 		textView.setAutoLinkMask(Linkify.EMAIL_ADDRESSES | Linkify.WEB_URLS);
@@ -281,5 +292,4 @@ public class BackupActivity extends ExpandableListActivity {
 			}
         });
 	}
-
 }

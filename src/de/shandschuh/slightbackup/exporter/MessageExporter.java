@@ -25,15 +25,14 @@ package de.shandschuh.slightbackup.exporter;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.widget.ProgressBar;
 import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
 public class MessageExporter extends SimpleExporter {
 	private int bodyPosition;
 
-	public MessageExporter(Context context, ProgressBar progressBar) {
-		super(context, Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, true, progressBar);
+	public MessageExporter(Context context, ExportTask exportTask) {
+		super(context, Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, true, exportTask);
 		bodyPosition = -1;
 	}
 	

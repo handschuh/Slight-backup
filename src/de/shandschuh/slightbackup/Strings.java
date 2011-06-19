@@ -48,10 +48,6 @@ public final class Strings {
 	
 	public static final String DATE = "date=\"";
 
-	public static final String EXTRA_FILE = "file";
-
-	public static final String EXTRA_COUNT = "count";
-
 	public static final String TAG_BOOKMARK = "bookmark";
 	
 	public static final String BOOKMARKS = "bookmarks";
@@ -65,6 +61,8 @@ public final class Strings {
 	public static final String PREFERENCE_LICENSEACCEPTED = "license.accepted";
 	
 	public static final String THREENEWLINES = "\n\n\n";
+	
+	public static final String EMPTY = "";
 	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",

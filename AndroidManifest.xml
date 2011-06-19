@@ -20,12 +20,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-		<activity android:name="de.shandschuh.slightbackup.AboutActivity" />
-		<activity android:name="de.shandschuh.slightbackup.ImportActivity"
-				  android:theme="@android:style/Theme.Dialog"
-				  android:label="@string/button_import" />
-		<activity android:name="de.shandschuh.slightbackup.ExportActivity"
-				  android:theme="@android:style/Theme.Dialog"
-				  android:label="@string/dialog_export" />
     </application>
 </manifest>

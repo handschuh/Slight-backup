@@ -25,13 +25,12 @@ package de.shandschuh.slightbackup.exporter;
 
 import android.content.Context;
 import android.provider.UserDictionary;
-import android.widget.ProgressBar;
 import de.shandschuh.slightbackup.Strings;
 
 public class UserDictionaryExporter extends SimpleExporter {
 
-	public UserDictionaryExporter(Context context, ProgressBar progressBar) {
-		super(context, Strings.TAG_WORD, UserDictionary.Words.CONTENT_URI, progressBar);
+	public UserDictionaryExporter(Context context, ExportTask exportTask) {
+		super(context, Strings.TAG_WORD, UserDictionary.Words.CONTENT_URI, exportTask);
 	}
 
 	@Override

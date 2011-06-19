@@ -31,10 +31,28 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import android.widget.ProgressBar;
+import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class SimpleExporter {
+	private static final String XML_START = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+	
+	private static final String REALAMP = "&";
+	
+	private static final String ENDTAG_START = "</";
+	
+	private static final String EQUALS = "=\"";
+	
+	private static final String TAG_END = ">\n";
+	
+	private static final String S_DATE = "s date=\"";
+	
+	private static final String _COUNT = "\" count=\"";
+	
+	private static final String TAG_END_QUOTE = "\">\n";
+	
+	private static final String TAGS_END = "s>\n";
+	
 	protected Context context;
 	
 	private String tag;
@@ -47,37 +65,30 @@ public abstract class SimpleExporter {
 	
 	private String selection;
 	
-	ProgressBar progressBar;
-	
 	private boolean canceled;
 	
-	private Runnable runnable;
+	private ExportTask exportTask;
 	
-	public SimpleExporter(Context context, String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, ProgressBar progressBar) {
+	public SimpleExporter(Context context, String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, ExportTask exportTask) {
 		this.context = context;
 		this.tag = tag;
 		this.fields = fields;
 		this.contentUri = contentUri;
 		this.selection = selection;
-		this.progressBar = progressBar;
+		this.exportTask = exportTask;
 		canceled = false;
-		runnable = new Runnable() {
-			public void run() {
-				SimpleExporter.this.progressBar.setProgress(SimpleExporter.this.progressBar.getProgress()+1);
-			}
-		};
 	}
 	
-	public SimpleExporter(Context context, String tag, String[] fields, Uri contentUri, boolean checkFields, ProgressBar progressBar) {
-		this(context, tag, fields, contentUri, checkFields, null, progressBar);
+	public SimpleExporter(Context context, String tag, String[] fields, Uri contentUri, boolean checkFields, ExportTask exportTask) {
+		this(context, tag, fields, contentUri, checkFields, null, exportTask);
 	}
 	
-	public SimpleExporter(Context context, String tag, Uri contentUri, String selection, ProgressBar progressBar) {
-		this(context, tag, null, contentUri, false, selection, progressBar);
+	public SimpleExporter(Context context, String tag, Uri contentUri, String selection, ExportTask exportTask) {
+		this(context, tag, null, contentUri, false, selection, exportTask);
 	}
 	
-	public SimpleExporter(Context context, String tag, Uri contentUri, ProgressBar progressBar) {
-		this(context, tag, contentUri, null, progressBar);
+	public SimpleExporter(Context context, String tag, Uri contentUri, ExportTask exportTask) {
+		this(context, tag, contentUri, null, exportTask);
 	}
 	
 	public final int export(String filename) throws IOException {
@@ -95,7 +106,8 @@ public abstract class SimpleExporter {
 			return 0;
 		}
 		
-		progressBar.setMax(count);
+		exportTask.progress(BackupTask.MESSAGE_COUNT, count);
+
 		int length = fields.length;
     	
     	int[] positions = new int[length];
@@ -106,15 +118,17 @@ public abstract class SimpleExporter {
     	
     	int index1, index2;
     	
-    	StringBuilder builder = new StringBuilder("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+    	StringBuilder builder = new StringBuilder(XML_START);
     	
     	builder.append('<');
     	builder.append(tag);
-    	builder.append("s date=\"");
+    	builder.append(S_DATE);
     	builder.append(System.currentTimeMillis());
-    	builder.append("\" count=\"");
+    	builder.append(_COUNT);
     	builder.append(count);
-    	builder.append("\">\n");
+    	builder.append(TAG_END_QUOTE);
+    	
+    	int position = 0;
     	
     	while (!canceled && cursor.moveToNext()) {
     		builder.append('<');
@@ -126,7 +140,7 @@ public abstract class SimpleExporter {
         			if (string != null && !BaseColumns._ID.equals(fields[n])) {
         				builder.append(' ');
             			builder.append(fields[n]);
-            			builder.append("=\"");
+            			builder.append(EQUALS);
             			
             			index1 = string.indexOf('<');
             			index2 = string.indexOf('>');
@@ -134,7 +148,7 @@ public abstract class SimpleExporter {
             			if (index1 > -1 && index2 > index1) {
             				builder.append(string.substring(index1+1, index2));
             			} else {
-            				builder.append(string.replace("&", "&amp;"));
+            				builder.append(string.replace(REALAMP, Strings.AMP));
             			}
             			builder.append('"');
         			}
@@ -144,17 +158,18 @@ public abstract class SimpleExporter {
     		}
     		builder.append('>');
     		addText(cursor, builder);
-    		builder.append("</");
+    		builder.append(ENDTAG_START);
     		builder.append(tag);
-    		builder.append(">\n");
-    		progressBar.post(runnable);
+    		builder.append(TAG_END);
+    		
+    		exportTask.progress(BackupTask.MESSAGE_PROGRESS, ++position);
     	}
     	cursor.close();
     	
     	if (!canceled) {
-    		builder.append("</");
+    		builder.append(ENDTAG_START);
         	builder.append(tag);
-        	builder.append("s>\n");
+        	builder.append(TAGS_END);
         	
         	BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 

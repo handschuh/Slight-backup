@@ -25,11 +25,10 @@ package de.shandschuh.slightbackup.parser;
 
 import android.content.Context;
 import android.provider.CallLog;
-import android.widget.ProgressBar;
 import de.shandschuh.slightbackup.Strings;
 
 public class CallLogParser extends SimpleParser {
-	public CallLogParser(Context context, ProgressBar progressBar) {
+	public CallLogParser(Context context, ImportTask importTask) {
 		super(context, Strings.TAG_CALL, new String[] {CallLog.Calls.CACHED_NAME,
 				CallLog.Calls.CACHED_NUMBER_LABEL,
 				CallLog.Calls.CACHED_NUMBER_TYPE,
@@ -38,7 +37,7 @@ public class CallLogParser extends SimpleParser {
 				CallLog.Calls.NEW,
 				CallLog.Calls.NUMBER,
 				CallLog.Calls.TYPE
-		}, CallLog.Calls.CONTENT_URI, progressBar);
+		}, CallLog.Calls.CONTENT_URI, importTask);
 	}
 
 }
