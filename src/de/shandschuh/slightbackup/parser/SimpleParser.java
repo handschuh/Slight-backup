@@ -184,6 +184,10 @@ public abstract class SimpleParser extends DefaultHandler {
 		canceled = true;
 	}
 	
+	public boolean isCanceled() {
+		return canceled;
+	}
+	
 	private static String generateWhereQuery(String[] fields, Vector<Integer> availableIndices) {
 		int length = availableIndices.size();
 		
@@ -247,5 +251,5 @@ public abstract class SimpleParser extends DefaultHandler {
 		}
 		return null;
 	}
-	
+
 }

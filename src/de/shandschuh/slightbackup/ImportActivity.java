@@ -93,11 +93,13 @@ public class ImportActivity extends Activity {
 						try {
 							Xml.parse(new InputStreamReader(new FileInputStream(filename)), parser);
 							finish();
-							handler.post(new Runnable() {
-								public void run() {
-									Toast.makeText(ImportActivity.this,	R.string.message_importsuccessful, Toast.LENGTH_LONG).show();
-								}
-							});
+							if (!parser.isCanceled()) {
+								handler.post(new Runnable() {
+									public void run() {
+										Toast.makeText(ImportActivity.this,	R.string.message_importsuccessful, Toast.LENGTH_LONG).show();
+									}
+								});
+							}
 						} catch (final Exception e) {
 							handler.post(new Runnable() {
 								public void run() {
