@@ -112,15 +112,15 @@ public abstract class SimpleParser extends DefaultHandler {
 					values[n] = attributes.getValue(EMPTY, fields[n]);
 				}
 				startMainElement();
-			}
-		} else if (!canceled) {
-			String count = attributes.getValue(EMPTY, COUNT);
-			
-			if (count != null) {
-				try {
-					progressBar.setMax(Integer.parseInt(count));
-				} catch (Exception e) {
-					
+			} else {
+				String count = attributes.getValue(EMPTY, COUNT);
+				
+				if (count != null) {
+					try {
+						progressBar.setMax(Integer.parseInt(count));
+					} catch (Exception e) {
+						
+					}
 				}
 			}
 		}
