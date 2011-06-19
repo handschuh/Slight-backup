@@ -41,7 +41,9 @@ public abstract class SimpleParser extends DefaultHandler {
 	
 	private static final String DB_ARG = "=?";
 	
-	protected static final String EMPTY = "";
+	private static final String EMPTY = "";
+	
+	private static final String COUNT = "count";
 	
 	protected String[] values;
 	
@@ -110,6 +112,16 @@ public abstract class SimpleParser extends DefaultHandler {
 					values[n] = attributes.getValue(EMPTY, fields[n]);
 				}
 				startMainElement();
+			}
+		} else if (!canceled) {
+			String count = attributes.getValue(EMPTY, COUNT);
+			
+			if (count != null) {
+				try {
+					progressBar.setMax(Integer.parseInt(count));
+				} catch (Exception e) {
+					
+				}
 			}
 		}
 	}
