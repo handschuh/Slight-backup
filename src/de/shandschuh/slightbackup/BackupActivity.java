@@ -27,7 +27,7 @@ import java.io.File;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ListActivity;
+import android.app.ExpandableListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
@@ -44,12 +44,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import android.widget.ExpandableListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-public class BackupActivity extends ListActivity {
+public class BackupActivity extends ExpandableListActivity {
 	public static final Uri SMS_URI = Uri.parse("content://sms");
 	
 	public static final int MENU_EXPORTSMS_ID = 1;
@@ -112,7 +111,13 @@ public class BackupActivity extends ListActivity {
 			case CONTEXTMENU_DELETEFILE: {
 				/* using "showDialog" with a Bundle is only available from api version 8 on, so we cannot directly use this. Lets impose this */
 				
-				final File file = listAdapter.getItem(((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position);
+				long packedPosition = ((ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo()).packedPosition;
+				
+				if (ExpandableListView.getPackedPositionType(packedPosition) != ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+					break; 
+				}
+				
+				final File file = listAdapter.getChild(ExpandableListView.getPackedPositionGroup(packedPosition), ExpandableListView.getPackedPositionChild(packedPosition));
 					
 				if (deleteFileDialog == null) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -153,9 +158,15 @@ public class BackupActivity extends ListActivity {
 				break;
 			}
 			case CONTEXTMENU_IMPORT: {
+				long packedPosition = ((ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo()).packedPosition;
+				
+				if (ExpandableListView.getPackedPositionType(packedPosition) != ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+					break; 
+				}
+				
 				Intent intent = new Intent(this, ImportActivity.class);
 				
-				intent.putExtra(Strings.EXTRA_FILE, listAdapter.getItem(((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position).toString());
+				intent.putExtra(Strings.EXTRA_FILE, listAdapter.getChild(ExpandableListView.getPackedPositionGroup(packedPosition), ExpandableListView.getPackedPositionChild(packedPosition)).toString());
 				intent.putExtra(Strings.EXTRA_COUNT, -1);
 				startActivity(intent);
 				break;
@@ -175,16 +186,16 @@ public class BackupActivity extends ListActivity {
 		}
 	}
 	
+
 	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
+	public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 		Intent intent = new Intent(this, ImportActivity.class);
 		
-		intent.putExtra(Strings.EXTRA_FILE, listAdapter.getItem(position).toString());
+		intent.putExtra(Strings.EXTRA_FILE, listAdapter.getChild(groupPosition, childPosition).toString());
 		intent.putExtra(Strings.EXTRA_COUNT, (Integer) v.getTag());
 		startActivity(intent);
+		return true;
 	}
-	
-	
 
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -258,11 +269,15 @@ public class BackupActivity extends ListActivity {
 		setContentView(R.layout.main);
         listAdapter = new BackupFilesListAdapter(this);
         setListAdapter(listAdapter);
-        getListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+        getExpandableListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-				menu.setHeaderTitle(((TextView) ((AdapterView.AdapterContextMenuInfo) menuInfo).targetView.findViewById(android.R.id.text1)).getText());
-				menu.add(0, CONTEXTMENU_IMPORT, Menu.NONE, R.string.button_import);
-				menu.add(0, CONTEXTMENU_DELETEFILE, Menu.NONE, R.string.contextmenu_deletefile);
+				ExpandableListView.ExpandableListContextMenuInfo expandableInfo = (ExpandableListView.ExpandableListContextMenuInfo) menuInfo;
+				
+				if (ExpandableListView.getPackedPositionType(expandableInfo.packedPosition) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+					menu.setHeaderTitle(((TextView) ((ExpandableListView.ExpandableListContextMenuInfo) menuInfo).targetView.findViewById(android.R.id.text1)).getText());
+					menu.add(0, CONTEXTMENU_IMPORT, Menu.NONE, R.string.button_import);
+					menu.add(0, CONTEXTMENU_DELETEFILE, Menu.NONE, R.string.contextmenu_deletefile);
+				}
 			}
         });
 	}
