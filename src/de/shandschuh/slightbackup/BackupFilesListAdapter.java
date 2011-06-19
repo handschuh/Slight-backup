@@ -28,10 +28,15 @@ import java.io.FileInputStream;
 import java.io.FilenameFilter;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.Vector;
+
+import de.shandschuh.slightbackup.parser.SimpleParser;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -64,6 +69,13 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		data = new HashMap<Date, Vector<File>>();
 		
 		File[] files = BackupActivity.DIR.listFiles(new BackupFileNameFilter());
+		
+		
+		Arrays.sort(files, new Comparator<File>() {
+			public int compare(File object1, File object2) { // not the fastest choice
+				return getFileDate(object1) > getFileDate(object2) ? 1 : -1;
+			}
+		});
 		
 		for (int n = 0, i = files != null ? files.length : 0; n < i; n++) {
 			add(files[n], false);
@@ -127,7 +139,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		}
 
 		view.setTag(count);
-		((TextView) view.findViewById(android.R.id.text1)).setText(new StringBuilder(timeFormat.format(new Date(date))).append(DASH).append(filename.substring(filename.lastIndexOf('/')+1, filename.indexOf('_'))));
+		((TextView) view.findViewById(android.R.id.text1)).setText(new StringBuilder(timeFormat.format(new Date(date))).append(DASH).append(context.getString(SimpleParser.getTranslatedParserName(filename))));
 		return view;
 	}
 
@@ -168,6 +180,8 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 
 	public void add(File file, boolean notify) {
 		long longDate = getFileDate(file);
+		
+		longDate += TimeZone.getDefault().getOffset(longDate);
 		
 		Date date = new Date(longDate - (longDate % 86400000l)); // 86400000 == one day in milliseconds
 		

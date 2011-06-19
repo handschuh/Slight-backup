@@ -34,6 +34,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import de.shandschuh.slightbackup.BackupTask;
+import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class SimpleParser extends DefaultHandler {
@@ -244,6 +245,21 @@ public abstract class SimpleParser extends DefaultHandler {
 			return new UserDictionaryParser(context, importTask);
 		}
 		return null;
+	}
+
+	public static int getTranslatedParserName(String filename) {
+		filename = filename.substring(filename.lastIndexOf('/')+1);
+		
+		if (filename.startsWith(Strings.CALLLOGS)) {
+			return R.string.calllogs;
+		} else if (filename.startsWith(Strings.MESSAGES)) {
+			return R.string.messages;
+		} else if (filename.startsWith(Strings.BOOKMARKS)) {
+			return R.string.bookmarks;
+		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
+			return R.string.userdictionary;
+		}
+		return 0;
 	}
 
 }
