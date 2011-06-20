@@ -243,8 +243,6 @@ public abstract class SimpleParser extends DefaultHandler {
 			return new BookmarkParser(context, importTask);
 		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
 			return new UserDictionaryParser(context, importTask);
-		} else if (filename.startsWith(Strings.ALARMS)) {
-			return new AlarmClockParser(context, importTask);
 		}
 		return null;
 	}
@@ -260,17 +258,8 @@ public abstract class SimpleParser extends DefaultHandler {
 			return R.string.bookmarks;
 		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
 			return R.string.userdictionary;
-		} else if (filename.startsWith(Strings.ALARMS)) {
-			return R.string.alarms;
 		}
 		return android.R.string.unknownName;
-	}
-	
-	/*
-	 * Override to use.
-	 */
-	public void success() {
-		
 	}
 
 }

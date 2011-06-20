@@ -53,8 +53,6 @@ import de.shandschuh.slightbackup.parser.ImportTask;
 public class BackupActivity extends ExpandableListActivity {
 	public static final Uri SMS_URI = Uri.parse("content://sms");
 	
-	public static final Uri ALARM_URI = Uri.parse("content://com.android.alarmclock/alarm"); // does not work on gingerbread
-	
 	public static final int MENU_EXPORTSMS_ID = 4;
 	
 	public static final int MENU_EXPORTCALLLOG_ID = 8;
@@ -62,8 +60,6 @@ public class BackupActivity extends ExpandableListActivity {
 	public static final int MENU_EXPORTBOOKMARKS_ID = 12;
 	
 	public static final int MENU_EXPORTUSERDICTIONARY = 16;
-	
-	public static final int MENU_EXPORTALARMS = 20;
 	
 	private static final int CONTEXTMENU_IMPORT = 21;
 	
@@ -105,7 +101,6 @@ public class BackupActivity extends ExpandableListActivity {
 		menu.add(0, MENU_EXPORTCALLLOG_ID, Menu.NONE, R.string.menu_exportcalllog).setIcon(android.R.drawable.ic_menu_call);
 		menu.add(0, MENU_EXPORTBOOKMARKS_ID, Menu.NONE, R.string.menu_exportbookmarks).setIcon(android.R.drawable.ic_menu_myplaces);
 		menu.add(0, MENU_EXPORTUSERDICTIONARY, Menu.NONE, R.string.menu_exportuserdictionary).setIcon(android.R.drawable.ic_menu_my_calendar);
-		menu.add(0, MENU_EXPORTALARMS, Menu.NONE, R.string.menu_exportalarms).setIcon(android.R.drawable.ic_menu_day);
 		menu.add(0, MENU_ABOUT_ID, Menu.NONE, R.string.menu_about).setIcon(android.R.drawable.ic_menu_info_details);
 		
 		return true;

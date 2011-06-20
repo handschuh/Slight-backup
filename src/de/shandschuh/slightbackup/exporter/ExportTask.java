@@ -71,10 +71,6 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 				exporter = new UserDictionaryExporter(progressDialog.getContext(), this);
 				break;
 			}
-			case BackupActivity.MENU_EXPORTALARMS: {
-				exporter = new AlarmClockExporter(progressDialog.getContext(), this);
-				break;
-			}
 		}
 		publishProgress(MESSAGE_TYPE, params[0]);
 		
@@ -137,10 +133,6 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 				}
 				case BackupActivity.MENU_EXPORTUSERDICTIONARY: {
 					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.userdictionary)));
-					break;
-				}
-				case BackupActivity.MENU_EXPORTALARMS: {
-					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), "alarms"));
 					break;
 				}
 			}
