@@ -30,6 +30,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
@@ -93,6 +94,10 @@ public abstract class SimpleExporter {
 	}
 	
 	public final int export(String filename) throws Exception {
+		if (!BackupActivity.DIR.exists() && !BackupActivity.DIR.mkdir()) {
+			throw new Exception(context.getString(R.string.error_couldnotcreatebackupfolder));
+		}
+		
 		Cursor cursor = context.getContentResolver().query(contentUri, null, selection, null, null);
 		
 		if (checkFields && fields != null) {
