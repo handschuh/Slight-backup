@@ -1,19 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Slight Backup</string>
+    <string name="app_name">Slight backup</string>
     <string name="menu_exportsms">Export SMS</string>
     <string name="menu_exportcalllog">Export call-log</string>
     <string name="menu_exportbookmarks">Export bookmarks</string>
     <string name="menu_exportuserdictionary">Export user-dictionary</string>
+    <string name="menu_exportalarms">Export alarms</string>
     <string name="menu_about">About</string>
     <string name="contextmenu_deletefile">Delete file</string>
     <string name="error_nosdcard">No SD-card present.</string>
-    <string name="error_unsupportedsmsstructure">Unsupported SMS-database structure.</string>
+    <string name="error_unsupporteddatabasestructure">Unsupported database structure.</string>
     <string name="error_couldnotcreatebackupfolder">Could not create backupfolder on SD-card.</string>
     <string name="error_somethingwentwrong">Something went wrong: %s.</string>
     <string name="hint_nobackupsfound">No backups found - press menu-key to create some.</string>
     <string name="hint_noexportdata">No data available for export.</string>
     <string name="hint_exporting">Exporting %s ...</string>
+    <string name="hint_alarmsnotactivated">The imported alarms are not enabled!</string>
     
     <!-- there is no need for a translation of the following string -->
     <string name="license">Copyright (c) 2011 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
@@ -48,6 +50,7 @@
     <string name="calllogs">call-logs</string>
     <string name="bookmarks">bookmarks</string>
     <string name="userdictionary">user-dictionary</string>
+    <string name="alarms">alarms</string>
     <string name="dialog_export">Export</string>
     <string name="dialog_licenseagreement">License</string>
     <string name="question_deletefile">Do you really want to delete the file %s?</string>

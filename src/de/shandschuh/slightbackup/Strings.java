@@ -64,6 +64,10 @@ public final class Strings {
 	
 	public static final String EMPTY = "";
 	
+	public static final String TAG_ALARM = "alarm";
+	
+	public static final String ALARMS = "alarms";
+	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",
 		"address",
@@ -72,6 +76,17 @@ public final class Strings {
 		"status",
 		"service_center",
 		"locked"
+	};
+	
+	public static final String[] ALARM_FIELDS = new String[] {
+		"hour",
+		"minutes",
+		"daysofweek",
+		"alarmtime",
+//		"enabled",  not supported
+		"vibrate",
+		"message",
+		"alert"
 	};
 
 	public static int indexOf(String[] array, String string) {

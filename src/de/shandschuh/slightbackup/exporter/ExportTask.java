@@ -24,7 +24,6 @@
 package de.shandschuh.slightbackup.exporter;
 
 import java.io.File;
-import java.io.IOException;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -41,7 +40,7 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 	
 	private SimpleExporter exporter;
 	
-	private IOException exception;
+	private Exception exception;
 	
 	private BackupFilesListAdapter listAdapter;
 	
@@ -72,6 +71,10 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 				exporter = new UserDictionaryExporter(progressDialog.getContext(), this);
 				break;
 			}
+			case BackupActivity.MENU_EXPORTALARMS: {
+				exporter = new AlarmClockExporter(progressDialog.getContext(), this);
+				break;
+			}
 		}
 		publishProgress(MESSAGE_TYPE, params[0]);
 		
@@ -79,7 +82,7 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 		
 		try {
 			return exporter.export(filename); // checks itself for cancellation 
-		} catch (IOException e) {
+		} catch (Exception e) {
 			exception = e;
 			return -1;
 		}
@@ -134,6 +137,10 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 				}
 				case BackupActivity.MENU_EXPORTUSERDICTIONARY: {
 					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.userdictionary)));
+					break;
+				}
+				case BackupActivity.MENU_EXPORTALARMS: {
+					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), "alarms"));
 					break;
 				}
 			}

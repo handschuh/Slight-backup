@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Slight Backup</string>
     <string name="menu_exportsms">SMS exportieren</string>
     <string name="menu_exportcalllog">Anrufliste exportieren</string>
     <string name="menu_exportbookmarks">Lesezeichen exportieren</string>
     <string name="menu_exportuserdictionary">Benutzerwörterbuch exportieren</string>
+    <string name="menu_exportalarms">Wecker exportieren</string>
     <string name="menu_about">Info</string>
     <string name="contextmenu_deletefile">Datei löschen</string>
     <string name="error_nosdcard">Keine SD-Karte vorhanden.</string>
-    <string name="error_unsupportedsmsstructure">Nicht unterstützte SMS-Datenbankstruktur.</string>
+    <string name="error_unsupporteddatabasestructure">Nicht unterstützte Datenbankstruktur.</string>
     <string name="error_couldnotcreatebackupfolder">Konnte den backup-Ordner nicht auf der SD-Karte erstellen.</string>
     <string name="error_somethingwentwrong">Etwas ist schief gelaufen: %s.</string>
     <string name="hint_nobackupsfound">Keine Backups gefunden - zum erstellen, Menüknopf drücken.</string>
     <string name="hint_noexportdata">Keine Daten für den Export vorhanden.</string>
     <string name="hint_exporting">Exportiere %s ...</string>
+    <string name="hint_alarmsnotactivated">Die importierten Wecker sind nicht aktiv!</string>
 	<string name="license_intro">Diese Software ist unter der MIT Open-Source-Lizenz veröffentlicht und der Quellcode befindet sich unter http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Nach %s exportiert.</string>
     <string name="message_importsuccessful">Import erfolgreich.</string>
@@ -25,6 +26,7 @@
     <string name="calllogs">Anrufliste</string>
     <string name="bookmarks">Lesezeichen</string>
     <string name="userdictionary">Benutzerwörterbuch</string>
+    <string name="alarms">Wecker</string>
     <string name="dialog_export">Exportieren</string>
     <string name="dialog_licenseagreement">Lizenz</string>
     <string name="question_deletefile">Wollen Sie wirklich die Datei %s löschen?</string>

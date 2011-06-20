@@ -207,6 +207,8 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 	public void remove(File file) {
 		long longDate = getFileDate(file);
 		
+		longDate += TimeZone.getDefault().getOffset(longDate);
+		
 		Date date = new Date(longDate - (longDate % 86400000l));
 		
 		Vector<File> vector = data.get(date);

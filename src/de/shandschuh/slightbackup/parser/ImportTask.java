@@ -102,6 +102,7 @@ public class ImportTask extends BackupTask<Void, Exception> {
 		if (result == null) {
 			progressDialog.dismiss();
 			Toast.makeText(progressDialog.getContext(),	R.string.message_importsuccessful, Toast.LENGTH_LONG).show();
+			parser.success();
 		} else {
 			importButton.setEnabled(true);
 			progressDialog.setProgress(0);

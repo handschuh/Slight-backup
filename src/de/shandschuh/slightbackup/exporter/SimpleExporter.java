@@ -25,13 +25,13 @@ package de.shandschuh.slightbackup.exporter;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import de.shandschuh.slightbackup.BackupTask;
+import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class SimpleExporter {
@@ -91,11 +91,13 @@ public abstract class SimpleExporter {
 		this(context, tag, contentUri, null, exportTask);
 	}
 	
-	public final int export(String filename) throws IOException {
+	public final int export(String filename) throws Exception {
 		Cursor cursor = context.getContentResolver().query(contentUri, null, selection, null, null);
 		
 		if (checkFields && fields != null) {
-			checkFieldNames(cursor.getColumnNames(), fields);
+			if (!checkFieldNames(cursor.getColumnNames(), fields)) {
+				throw new Exception(context.getString(R.string.error_unsupporteddatabasestructure));
+			}
 		} else if (fields == null) {
 			fields = cursor.getColumnNames();
 		}
