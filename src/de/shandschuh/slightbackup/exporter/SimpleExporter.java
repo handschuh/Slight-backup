@@ -76,6 +76,7 @@ public abstract class SimpleExporter {
 		this.contentUri = contentUri;
 		this.selection = selection;
 		this.exportTask = exportTask;
+		this.checkFields = checkFields;
 		canceled = false;
 	}
 	
@@ -95,7 +96,7 @@ public abstract class SimpleExporter {
 		Cursor cursor = context.getContentResolver().query(contentUri, null, selection, null, null);
 		
 		if (checkFields && fields != null) {
-			if (!checkFieldNames(cursor.getColumnNames(), fields)) {
+			if (cursor == null || !checkFieldNames(cursor.getColumnNames(), fields)) {
 				throw new Exception(context.getString(R.string.error_unsupporteddatabasestructure));
 			}
 		} else if (fields == null) {

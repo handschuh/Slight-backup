@@ -71,15 +71,18 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		File[] files = BackupActivity.DIR.listFiles(new BackupFileNameFilter());
 		
 		
-		Arrays.sort(files, new Comparator<File>() {
-			public int compare(File object1, File object2) { // not the fastest choice
-				return getFileDate(object1) > getFileDate(object2) ? 1 : -1;
+		if (files != null && files.length > 0) {
+			Arrays.sort(files, new Comparator<File>() {
+				public int compare(File object1, File object2) { // not the fastest choice
+					return getFileDate(object1) > getFileDate(object2) ? 1 : -1;
+				}
+			});
+			
+			for (int n = 0, i = files.length; n < i; n++) {
+				add(files[n], false);
 			}
-		});
-		
-		for (int n = 0, i = files != null ? files.length : 0; n < i; n++) {
-			add(files[n], false);
 		}
+		
 	}
 	
 	private static final class BackupFileNameFilter implements FilenameFilter {

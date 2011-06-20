@@ -53,7 +53,7 @@ import de.shandschuh.slightbackup.parser.ImportTask;
 public class BackupActivity extends ExpandableListActivity {
 	public static final Uri SMS_URI = Uri.parse("content://sms");
 	
-	public static final Uri ALARM_URI = Uri.parse("content://com.android.alarmclock/alarm");
+	public static final Uri ALARM_URI = Uri.parse("content://com.android.alarmclock/alarm"); // does not work on gingerbread
 	
 	public static final int MENU_EXPORTSMS_ID = 4;
 	
