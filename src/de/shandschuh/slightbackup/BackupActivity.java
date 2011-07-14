@@ -103,7 +103,7 @@ public class BackupActivity extends ExpandableListActivity {
 		menu.add(0, MENU_EXPORTCALLLOG_ID, Menu.NONE, R.string.menu_exportcalllog).setIcon(android.R.drawable.ic_menu_call);
 		menu.add(0, MENU_EXPORTBOOKMARKS_ID, Menu.NONE, R.string.menu_exportbookmarks).setIcon(android.R.drawable.ic_menu_myplaces);
 		menu.add(0, MENU_EXPORTUSERDICTIONARY_ID, Menu.NONE, R.string.menu_exportuserdictionary).setIcon(android.R.drawable.ic_menu_my_calendar);
-		menu.add(0, MENU_EXPORTEVERYTHING_ID, Menu.NONE, "export all").setIcon(android.R.drawable.ic_menu_directions);
+		menu.add(0, MENU_EXPORTEVERYTHING_ID, Menu.NONE, R.string.menu_exporteverything).setIcon(android.R.drawable.ic_menu_directions);
 		menu.add(0, MENU_ABOUT_ID, Menu.NONE, R.string.menu_about).setIcon(android.R.drawable.ic_menu_info_details);
 		
 		return true;
