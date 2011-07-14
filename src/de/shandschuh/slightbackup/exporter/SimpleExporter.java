@@ -35,7 +35,7 @@ import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
-public abstract class SimpleExporter {
+public abstract class SimpleExporter extends Exporter {
 	private static final String XML_START = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
 	
 	private static final String REALAMP = "&";
@@ -68,15 +68,15 @@ public abstract class SimpleExporter {
 	
 	private boolean canceled;
 	
-	private ExportTask exportTask;
+	private String filename;
 	
 	public SimpleExporter(Context context, String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, ExportTask exportTask) {
+		super(exportTask);
 		this.context = context;
 		this.tag = tag;
 		this.fields = fields;
 		this.contentUri = contentUri;
 		this.selection = selection;
-		this.exportTask = exportTask;
 		this.checkFields = checkFields;
 		canceled = false;
 	}
@@ -94,6 +94,7 @@ public abstract class SimpleExporter {
 	}
 	
 	public final int export(String filename) throws Exception {
+		this.filename = filename;
 		if (!BackupActivity.DIR.exists() && !BackupActivity.DIR.mkdir()) {
 			throw new Exception(context.getString(R.string.error_couldnotcreatebackupfolder));
 		}
@@ -111,10 +112,12 @@ public abstract class SimpleExporter {
 		int count = cursor.getCount();
 		
 		if (count == 0) {
+			this.filename = null;
 			return 0;
 		}
 		
 		exportTask.progress(BackupTask.MESSAGE_COUNT, count);
+		exportTask.progress(BackupTask.MESSAGE_PROGRESS, 0);
 
 		int length = fields.length;
     	
@@ -185,6 +188,7 @@ public abstract class SimpleExporter {
     		writer.close();
     		return count;
     	} else {
+    		this.filename = null;
     		return -1;
     	}
 	}
@@ -205,10 +209,18 @@ public abstract class SimpleExporter {
 		
 	}
 	
-	public abstract String getContentName();
-	
 	public void cancel() {
 		canceled = true;
 	}
+
+	@Override
+	public String[] getExportedFilenames() {
+		return new String[] {filename};
+	}
+	
+	public String getFilename() {
+		return filename;
+	}
+	
 	
 }

@@ -5,6 +5,7 @@
     <string name="menu_exportcalllog">Export call-log</string>
     <string name="menu_exportbookmarks">Export bookmarks</string>
     <string name="menu_exportuserdictionary">Export user-dictionary</string>
+    <string name="menu_exporteverything">Export everything</string>
     <string name="menu_about">About</string>
     <string name="contextmenu_deletefile">Delete file</string>
     <string name="error_nosdcard">No SD-card present.</string>
@@ -17,7 +18,11 @@
     
     <!-- there is no need for a translation of the following string -->
     <string name="license">Copyright (c) 2011 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
-    
+
+    	Translators\n
+			 - French: &lt;unnamed&gt;\n
+			 - Turkish: &lt;unnamed&gt;\n\n
+			 
 		Permission is hereby granted, free of charge, to any person obtaining a copy
 		of this software and associated documentation files (the "Software"), to deal
 		in the Software without restriction, including without limitation the rights
@@ -40,7 +45,10 @@
 	<string name="license_intro">This software is distributed under the MIT open source license and its source code is available under http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Exported into %s.</string>
     <string name="message_importsuccessful">Import successful.</string>
-    <string name="listentry_items">%s items in </string>
+    <plurals name="listentry_items">
+        <item quantity="one">1 item in</item>
+        <item quantity="other">%d items in</item>
+    </plurals>
     <string name="button_import">Import</string>
     <string name="button_accept">Accept</string>
     <string name="button_decline">Decline</string>

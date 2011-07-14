@@ -67,6 +67,8 @@ public final class Strings {
 	public static final String TAG_ALARM = "alarm";
 	
 	public static final String ALARMS = "alarms";
+
+	public static final String COMMA = ", ";
 	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",

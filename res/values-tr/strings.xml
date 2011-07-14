@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Slight backup</string>
+    <string name="menu_exportsms">SMS\'leri dışa aktar</string>
+    <string name="menu_exportcalllog">Arama günlüğünü dışa aktar</string>
+    <string name="menu_exportbookmarks">Yer imlerini dışa aktar</string>
+    <string name="menu_exportuserdictionary">Kullanıcı sözlüğünü dışa aktar</string>
+    <string name="menu_exporteverything">Tümünü dışa aktar</string>
+    <string name="menu_about">Hakkında</string>
+    <string name="contextmenu_deletefile">Dosyayı sil</string>
+    <string name="error_nosdcard">SD kartı yok.</string>
+    <string name="error_unsupporteddatabasestructure">Desteklenmeyen veritabanı yapısı</string>
+    <string name="error_couldnotcreatebackupfolder">SD kartında yedek dosya yaratılamadı</string>
+    <string name="error_somethingwentwrong">Bir hata oluştu: %s.</string>
+    <string name="hint_nobackupsfound">Hiçbir yedek dosya bulunamadı - Menu tuşuna basıp yaratın.</string>
+    <string name="hint_noexportdata">Dışa aktarım için hiçbir veri yok.</string>
+    <string name="hint_exporting">%s dışa aktarılıyor...</string>	
+	<string name="license_intro">Bu yazılım MIT özgür yazılım lisansı kapsamında yayınlanmıştır ve kaynak kodu şu adreste mevcuttur: http://github.com/handschuh/Slight-backup</string>
+    <string name="message_exportedto">%s olarak dışa aktarıldı.</string>
+    <string name="message_importsuccessful">İçe aktarım başarıyla sonuçlandı.</string>
+    <plurals name="listentry_items">
+        <item quantity="one">1 unsur şurada</item>
+        <item quantity="other">%d unsur şurada</item>
+    </plurals>
+    <string name="button_import">İçe aktar</string>
+    <string name="button_accept">Tamam</string>
+    <string name="button_decline">İptal et</string>
+    <string name="messages">kısa mesajlar</string>
+    <string name="calllogs">arama günlükleri</string>
+    <string name="bookmarks">yer imleri</string>
+    <string name="userdictionary">kullanıcı sözlüğü</string>
+    <string name="dialog_export">Dışa aktar</string>
+    <string name="dialog_licenseagreement">Lisans</string>
+    <string name="question_deletefile">%s dosyasını silmek istediğinizden emin misiniz?</string>
+</resources>

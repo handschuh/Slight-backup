@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Slight backup</string>
+    <string name="menu_exportsms">Exporter les SMS</string>
+    <string name="menu_exportcalllog">Exporter le journal d\'appels</string>
+    <string name="menu_exportbookmarks">Exporter les signets</string>
+    <string name="menu_exportuserdictionary">Exporter le dictionnaire personnel</string>
+    <string name="menu_exporteverything">Tout exporter</string>
+    <string name="menu_about">À propos</string>
+    <string name="contextmenu_deletefile">Effacer le fichier</string>
+    <string name="error_nosdcard">Pas de carte SD.</string>
+    <string name="error_unsupporteddatabasestructure">Structure de base de données non supportée</string>
+    <string name="error_couldnotcreatebackupfolder">Échec de la création du dossier de sauvegarde sur la carte SD</string>
+    <string name="error_somethingwentwrong">Une erreur s\'est produite\U+00A0: %s.</string>
+    <string name="hint_nobackupsfound">Aucune sauvegarde trouvée - appuyez sur la touche menu pour en créer une.</string>
+    <string name="hint_noexportdata">Aucune donnée à exporter.</string>
+    <string name="hint_exporting">Export de %s en cours...</string>
+	<string name="license_intro">Ce logiciel est distribué sous la licence libre MIT et son code source est disponible sur http://github.com/handschuh/Slight-backup</string>
+    <string name="message_exportedto">Exporté en %s.</string>
+    <string name="message_importsuccessful">L\'import a réussi.</string>
+    <plurals name="listentry_items">
+        <item quantity="one">1 élément dans</item>
+        <item quantity="other">%d éléments dans</item>
+    </plurals>
+    <string name="button_import">Importer</string>
+    <string name="button_accept">Accepter</string>
+    <string name="button_decline">Décliner</string>
+    <string name="messages">messages courts</string>
+    <string name="calllogs">journaux d\'appels</string>
+    <string name="bookmarks">signets</string>
+    <string name="userdictionary">dictionnaire personnel</string>
+    <string name="dialog_export">Exporter</string>
+    <string name="dialog_licenseagreement">Licence</string>
+    <string name="question_deletefile">Voulez-vous vraiment effacer le fichier %s?</string>
+</resources>

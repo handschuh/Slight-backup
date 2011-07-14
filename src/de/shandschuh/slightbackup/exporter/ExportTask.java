@@ -36,9 +36,7 @@ import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public class ExportTask extends BackupTask<Integer, Integer> {
-	private String filename;
-	
-	private SimpleExporter exporter;
+	private Exporter exporter;
 	
 	private Exception exception;
 	
@@ -67,17 +65,19 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 				exporter = new MessageExporter(progressDialog.getContext(), this);
 				break;
 			}
-			case BackupActivity.MENU_EXPORTUSERDICTIONARY: {
+			case BackupActivity.MENU_EXPORTUSERDICTIONARY_ID: {
 				exporter = new UserDictionaryExporter(progressDialog.getContext(), this);
+				break;
+			}
+			case BackupActivity.MENU_EXPORTEVERYTHING_ID: {
+				exporter = new EverythingExporter(progressDialog.getContext(), this);
 				break;
 			}
 		}
 		publishProgress(MESSAGE_TYPE, params[0]);
 		
-		filename = new StringBuilder(BackupActivity.DIR_NAME).append(exporter.getContentName()).append(Strings.FILE_SUFFIX).append(System.currentTimeMillis()).append(Strings.FILE_EXTENSION).toString();
-		
 		try {
-			return exporter.export(filename); // checks itself for cancellation 
+			return exporter.export(); // checks itself for cancellation 
 		} catch (Exception e) {
 			exception = e;
 			return -1;
@@ -89,8 +89,16 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 		progressDialog.setProgress(0);
 		progressDialog.dismiss();
 		if (result > 0) {
-			Toast.makeText(progressDialog.getContext(), String.format(progressDialog.getContext().getString(R.string.message_exportedto), filename), Toast.LENGTH_LONG).show();
-			listAdapter.add(new File(filename));
+			String[] exportedFilenames = exporter.getExportedFilenames();
+			
+			Toast.makeText(progressDialog.getContext(), String.format(progressDialog.getContext().getString(R.string.message_exportedto), concat(exportedFilenames)), Toast.LENGTH_LONG).show();
+			
+			for (int n = 0, i = exportedFilenames.length; n < i; n++) {
+				if (exportedFilenames[n] != null) {
+					listAdapter.add(new File(exportedFilenames[n]));
+				}
+			}
+			
 		} else if (result == 0) {
 			Toast.makeText(progressDialog.getContext(), R.string.hint_noexportdata, Toast.LENGTH_LONG).show();
 		} else if (result == -1 && exception != null) {
@@ -131,16 +139,36 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.messages)));
 					break;
 				}
-				case BackupActivity.MENU_EXPORTUSERDICTIONARY: {
+				case BackupActivity.MENU_EXPORTUSERDICTIONARY_ID: {
 					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.userdictionary)));
 					break;
-				}
+				} 
+				// the case for "everything" is not needed since this is just a set of all available exports
 			}
 			
 		} else {
 			super.onProgressUpdate(values);
 		}
 		
+	}
+	
+	private static StringBuilder concat(String[] strings) {
+		StringBuilder builder = new StringBuilder();
+		
+		boolean first = true;
+		
+		for (int n = 0, i = strings != null ? strings.length : 0; n < i; n++) {
+			if (strings[n] != null) {
+				if (first == true) {
+					first = false;
+				} else {
+					builder.append(Strings.COMMA);
+				}
+				builder.append(strings[n]);
+			}
+			
+		}
+		return builder;
 	}
 
 }

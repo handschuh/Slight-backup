@@ -36,14 +36,15 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.Vector;
 
-import de.shandschuh.slightbackup.parser.SimpleParser;
-
 import android.content.Context;
+import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+import de.shandschuh.slightbackup.parser.SimpleParser;
 
 public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 	private static final String BRACKED = " (";
@@ -61,9 +62,12 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 	private Map<Date, Vector<File>> data;
 	
 	private Context context;
+	
+	private Resources resources;
 
 	public BackupFilesListAdapter(Context context) {
 		this.context = context;
+		resources = context.getResources();
 		layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		dates = new Vector<Date>();
 		data = new HashMap<Date, Vector<File>>();
@@ -128,7 +132,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 
 			if (index > 0) {
 				count = Integer.parseInt(string.substring(index+7, string.indexOf('"', index+8)));
-				text2.setText(new StringBuilder(String.format(context.getString(R.string.listentry_items), count)).append(' ').append(filename));
+				text2.setText(new StringBuilder(resources.getQuantityString(R.plurals.listentry_items, count, count)).append(' ').append(filename));
 			} 
 			index = string.indexOf(Strings.DATE);
 			if (index > 0) {
@@ -138,7 +142,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 			}
 
 		} catch (Exception e) {
-
+			Log.e("e", "e", e);
 		}
 
 		view.setTag(count);
