@@ -38,7 +38,6 @@ import java.util.Vector;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,7 +141,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 			}
 
 		} catch (Exception e) {
-			Log.e("e", "e", e);
+
 		}
 
 		view.setTag(count);

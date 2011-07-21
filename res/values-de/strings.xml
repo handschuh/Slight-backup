@@ -4,6 +4,7 @@
     <string name="menu_exportcalllog">Anrufliste exportieren</string>
     <string name="menu_exportbookmarks">Lesezeichen exportieren</string>
     <string name="menu_exportuserdictionary">Benutzerwörterbuch exportieren</string>
+    <string name="menu_exportplaylists">Exportiere Playlisten</string>
     <string name="menu_exporteverything">Exportiere alles</string>
     <string name="menu_about">Info</string>
     <string name="contextmenu_deletefile">Datei löschen</string>
@@ -29,6 +30,7 @@
     <string name="calllogs">Anrufliste</string>
     <string name="bookmarks">Lesezeichen</string>
     <string name="userdictionary">Benutzerwörterbuch</string>
+    <string name="playlists">Playlisten</string>
     <string name="dialog_export">Exportieren</string>
     <string name="dialog_licenseagreement">Lizenz</string>
     <string name="question_deletefile">Wollen Sie wirklich die Datei %s löschen?</string>

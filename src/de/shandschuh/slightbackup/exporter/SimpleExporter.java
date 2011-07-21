@@ -66,7 +66,7 @@ public abstract class SimpleExporter extends Exporter {
 	
 	private String selection;
 	
-	private boolean canceled;
+	boolean canceled;
 	
 	private String filename;
 	

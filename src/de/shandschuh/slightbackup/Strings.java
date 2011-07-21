@@ -44,6 +44,8 @@ public final class Strings {
 	
 	public static final String MESSAGES = "messages";
 	
+	public static final String PLAYLISTS = "playlists";
+	
 	public static final String COUNT = "count=\"";
 	
 	public static final String DATE = "date=\"";
@@ -64,11 +66,13 @@ public final class Strings {
 	
 	public static final String EMPTY = "";
 	
-	public static final String TAG_ALARM = "alarm";
-	
-	public static final String ALARMS = "alarms";
-
 	public static final String COMMA = ", ";
+	
+	public static final String TAG_PLAYLIST = "playlist";
+	
+	public static final String TAG_FILE = "file";
+	
+	public static final Object STARTENDTAG = "</";
 	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",
@@ -79,17 +83,8 @@ public final class Strings {
 		"service_center",
 		"locked"
 	};
+
 	
-	public static final String[] ALARM_FIELDS = new String[] {
-		"hour",
-		"minutes",
-		"daysofweek",
-		"alarmtime",
-//		"enabled",  not supported
-		"vibrate",
-		"message",
-		"alert"
-	};
 
 	public static int indexOf(String[] array, String string) {
     	for (int n = 0, i = array != null ? array.length : 0; n < i; n++) {

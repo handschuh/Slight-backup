@@ -61,6 +61,8 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	public static final int MENU_EXPORTUSERDICTIONARY_ID = 104;
 	
+	public static final int MENU_EXPORTPLAYLIST_ID = 105;
+	
 	public static final int MENU_EXPORTEVERYTHING_ID = 200;
 	
 	private static final int CONTEXTMENU_IMPORT = 21;
@@ -104,6 +106,7 @@ public class BackupActivity extends ExpandableListActivity {
 		menu.add(0, MENU_EXPORTBOOKMARKS_ID, Menu.NONE, R.string.menu_exportbookmarks).setIcon(android.R.drawable.ic_menu_myplaces);
 		menu.add(0, MENU_EXPORTUSERDICTIONARY_ID, Menu.NONE, R.string.menu_exportuserdictionary).setIcon(android.R.drawable.ic_menu_my_calendar);
 		menu.add(0, MENU_EXPORTEVERYTHING_ID, Menu.NONE, R.string.menu_exporteverything).setIcon(android.R.drawable.ic_menu_directions);
+		menu.add(0, MENU_EXPORTPLAYLIST_ID, Menu.NONE, R.string.menu_exportplaylists).setIcon(android.R.drawable.ic_menu_recent_history);
 		menu.add(0, MENU_ABOUT_ID, Menu.NONE, R.string.menu_about).setIcon(android.R.drawable.ic_menu_info_details);
 		
 		return true;

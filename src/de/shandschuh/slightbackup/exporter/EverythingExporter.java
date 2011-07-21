@@ -36,12 +36,15 @@ public class EverythingExporter extends Exporter {
 	
 	private UserDictionaryExporter userDictionaryExporter;
 
+	private PlaylistExporter playlistExporter;
+	
 	public EverythingExporter(Context context, ExportTask exportTask) {
 		super(exportTask);
 		bookmarkExporter = new BookmarkExporter(context, exportTask);
 		callLogExporter = new CallLogExporter(context, exportTask);
 		messageExporter = new MessageExporter(context, exportTask);
 		userDictionaryExporter = new UserDictionaryExporter(context, exportTask);
+		playlistExporter = new PlaylistExporter(context, exportTask);
 	}
 
 	@Override
@@ -51,6 +54,7 @@ public class EverythingExporter extends Exporter {
 		callLogExporter.cancel();
 		messageExporter.cancel();
 		userDictionaryExporter.cancel();
+		playlistExporter.cancel();
 	}
 
 	@Override
@@ -64,7 +68,9 @@ public class EverythingExporter extends Exporter {
 		exportTask.progress(ExportTask.MESSAGE_TYPE, BackupActivity.MENU_EXPORTSMS_ID);
 		result += export(messageExporter);
 		exportTask.progress(ExportTask.MESSAGE_TYPE, BackupActivity.MENU_EXPORTUSERDICTIONARY_ID);
-		return  result + export(userDictionaryExporter);
+		result += export(userDictionaryExporter);
+		exportTask.progress(ExportTask.MESSAGE_TYPE, BackupActivity.MENU_EXPORTPLAYLIST_ID);
+		return result + export(playlistExporter);
 	}
 	
 	private int export(SimpleExporter exporter) throws Exception {
@@ -82,7 +88,8 @@ public class EverythingExporter extends Exporter {
 				bookmarkExporter.getFilename(),
 				callLogExporter.getFilename(),
 				messageExporter.getFilename(),
-				userDictionaryExporter.getFilename()
+				userDictionaryExporter.getFilename(),
+				playlistExporter.getFilename()
 		};
 	}
 

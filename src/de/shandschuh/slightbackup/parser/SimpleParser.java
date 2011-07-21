@@ -258,6 +258,8 @@ public abstract class SimpleParser extends DefaultHandler {
 			return R.string.bookmarks;
 		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
 			return R.string.userdictionary;
+		} else if (filename.startsWith(Strings.PLAYLISTS)) {
+			return R.string.playlists;
 		}
 		return android.R.string.unknownName;
 	}
