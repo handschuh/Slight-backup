@@ -41,7 +41,7 @@ import de.shandschuh.slightbackup.R;
 public class ImportTask extends BackupTask<Void, Exception> {
 	private File file;
 	
-	private SimpleParser parser;
+	private Parser parser;
 	
 	private Button importButton;
 
@@ -67,13 +67,11 @@ public class ImportTask extends BackupTask<Void, Exception> {
 		}); // we cannot use progressDialog.setButton(Dialog.BUTTON_POSITIVE, ...) since this would cause the dialog to close
 	}
 	
-	
 	@Override
 	protected void onPreExecute() {
 		importButton.setEnabled(false);
 		super.onPreExecute();
 	}
-
 
 	@Override
 	protected Exception doInBackground(Void... params) {

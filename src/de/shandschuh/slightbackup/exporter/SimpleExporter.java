@@ -42,7 +42,7 @@ public abstract class SimpleExporter extends Exporter {
 	
 	private static final String ENDTAG_START = "</";
 	
-	private static final String EQUALS = "=\"";
+	protected static final String EQUALS = "=\"";
 	
 	private static final String TAG_END = ">\n";
 	
@@ -50,7 +50,7 @@ public abstract class SimpleExporter extends Exporter {
 	
 	private static final String _COUNT = "\" count=\"";
 	
-	private static final String TAG_END_QUOTE = "\">\n";
+	protected static final String TAG_END_QUOTE = "\">\n";
 	
 	private static final String TAGS_END = "s>\n";
 	

@@ -72,7 +72,11 @@ public final class Strings {
 	
 	public static final String TAG_FILE = "file";
 	
-	public static final Object STARTENDTAG = "</";
+	public static final String DB_ARG = "=?";
+	
+	public static final String AND = " and ";
+	
+	public static final String EXTERNAL = "external";
 	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",

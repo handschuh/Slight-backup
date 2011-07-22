@@ -27,26 +27,16 @@ import java.util.Vector;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-import org.xml.sax.helpers.DefaultHandler;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import de.shandschuh.slightbackup.BackupTask;
-import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
-public abstract class SimpleParser extends DefaultHandler {
-	private static final String AND = " and ";
-	
-	private static final String DB_ARG = "=?";
-	
-	private static final String COUNT = "count";
-	
+public abstract class SimpleParser extends Parser {
 	protected String[] values;
-	
-	protected Context context;
 	
 	protected boolean tagEntered;
 	
@@ -56,8 +46,6 @@ public abstract class SimpleParser extends DefaultHandler {
 	
 	private Uri contentUri;
 	
-	private ImportTask importTask;
-	
 	private String[] existanceFields;
 	
 	private int[] existancePositions;
@@ -66,12 +54,10 @@ public abstract class SimpleParser extends DefaultHandler {
 	
 	private String[] existanceValues;
 	
-	private boolean canceled;
-	
 	private int position;
 	
-	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, final ImportTask importTask, String[] existanceFields) {
-		this.context = context;
+	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask, String[] existanceFields) {
+		super(context, importTask);
 		this.tag = tag;
 		this.fields = fields;
 		this.importTask = importTask;
@@ -99,7 +85,7 @@ public abstract class SimpleParser extends DefaultHandler {
 	}
 	
 	@Override
-	public final void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if (!canceled && !tagEntered) {
 			if (tag.equals(localName)) {
 				tagEntered = true;
@@ -129,7 +115,7 @@ public abstract class SimpleParser extends DefaultHandler {
 	}
 	
 	@Override
-	public final void endElement(String uri, String localName, String qName) throws SAXException {
+	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if (!canceled && tagEntered && tag.equals(localName)) {
 			tagEntered = false;
 			
@@ -175,25 +161,17 @@ public abstract class SimpleParser extends DefaultHandler {
 		
 	}
 	
-	public final void cancel() {
-		canceled = true;
-	}
-	
-	public boolean isCanceled() {
-		return canceled;
-	}
-	
 	private static String generateWhereQuery(String[] fields, Vector<Integer> availableIndices) {
 		int length = availableIndices.size();
 		
 		if (length > 0) {
 			StringBuilder builder = new StringBuilder(fields[availableIndices.get(0)]);
 			
-			builder.append(DB_ARG);
+			builder.append(Strings.DB_ARG);
 			for (int n = 1; n < length; n++) {
-				builder.append(AND);
+				builder.append(Strings.AND);
 				builder.append(fields[availableIndices.get(n)]);
-				builder.append(DB_ARG);
+				builder.append(Strings.DB_ARG);
 			}
 			return builder.toString();
 		} else {
@@ -207,11 +185,11 @@ public abstract class SimpleParser extends DefaultHandler {
 		if (length > 0) {
 			StringBuilder builder = new StringBuilder(fields[0]);
 			
-			builder.append(DB_ARG);
+			builder.append(Strings.DB_ARG);
 			for (int n = 1; n < length; n++) {
-				builder.append(AND);
+				builder.append(Strings.AND);
 				builder.append(fields[n]);
-				builder.append(DB_ARG);
+				builder.append(Strings.DB_ARG);
 			}
 			return builder.toString();
 		} else {
@@ -232,36 +210,4 @@ public abstract class SimpleParser extends DefaultHandler {
 		return result;
 	}
 	
-	public static SimpleParser createParserByFilename(String filename, Context context, ImportTask importTask) {
-		filename = filename.substring(filename.lastIndexOf('/')+1);
-		
-		if (filename.startsWith(Strings.CALLLOGS)) {
-			return new CallLogParser(context, importTask);
-		} else if (filename.startsWith(Strings.MESSAGES)) {
-			return new MessageParser(context, importTask);
-		} else if (filename.startsWith(Strings.BOOKMARKS)) {
-			return new BookmarkParser(context, importTask);
-		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
-			return new UserDictionaryParser(context, importTask);
-		}
-		return null;
-	}
-
-	public static int getTranslatedParserName(String filename) {
-		filename = filename.substring(filename.lastIndexOf('/')+1);
-		
-		if (filename.startsWith(Strings.CALLLOGS)) {
-			return R.string.calllogs;
-		} else if (filename.startsWith(Strings.MESSAGES)) {
-			return R.string.messages;
-		} else if (filename.startsWith(Strings.BOOKMARKS)) {
-			return R.string.bookmarks;
-		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
-			return R.string.userdictionary;
-		} else if (filename.startsWith(Strings.PLAYLISTS)) {
-			return R.string.playlists;
-		}
-		return android.R.string.unknownName;
-	}
-
 }
