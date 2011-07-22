@@ -5,6 +5,7 @@
     <string name="menu_exportcalllog">Exporter le journal d\'appels</string>
     <string name="menu_exportbookmarks">Exporter les signets</string>
     <string name="menu_exportuserdictionary">Exporter le dictionnaire personnel</string>
+    <string name="menu_exportplaylists">Exporter les listes de lecture</string>
     <string name="menu_exporteverything">Tout exporter</string>
     <string name="menu_about">À propos</string>
     <string name="contextmenu_deletefile">Effacer le fichier</string>
@@ -29,6 +30,7 @@
     <string name="calllogs">journaux d\'appels</string>
     <string name="bookmarks">signets</string>
     <string name="userdictionary">dictionnaire personnel</string>
+    <string name="playlists">listes de lecture</string>
     <string name="dialog_export">Exporter</string>
     <string name="dialog_licenseagreement">Licence</string>
     <string name="question_deletefile">Voulez-vous vraiment effacer le fichier %s?</string>

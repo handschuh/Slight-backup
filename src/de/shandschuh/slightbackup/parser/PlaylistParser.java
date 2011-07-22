@@ -84,6 +84,9 @@ public class PlaylistParser extends Parser {
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
+		if (canceled) {
+			return;
+		}
 		if (levelOneTagEntered && localName.equals(levelOneTag)) {
 			levelOneTagEntered = false;
 			levelOneId = 0;
@@ -96,6 +99,9 @@ public class PlaylistParser extends Parser {
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
+		if (canceled) {
+			return;
+		}
 		if (!levelOneTagEntered && localName.equals(levelOneTag)) {
 			levelOneTagEntered = true;
 
@@ -109,8 +115,8 @@ public class PlaylistParser extends Parser {
 						new String[] { name }, null);
 
 				if (playlistCursor.moveToNext()) {
-					levelOneId = playlistCursor.getLong(0);
-					// or maybe we should not import into an existing list
+					// we do not want to import into an existing list
+					levelOneTagEntered = false;
 				} else {
 					ContentValues values = new ContentValues();
 

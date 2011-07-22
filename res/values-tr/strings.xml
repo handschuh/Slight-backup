@@ -5,6 +5,7 @@
     <string name="menu_exportcalllog">Arama günlüğünü dışa aktar</string>
     <string name="menu_exportbookmarks">Yer imlerini dışa aktar</string>
     <string name="menu_exportuserdictionary">Kullanıcı sözlüğünü dışa aktar</string>
+    <string name="menu_exportplaylists">Çalma listeleri dışa aktar</string>
     <string name="menu_exporteverything">Tümünü dışa aktar</string>
     <string name="menu_about">Hakkında</string>
     <string name="contextmenu_deletefile">Dosyayı sil</string>
@@ -29,6 +30,7 @@
     <string name="calllogs">arama günlükleri</string>
     <string name="bookmarks">yer imleri</string>
     <string name="userdictionary">kullanıcı sözlüğü</string>
+    <string name="playlists">çalma listeleri</string>
     <string name="dialog_export">Dışa aktar</string>
     <string name="dialog_licenseagreement">Lisans</string>
     <string name="question_deletefile">%s dosyasını silmek istediğinizden emin misiniz?</string>
