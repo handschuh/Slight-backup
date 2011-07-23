@@ -16,6 +16,7 @@
     <string name="hint_nobackupsfound">No backups found - press menu-key to create some.</string>
     <string name="hint_noexportdata">No data available for export.</string>
     <string name="hint_exporting">Exporting %s ...</string>
+    <string name="hint_existed">\"%s\" existed</string>
     
     <!-- there is no need for a translation of the following string -->
     <string name="license">Copyright (c) 2011 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n

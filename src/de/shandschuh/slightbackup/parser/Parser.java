@@ -39,6 +39,8 @@ public abstract class Parser extends DefaultHandler {
 	
 	protected boolean canceled;
 	
+	private StringBuilder hintStringBuilder;
+	
 	public Parser(Context context, ImportTask importTask) {
 		this.context = context;
 		this.importTask = importTask;
@@ -85,4 +87,22 @@ public abstract class Parser extends DefaultHandler {
 		}
 		return android.R.string.unknownName;
 	}
+	
+	public void addHint(CharSequence charSequence) {
+		if (hintStringBuilder == null) {
+			hintStringBuilder = new StringBuilder(charSequence);
+		} else {
+			hintStringBuilder.append('\n');
+			hintStringBuilder.append(charSequence);
+		}
+	}
+	
+	public StringBuilder getHints() {
+		return hintStringBuilder;
+	}
+	
+	public boolean hasHints() {
+		return hintStringBuilder != null && hintStringBuilder.length() > 0;
+	}
+	
 }

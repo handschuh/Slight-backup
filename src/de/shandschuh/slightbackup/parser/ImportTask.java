@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -99,7 +100,20 @@ public class ImportTask extends BackupTask<Void, Exception> {
 		progressDialog.setProgress(0);
 		if (result == null) {
 			progressDialog.dismiss();
-			Toast.makeText(progressDialog.getContext(),	R.string.message_importsuccessful, Toast.LENGTH_LONG).show();
+			if (parser.hasHints()) {
+				AlertDialog.Builder builder = new AlertDialog.Builder(progressDialog.getContext());
+				
+				builder.setTitle(R.string.message_importsuccessful);
+				builder.setMessage(parser.getHints());
+				builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+				builder.create().show();
+			} else {
+				Toast.makeText(progressDialog.getContext(),	R.string.message_importsuccessful, Toast.LENGTH_LONG).show();
+			}
 		} else {
 			importButton.setEnabled(true);
 			progressDialog.setProgress(0);

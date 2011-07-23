@@ -32,6 +32,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore.Audio;
 import de.shandschuh.slightbackup.BackupTask;
+import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 /**
@@ -115,6 +116,8 @@ public class PlaylistParser extends Parser {
 						new String[] { name }, null);
 
 				if (playlistCursor.moveToNext()) {
+					
+					addHint(context.getString(R.string.hint_existed, name));
 					// we do not want to import into an existing list
 					levelOneTagEntered = false;
 				} else {
