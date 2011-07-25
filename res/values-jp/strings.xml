@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_exportsms">SMSエクスポート</string>
+    <string name="menu_exportcalllog">発着信履歴エクスポート</string>
+    <string name="menu_exportbookmarks">ブックマークエクスポート</string>
+    <string name="menu_exportuserdictionary">ユーザー辞書エクスポート</string>
+    <string name="menu_exportplaylists">曲順エクスポート</string>
+    <string name="menu_exporteverything">全てエクスポート</string>
+    <string name="menu_about">インフメーション</string>
+    <string name="contextmenu_deletefile">ファイルを消去します</string>
+    <string name="error_nosdcard">SDカードが存在しません。</string>
+    <string name="error_unsupporteddatabasestructure">データベースの構成が合いません</string>
+    <string name="error_couldnotcreatebackupfolder">SDカードにバックアップフォルダが作成できませんでした</string>
+    <string name="error_somethingwentwrong">何か問題がありました：%s</string>
+    <string name="hint_nobackupsfound">バックアップデータが見つかりません。作成をするため、メニューボタンを押して下さい。</string>
+    <string name="hint_noexportdata">エクスポートをするデータが見つかりません。</string>
+    <string name="hint_exporting">%sエクスポートをしています。</string>
+    <string name="hint_existed">「%s\」は既に存在します</string>
+	<string name="license_intro">このソフトウェアのライセンスは、MIT　Licenseで公示されており、ソースコードは、http://github.com/handschuh/Slight-backupにある</string>
+    <string name="message_exportedto">データ %s エクスポート</string>
+    <string name="message_importsuccessful">インポート完了</string>
+    <plurals name="listentry_items">
+        <item quantity="one">1項目：</item>
+        <item quantity="other">%d項目：</item>
+    </plurals>
+    <string name="listentry_items"></string>
+    <string name="button_import">インポート</string>
+    <string name="button_accept">許可する</string>
+    <string name="button_decline">許可しない</string>
+    <string name="messages">SMS</string>
+    <string name="calllogs">発着信履歴</string>
+    <string name="bookmarks">ブックマーク</string>
+    <string name="userdictionary">ユーザー辞書</string>
+    <string name="playlists">曲順</string>
+    <string name="dialog_export">エクスポート</string>
+    <string name="dialog_licenseagreement">認可</string>
+    <string name="question_deletefile">%sを消去しますか。</string>
+</resources>
