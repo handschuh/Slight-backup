@@ -24,27 +24,24 @@
 package de.shandschuh.slightbackup.exporter;
 
 import de.shandschuh.slightbackup.BackupActivity;
-import de.shandschuh.slightbackup.Strings;
+import android.content.Context;
+import android.provider.Settings;
 
-public abstract class Exporter {
-	protected ExportTask exportTask;
-	
-	public Exporter(ExportTask exportTask) {
-		this.exportTask = exportTask;
+public class SettingsExporter extends SimpleExporter {
+
+	public SettingsExporter(Context context, ExportTask exportTask) {
+		super(context, "setting", Settings.System.CONTENT_URI, exportTask);
+	}
+
+	@Override
+	public String getContentName() {
+		// TODO Auto-generated method stub
+		return "setting";
 	}
 	
-	public abstract int export(String filename) throws Exception;
-	
-	public int export() throws Exception {
-		return export(new StringBuilder(BackupActivity.DIR_NAME).append(getContentName()).append(Strings.FILE_SUFFIX).append(System.currentTimeMillis()).append(Strings.FILE_EXTENSION).toString());
+	@Override
+	public int getId() {
+		return BackupActivity.MENU_EXPORTSETTINGS_ID;
 	}
-	
-	public abstract String getContentName();
-	
-	public abstract void cancel();
-	
-	public abstract String[] getExportedFilenames();
-	
-	public abstract int getId();
-	
+
 }

@@ -23,57 +23,48 @@
 
 package de.shandschuh.slightbackup.exporter;
 
+import java.util.Vector;
+
 import android.content.Context;
 import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
-public class EverythingExporter extends Exporter {
-	private BookmarkExporter bookmarkExporter;
-	
-	private CallLogExporter callLogExporter;
-	
-	private MessageExporter messageExporter;
-	
-	private UserDictionaryExporter userDictionaryExporter;
-
-	private PlaylistExporter playlistExporter;
+public class EverythingExporter extends Exporter {	
+	private Exporter[] exporters;
 	
 	public EverythingExporter(Context context, ExportTask exportTask) {
 		super(exportTask);
-		bookmarkExporter = new BookmarkExporter(context, exportTask);
-		callLogExporter = new CallLogExporter(context, exportTask);
-		messageExporter = new MessageExporter(context, exportTask);
-		userDictionaryExporter = new UserDictionaryExporter(context, exportTask);
-		playlistExporter = new PlaylistExporter(context, exportTask);
+		exporters = new Exporter[] {
+				new BookmarkExporter(context, exportTask),
+				new CallLogExporter(context, exportTask),
+				new MessageExporter(context, exportTask),
+				new UserDictionaryExporter(context, exportTask),
+				new PlaylistExporter(context, exportTask),
+				new SettingsExporter(context, exportTask),
+		};
 	}
 
 	@Override
 	public void cancel() {
 		// do not care about who is running
-		bookmarkExporter.cancel();
-		callLogExporter.cancel();
-		messageExporter.cancel();
-		userDictionaryExporter.cancel();
-		playlistExporter.cancel();
+		for (Exporter exporter : exporters) {
+			exporter.cancel();
+		}
 	}
 
 	@Override
 	public int export(String filename) throws Exception {
-		exportTask.progress(ExportTask.MESSAGE_TYPE, BackupActivity.MENU_EXPORTBOOKMARKS_ID);
+		int result = 0;
 		
-		int result = export(bookmarkExporter);
+		for (Exporter exporter : exporters) {
+			exportTask.progress(ExportTask.MESSAGE_TYPE, exporter.getId());
+			result += export(exporter);
+		}
 		
-		exportTask.progress(ExportTask.MESSAGE_TYPE, BackupActivity.MENU_EXPORTCALLLOG_ID);
-		result += export(callLogExporter);
-		exportTask.progress(ExportTask.MESSAGE_TYPE, BackupActivity.MENU_EXPORTSMS_ID);
-		result += export(messageExporter);
-		exportTask.progress(ExportTask.MESSAGE_TYPE, BackupActivity.MENU_EXPORTUSERDICTIONARY_ID);
-		result += export(userDictionaryExporter);
-		exportTask.progress(ExportTask.MESSAGE_TYPE, BackupActivity.MENU_EXPORTPLAYLIST_ID);
-		return result + export(playlistExporter);
+		return result;
 	}
 	
-	private int export(SimpleExporter exporter) throws Exception {
+	private int export(Exporter exporter) throws Exception {
 		return exporter.export(new StringBuilder(BackupActivity.DIR_NAME).append(exporter.getContentName()).append(Strings.FILE_SUFFIX).append(System.currentTimeMillis()).append(Strings.FILE_EXTENSION).toString());
 	}
 
@@ -84,13 +75,21 @@ public class EverythingExporter extends Exporter {
 
 	@Override
 	public String[] getExportedFilenames() {
-		return new String[] {
-				bookmarkExporter.getFilename(),
-				callLogExporter.getFilename(),
-				messageExporter.getFilename(),
-				userDictionaryExporter.getFilename(),
-				playlistExporter.getFilename()
-		};
+		Vector<String> exportedFilenames = new Vector<String>();
+		
+		for (Exporter exporter : exporters) {
+			String[] filenames = exporter.getExportedFilenames();
+			
+			for (String filename : filenames) {
+				exportedFilenames.add(filename);
+			}
+		}
+		return exportedFilenames.toArray(new String[0]);
+	}
+	
+	@Override
+	public int getId() {
+		return BackupActivity.MENU_EXPORTEVERYTHING_ID;
 	}
 
 }

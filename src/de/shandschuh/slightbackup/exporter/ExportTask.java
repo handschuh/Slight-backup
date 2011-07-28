@@ -73,6 +73,10 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 				exporter = new PlaylistExporter(progressDialog.getContext(), this);
 				break;
 			}
+			case BackupActivity.MENU_EXPORTSETTINGS_ID: {
+				exporter = new SettingsExporter(progressDialog.getContext(), this);
+				break;
+			}
 			case BackupActivity.MENU_EXPORTEVERYTHING_ID: {
 				exporter = new EverythingExporter(progressDialog.getContext(), this);
 				break;
@@ -149,6 +153,10 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 				} 
 				case BackupActivity.MENU_EXPORTPLAYLIST_ID: {
 					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.playlists)));
+					break;
+				} 
+				case BackupActivity.MENU_EXPORTSETTINGS_ID: {
+					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), "settings"));
 					break;
 				} 
 				// the case for "everything" is not needed since this is just a set of all available exports

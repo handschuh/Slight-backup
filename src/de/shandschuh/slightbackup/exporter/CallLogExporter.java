@@ -25,6 +25,7 @@ package de.shandschuh.slightbackup.exporter;
 
 import android.content.Context;
 import android.provider.CallLog;
+import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
 public class CallLogExporter extends SimpleExporter {
@@ -38,4 +39,8 @@ public class CallLogExporter extends SimpleExporter {
 		return Strings.CALLLOGS;
 	}
 
+	@Override
+	public int getId() {
+		return BackupActivity.MENU_EXPORTCALLLOG_ID;
+	}
 }

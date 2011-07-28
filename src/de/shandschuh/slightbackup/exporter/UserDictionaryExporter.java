@@ -25,6 +25,7 @@ package de.shandschuh.slightbackup.exporter;
 
 import android.content.Context;
 import android.provider.UserDictionary;
+import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
 public class UserDictionaryExporter extends SimpleExporter {
@@ -36,6 +37,11 @@ public class UserDictionaryExporter extends SimpleExporter {
 	@Override
 	public String getContentName() {
 		return Strings.USERDICTIONARY;
+	}
+	
+	@Override
+	public int getId() {
+		return BackupActivity.MENU_EXPORTUSERDICTIONARY_ID;
 	}
 
 }

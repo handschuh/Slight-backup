@@ -25,6 +25,7 @@ package de.shandschuh.slightbackup.exporter;
 
 import android.content.Context;
 import android.provider.Browser;
+import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
 public class BookmarkExporter extends SimpleExporter {
@@ -37,5 +38,11 @@ public class BookmarkExporter extends SimpleExporter {
 	public String getContentName() {
 		return Strings.BOOKMARKS;
 	}
+
+	@Override
+	public int getId() {
+		return BackupActivity.MENU_EXPORTBOOKMARKS_ID;
+	}
+	
 
 }

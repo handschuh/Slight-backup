@@ -150,7 +150,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 	}
 
 	public int getChildrenCount(int groupPosition) {
-		return data.get(dates.get(groupPosition)).size();
+		return getChildren(groupPosition).size();
 	}
 
 	public Date getGroup(int groupPosition) {
@@ -211,6 +211,10 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 	}
 	
 	public void remove(File file) {
+		remove(file, true);
+	}
+	
+	public void remove(File file, boolean notify) {
 		long longDate = getFileDate(file);
 		
 		longDate += TimeZone.getDefault().getOffset(longDate);
@@ -224,8 +228,21 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 				data.remove(date);
 				dates.remove(date);
 			}
-			notifyDataSetChanged();
+			if (notify) {
+				notifyDataSetChanged();
+			}
 		}
+	}
+	
+	public Vector<File> getChildren(int groupPosition) {
+		return data.get(dates.get(groupPosition));
+	}
+	
+	public void remove(Vector<File> files) {
+		for (File file : files) {
+			remove(file, false);
+		}
+		notifyDataSetChanged();		
 	}
 	
 	private static long getFileDate(File file) {

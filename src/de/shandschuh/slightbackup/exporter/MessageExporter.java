@@ -54,5 +54,10 @@ public class MessageExporter extends SimpleExporter {
 	public String getContentName() {
 		return Strings.MESSAGES;
 	}
+	
+	@Override
+	public int getId() {
+		return BackupActivity.MENU_EXPORTSMS_ID;
+	}
 
 }

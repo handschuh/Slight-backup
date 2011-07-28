@@ -26,6 +26,7 @@ package de.shandschuh.slightbackup.exporter;
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore.Audio;
+import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
 public class PlaylistExporter extends SimpleExporter {
@@ -73,6 +74,11 @@ public class PlaylistExporter extends SimpleExporter {
 			audioFileCursor.close();
 		}
 		audioIdCursor.close();
+	}
+	
+	@Override
+	public int getId() {
+		return BackupActivity.MENU_EXPORTPLAYLIST_ID;
 	}
 
 }

@@ -24,6 +24,8 @@
 package de.shandschuh.slightbackup;
 
 import java.io.File;
+import java.util.Date;
+import java.util.Vector;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -63,11 +65,15 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	public static final int MENU_EXPORTPLAYLIST_ID = 105;
 	
+	public static final int MENU_EXPORTSETTINGS_ID = 106;
+	
 	public static final int MENU_EXPORTEVERYTHING_ID = 200;
 	
 	private static final int CONTEXTMENU_IMPORT = 21;
 	
 	private static final int CONTEXTMENU_DELETEFILE = 22;
+	
+	private static final int CONTEXTMENU_DELETEDAY = 23;
 	
 	private static final int MENU_ABOUT_ID = 9;
 	
@@ -84,6 +90,8 @@ public class BackupActivity extends ExpandableListActivity {
 	public BackupFilesListAdapter listAdapter;
 	
 	private AlertDialog deleteFileDialog;
+	
+	private AlertDialog deleteDayDialog;
 	
 	private ProgressDialog exportDialog;
 	
@@ -137,12 +145,7 @@ public class BackupActivity extends ExpandableListActivity {
 					builder.setTitle(android.R.string.dialog_alert_title);
 					builder.setPositiveButton(android.R.string.yes, new OnClickListener() {
 						public void onClick(DialogInterface dialog, int which) {
-							if (file.delete()) {
-								listAdapter.remove(file);
-							} else {
-								// show error
-							}
-							dialog.dismiss();
+							// just to enable the button
 						}
 					});
 					builder.setNegativeButton(android.R.string.no, new OnClickListener() {
@@ -150,22 +153,21 @@ public class BackupActivity extends ExpandableListActivity {
 							dialog.cancel();
 						}
 					});
-					builder.setMessage(String.format(getString(R.string.question_deletefile), file.toString()));
+					builder.setMessage(Strings.EMPTY); // just so that the string is available
 					deleteFileDialog = builder.create();
-				} else {
-					deleteFileDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-							if (file.delete() || !file.exists()) {
-								listAdapter.remove(file);
-							} else {
-								// show error
-							}
-							deleteFileDialog.dismiss();
-						}
-					});
-					deleteFileDialog.setMessage(String.format(getString(R.string.question_deletefile), file.toString()));
 				}
 				deleteFileDialog.show();
+				deleteFileDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						if (!file.exists() || file.delete()) {
+							listAdapter.remove(file);
+						} else {
+							// show error
+						}
+						deleteFileDialog.dismiss();
+					}
+				});
+				deleteFileDialog.setMessage(String.format(getString(R.string.question_deletefile), file.toString()));
 				break;
 			}
 			case CONTEXTMENU_IMPORT: {
@@ -181,6 +183,56 @@ public class BackupActivity extends ExpandableListActivity {
 				}
 				checkProgressDialog(importDialog);
 				new ImportTask(importDialog, listAdapter.getChild(ExpandableListView.getPackedPositionGroup(packedPosition), ExpandableListView.getPackedPositionChild(packedPosition)), (Integer) menuInfo.targetView.getTag());
+				break;
+			}
+			case CONTEXTMENU_DELETEDAY: {
+				long packedPosition = ((ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo()).packedPosition;
+				
+				if (ExpandableListView.getPackedPositionType(packedPosition) != ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+					break; 
+				}
+				
+				final int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
+				
+				Date date = listAdapter.getGroup(groupPosition);
+				
+				if (deleteDayDialog == null) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					
+					builder.setIcon(android.R.drawable.ic_dialog_alert);
+					builder.setTitle(android.R.string.dialog_alert_title);
+					builder.setPositiveButton(android.R.string.yes, new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							// just to enable the button
+						}
+					});
+					builder.setNegativeButton(android.R.string.no, new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+					builder.setMessage(Strings.EMPTY); // just so that the string is available
+					deleteDayDialog = builder.create();
+				} 
+				deleteDayDialog.show();
+				deleteDayDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Vector<File> files = listAdapter.getChildren(groupPosition);
+						
+						Vector<File> deletedFiles = new Vector<File>();
+						
+						for (File file : files) {
+							if (!file.exists() || file.delete()) {
+								deletedFiles.add(file);
+							} else {
+								// show error
+							}
+						}
+						listAdapter.remove(deletedFiles);
+						deleteDayDialog.dismiss();
+					}
+				});
+				deleteDayDialog.setMessage(String.format(getString(R.string.question_deletefile), date.toString()));
 				break;
 			}
 			default: {
@@ -290,10 +342,12 @@ public class BackupActivity extends ExpandableListActivity {
 			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 				ExpandableListView.ExpandableListContextMenuInfo expandableInfo = (ExpandableListView.ExpandableListContextMenuInfo) menuInfo;
 				
+				menu.setHeaderTitle(((TextView) ((ExpandableListView.ExpandableListContextMenuInfo) menuInfo).targetView.findViewById(android.R.id.text1)).getText());
 				if (ExpandableListView.getPackedPositionType(expandableInfo.packedPosition) == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-					menu.setHeaderTitle(((TextView) ((ExpandableListView.ExpandableListContextMenuInfo) menuInfo).targetView.findViewById(android.R.id.text1)).getText());
 					menu.add(0, CONTEXTMENU_IMPORT, Menu.NONE, R.string.button_import);
 					menu.add(0, CONTEXTMENU_DELETEFILE, Menu.NONE, R.string.contextmenu_deletefile);
+				} else {
+					menu.add(0, CONTEXTMENU_DELETEDAY, Menu.NONE, R.string.contextmenu_deletedaydata);
 				}
 			}
         });
