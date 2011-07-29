@@ -25,10 +25,9 @@ package de.shandschuh.slightbackup.parser;
 
 import org.xml.sax.helpers.DefaultHandler;
 
+import android.content.Context;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
-
-import android.content.Context;
 
 public abstract class Parser extends DefaultHandler {
 	protected static final String COUNT = "count";
@@ -67,6 +66,8 @@ public abstract class Parser extends DefaultHandler {
 			return new UserDictionaryParser(context, importTask);
 		} else if (filename.startsWith(Strings.PLAYLISTS)) {
 			return new PlaylistParser(context, importTask);
+		} else if (filename.startsWith(Strings.SETTINGS)) {
+			return new SettingsParser(context, importTask);
 		}
 		return null;
 	}
@@ -84,6 +85,8 @@ public abstract class Parser extends DefaultHandler {
 			return R.string.userdictionary;
 		} else if (filename.startsWith(Strings.PLAYLISTS)) {
 			return R.string.playlists;
+		} else if (filename.startsWith(Strings.SETTINGS)) {
+			return R.string.settings;
 		}
 		return android.R.string.unknownName;
 	}
