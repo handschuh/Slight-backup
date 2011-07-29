@@ -24,24 +24,30 @@
 package de.shandschuh.slightbackup.exporter;
 
 import de.shandschuh.slightbackup.BackupActivity;
+import de.shandschuh.slightbackup.R;
+import de.shandschuh.slightbackup.Strings;
 import android.content.Context;
 import android.provider.Settings;
 
 public class SettingsExporter extends SimpleExporter {
 
 	public SettingsExporter(Context context, ExportTask exportTask) {
-		super(context, "setting", Settings.System.CONTENT_URI, exportTask);
+		super(context, Strings.TAG_SETTING, Settings.System.CONTENT_URI, exportTask);
 	}
 
 	@Override
 	public String getContentName() {
-		// TODO Auto-generated method stub
-		return "setting";
+		return Strings.SETTINGS;
 	}
 	
 	@Override
 	public int getId() {
 		return BackupActivity.MENU_EXPORTSETTINGS_ID;
+	}
+
+	@Override
+	public int getTranslatedContentName() {
+		return R.string.settings;
 	}
 
 }

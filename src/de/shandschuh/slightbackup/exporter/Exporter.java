@@ -41,6 +41,8 @@ public abstract class Exporter {
 	
 	public abstract String getContentName();
 	
+	public abstract int getTranslatedContentName();
+	
 	public abstract void cancel();
 	
 	public abstract String[] getExportedFilenames();

@@ -26,6 +26,7 @@ package de.shandschuh.slightbackup.exporter;
 import android.content.Context;
 import android.database.Cursor;
 import de.shandschuh.slightbackup.BackupActivity;
+import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public class MessageExporter extends SimpleExporter {
@@ -58,6 +59,11 @@ public class MessageExporter extends SimpleExporter {
 	@Override
 	public int getId() {
 		return BackupActivity.MENU_EXPORTSMS_ID;
+	}
+
+	@Override
+	public int getTranslatedContentName() {
+		return R.string.messages;
 	}
 
 }

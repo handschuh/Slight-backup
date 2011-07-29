@@ -32,6 +32,7 @@
     <string name="bookmarks">Lesezeichen</string>
     <string name="userdictionary">Benutzerwörterbuch</string>
     <string name="playlists">Playlisten</string>
+    <string name="settings">Einstellungen</string>
     <string name="dialog_export">Exportieren</string>
     <string name="dialog_licenseagreement">Lizenz</string>
     <string name="question_deletefile">Wollen Sie wirklich die Datei %s löschen?</string>

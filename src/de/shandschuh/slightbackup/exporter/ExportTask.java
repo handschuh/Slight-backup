@@ -135,31 +135,14 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 	protected void onProgressUpdate(Integer... values) {
 		if (values[0] == MESSAGE_TYPE) {
 			switch (values[1]) {
-				case BackupActivity.MENU_EXPORTBOOKMARKS_ID: {
-					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.bookmarks)));
+				case BackupActivity.MENU_EXPORTEVERYTHING_ID:{
+					// the case for "everything" is not needed since this is just a set of all available exports
 					break;
 				}
-				case BackupActivity.MENU_EXPORTCALLLOG_ID: {
-					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.calllogs)));
+				default: {
+					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(exporter.getTranslatedContentName())));
 					break;
 				}
-				case BackupActivity.MENU_EXPORTSMS_ID: {
-					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.messages)));
-					break;
-				}
-				case BackupActivity.MENU_EXPORTUSERDICTIONARY_ID: {
-					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.userdictionary)));
-					break;
-				} 
-				case BackupActivity.MENU_EXPORTPLAYLIST_ID: {
-					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), progressDialog.getContext().getString(R.string.playlists)));
-					break;
-				} 
-				case BackupActivity.MENU_EXPORTSETTINGS_ID: {
-					progressDialog.setMessage(String.format(progressDialog.getContext().getString(R.string.hint_exporting), "settings"));
-					break;
-				} 
-				// the case for "everything" is not needed since this is just a set of all available exports
 			}
 			
 		} else {

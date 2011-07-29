@@ -31,6 +31,7 @@
     <string name="bookmarks">signets</string>
     <string name="userdictionary">dictionnaire personnel</string>
     <string name="playlists">listes de lecture</string>
+    <string name="settings">réglages</string>
     <string name="dialog_export">Exporter</string>
     <string name="dialog_licenseagreement">Licence</string>
     <string name="question_deletefile">Voulez-vous vraiment effacer le fichier %s?</string>

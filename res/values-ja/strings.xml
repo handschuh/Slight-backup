@@ -32,6 +32,7 @@
     <string name="bookmarks">ブックマーク</string>
     <string name="userdictionary">ユーザー辞書</string>
     <string name="playlists">曲順</string>
+    <string name="settings">設定値</string>
     <string name="dialog_export">エクスポート</string>
     <string name="dialog_licenseagreement">認可</string>
     <string name="question_deletefile">%sを消去しますか。</string>

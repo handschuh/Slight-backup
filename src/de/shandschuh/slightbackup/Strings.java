@@ -46,6 +46,8 @@ public final class Strings {
 	
 	public static final String PLAYLISTS = "playlists";
 	
+	public static final String SETTINGS = "settings";
+	
 	public static final String COUNT = "count=\"";
 	
 	public static final String DATE = "date=\"";
@@ -55,6 +57,8 @@ public final class Strings {
 	public static final String BOOKMARKS = "bookmarks";
 	
 	public static final String TAG_WORD = "word";
+	
+	public static final String TAG_SETTING = "setting";
 	
 	public static final String USERDICTIONARY = "userdictionary";
 	

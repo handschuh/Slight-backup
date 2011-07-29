@@ -60,6 +60,7 @@
     <string name="bookmarks">bookmarks</string>
     <string name="userdictionary">user-dictionary</string>
     <string name="playlists">playlists</string>
+    <string name="settings">settings</string>
     <string name="dialog_export">Export</string>
     <string name="dialog_licenseagreement">License</string>
     <string name="question_deletefile">Do you really want to delete the file %s?</string>

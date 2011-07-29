@@ -56,7 +56,10 @@ public abstract class SimpleParser extends Parser {
 	
 	private int position;
 	
-	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask, String[] existanceFields) {
+	/** Update the value if exists; only use it with existanceFields */
+	private boolean updateOnExist;
+	
+	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask, String[] existanceFields, boolean updateOnExist) {
 		super(context, importTask);
 		this.tag = tag;
 		this.fields = fields;
@@ -75,9 +78,16 @@ public abstract class SimpleParser extends Parser {
 			for (int n = 0; n < existanceLength; n++) {
 				existancePositions[n] = Strings.indexOf(fields, existanceFields[n]);
 			}
+			this.updateOnExist = updateOnExist;
+		} else {
+			this.updateOnExist = false;
 		}
 		canceled = false;
 		position = 0;
+	}
+	
+	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask, String[] existanceFields) {
+		this(context, tag, fields, contentUri, importTask, existanceFields, false);
 	}
 	
 	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask) {
@@ -148,6 +158,16 @@ public abstract class SimpleParser extends Parser {
 				}
 				addExtraContentValues(contentValues);
 				context.getContentResolver().insert(contentUri, contentValues); 
+			} else if (updateOnExist) {
+				/** Update the existing values */
+				
+				ContentValues contentValues = new ContentValues();
+				
+				for (int n = 0; n < length; n++) {
+					contentValues.put(fields[availableIndices.get(n)], availableValues[n]);
+				}
+				addExtraContentValues(contentValues);
+				context.getContentResolver().update(contentUri, contentValues, generateWhereQuery(existanceFields), existanceValues);
 			}
 			cursor.close();
 			importTask.progress(BackupTask.MESSAGE_PROGRESS, ++position);

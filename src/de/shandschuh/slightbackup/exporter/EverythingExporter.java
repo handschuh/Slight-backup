@@ -92,4 +92,9 @@ public class EverythingExporter extends Exporter {
 		return BackupActivity.MENU_EXPORTEVERYTHING_ID;
 	}
 
+	@Override
+	public int getTranslatedContentName() {
+		return 0;
+	}
+
 }

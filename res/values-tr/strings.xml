@@ -31,6 +31,7 @@
     <string name="bookmarks">yer imleri</string>
     <string name="userdictionary">kullanıcı sözlüğü</string>
     <string name="playlists">çalma listeleri</string>
+    <string name="settings">ayarlar</string>
     <string name="dialog_export">Dışa aktar</string>
     <string name="dialog_licenseagreement">Lisans</string>
     <string name="question_deletefile">%s dosyasını silmek istediğinizden emin misiniz?</string>

@@ -21,33 +21,20 @@
  * 
  */
 
-package de.shandschuh.slightbackup.exporter;
+package de.shandschuh.slightbackup.parser;
 
 import android.content.Context;
-import android.provider.UserDictionary;
-import de.shandschuh.slightbackup.BackupActivity;
-import de.shandschuh.slightbackup.R;
+import android.provider.Settings;
 import de.shandschuh.slightbackup.Strings;
 
-public class UserDictionaryExporter extends SimpleExporter {
+public class SettingsParser extends SimpleParser {
 
-	public UserDictionaryExporter(Context context, ExportTask exportTask) {
-		super(context, Strings.TAG_WORD, UserDictionary.Words.CONTENT_URI, exportTask);
-	}
-
-	@Override
-	public String getContentName() {
-		return Strings.USERDICTIONARY;
-	}
-	
-	@Override
-	public int getId() {
-		return BackupActivity.MENU_EXPORTUSERDICTIONARY_ID;
-	}
-
-	@Override
-	public int getTranslatedContentName() {
-		return R.string.userdictionary;
+	public SettingsParser(Context context, ImportTask importTask) {
+		super(context, Strings.TAG_SETTING, new String[] {
+				Settings.System.NAME,
+				Settings.System.VALUE
+		}, Settings.System.CONTENT_URI, importTask, new String[] {
+				Settings.System.NAME}, true);
 	}
 
 }
