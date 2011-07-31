@@ -24,7 +24,10 @@
 package de.shandschuh.slightbackup.exporter;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -129,65 +132,65 @@ public abstract class SimpleExporter extends Exporter {
     	
     	int index1, index2;
     	
-    	StringBuilder builder = new StringBuilder(XML_START);
+    	BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
     	
-    	builder.append('<');
-    	builder.append(tag);
-    	builder.append(S_DATE);
-    	builder.append(System.currentTimeMillis());
-    	builder.append(_COUNT);
-    	builder.append(count);
-    	builder.append(TAG_END_QUOTE);
+    	writer.write(XML_START);
+    	
+    	writer.write('<');
+    	writer.write(tag);
+    	writer.write(S_DATE);
+    	writer.write(Long.toString(System.currentTimeMillis()));
+    	writer.write(_COUNT);
+    	writer.write(Integer.toString(count));
+    	writer.write(TAG_END_QUOTE);
     	
     	int position = 0;
     	
     	while (!canceled && cursor.moveToNext()) {
-    		builder.append('<');
-    		builder.append(tag);
+    		writer.write('<');
+    		writer.write(tag);
     		for (int n = 0; n < length; n++) {
     			try {
     				String string = cursor.getString(positions[n]);
         			
         			if (string != null && !BaseColumns._ID.equals(fields[n])) {
-        				builder.append(' ');
-            			builder.append(fields[n]);
-            			builder.append(EQUALS);
+        				writer.write(' ');
+        				writer.write(fields[n]);
+        				writer.write(EQUALS);
             			
             			index1 = string.indexOf('<');
             			index2 = string.indexOf('>');
             			
             			if (index1 > -1 && index2 > index1) {
-            				builder.append(string.substring(index1+1, index2));
+            				writer.write(string.substring(index1+1, index2));
             			} else {
-            				builder.append(string.replace(REALAMP, Strings.AMP));
+            				writer.write(string.replace(REALAMP, Strings.AMP));
             			}
-            			builder.append('"');
+            			writer.write('"');
         			}
     			} catch (Exception e) {
     				// if there is blob data
     			}
     		}
-    		builder.append('>');
-    		addText(cursor, builder);
-    		builder.append(ENDTAG_START);
-    		builder.append(tag);
-    		builder.append(TAG_END);
+    		writer.write('>');
+    		addText(cursor, writer);
+    		writer.write(ENDTAG_START);
+    		writer.write(tag);
+    		writer.write(TAG_END);
     		
     		exportTask.progress(BackupTask.MESSAGE_PROGRESS, ++position);
     	}
     	cursor.close();
     	
+    	writer.write(ENDTAG_START);
+		writer.write(tag);
+		writer.write(TAGS_END);
+		writer.close();
+    	
     	if (!canceled) {
-    		builder.append(ENDTAG_START);
-        	builder.append(tag);
-        	builder.append(TAGS_END);
-        	
-        	BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-
-    		writer.write(builder.toString());
-    		writer.close();
     		return count;
     	} else {
+    		new File(filename).delete();
     		this.filename = null;
     		return -1;
     	}
@@ -205,7 +208,7 @@ public abstract class SimpleExporter extends Exporter {
 	/*
 	 * Override to use
 	 */
-	public void addText(Cursor cursor, StringBuilder builder) {
+	public void addText(Cursor cursor, Writer writer) throws IOException {
 		
 	}
 	

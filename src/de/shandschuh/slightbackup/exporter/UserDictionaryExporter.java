@@ -25,11 +25,13 @@ package de.shandschuh.slightbackup.exporter;
 
 import android.content.Context;
 import android.provider.UserDictionary;
-import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public class UserDictionaryExporter extends SimpleExporter {
+	public static final int ID = 4;
+	
+	public static final int NAMEID = R.string.userdictionary;
 
 	public UserDictionaryExporter(Context context, ExportTask exportTask) {
 		super(context, Strings.TAG_WORD, UserDictionary.Words.CONTENT_URI, exportTask);
@@ -42,12 +44,12 @@ public class UserDictionaryExporter extends SimpleExporter {
 	
 	@Override
 	public int getId() {
-		return BackupActivity.MENU_EXPORTUSERDICTIONARY_ID;
+		return ID;
 	}
 
 	@Override
 	public int getTranslatedContentName() {
-		return R.string.userdictionary;
+		return NAMEID;
 	}
 
 }

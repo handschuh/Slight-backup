@@ -25,11 +25,13 @@ package de.shandschuh.slightbackup.exporter;
 
 import android.content.Context;
 import android.provider.Browser;
-import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public class BookmarkExporter extends SimpleExporter {
+	public static final int ID = 1;
+	
+	public static final int NAMEID = R.string.bookmarks;
 
 	public BookmarkExporter(Context context, ExportTask exportTask) {
 		super(context, Strings.TAG_BOOKMARK, Browser.BOOKMARKS_URI, Browser.BookmarkColumns.BOOKMARK+"=1", exportTask);
@@ -42,12 +44,12 @@ public class BookmarkExporter extends SimpleExporter {
 
 	@Override
 	public int getId() {
-		return BackupActivity.MENU_EXPORTBOOKMARKS_ID;
+		return ID;
 	}
 
 	@Override
 	public int getTranslatedContentName() {
-		return R.string.bookmarks;
+		return NAMEID;
 	}
 	
 }

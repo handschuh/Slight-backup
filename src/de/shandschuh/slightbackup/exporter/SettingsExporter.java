@@ -23,14 +23,16 @@
 
 package de.shandschuh.slightbackup.exporter;
 
-import de.shandschuh.slightbackup.BackupActivity;
-import de.shandschuh.slightbackup.R;
-import de.shandschuh.slightbackup.Strings;
 import android.content.Context;
 import android.provider.Settings;
+import de.shandschuh.slightbackup.R;
+import de.shandschuh.slightbackup.Strings;
 
 public class SettingsExporter extends SimpleExporter {
-
+	public static final int ID = 6;
+	
+	public static final int NAMEID = R.string.settings;
+	
 	public SettingsExporter(Context context, ExportTask exportTask) {
 		super(context, Strings.TAG_SETTING, Settings.System.CONTENT_URI, exportTask);
 	}
@@ -42,12 +44,12 @@ public class SettingsExporter extends SimpleExporter {
 	
 	@Override
 	public int getId() {
-		return BackupActivity.MENU_EXPORTSETTINGS_ID;
+		return ID;
 	}
 
 	@Override
 	public int getTranslatedContentName() {
-		return R.string.settings;
+		return NAMEID;
 	}
 
 }

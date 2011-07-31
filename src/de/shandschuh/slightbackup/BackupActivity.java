@@ -23,7 +23,9 @@
 
 package de.shandschuh.slightbackup;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.Vector;
 
@@ -50,32 +52,25 @@ import android.widget.ExpandableListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import de.shandschuh.slightbackup.exporter.ExportTask;
+import de.shandschuh.slightbackup.exporter.Exporter;
+import de.shandschuh.slightbackup.exporter.Exporter.ExporterInfos;
 import de.shandschuh.slightbackup.parser.ImportTask;
 
 public class BackupActivity extends ExpandableListActivity {
 	public static final Uri SMS_URI = Uri.parse("content://sms");
 	
-	public static final int MENU_EXPORTSMS_ID = 101;
+	public static final int MENU_EXPORT_ID = 100;
 	
-	public static final int MENU_EXPORTCALLLOG_ID = 102;
+	public static final int MENU_EXPORTEVERYTHING_ID = 101;
 	
-	public static final int MENU_EXPORTBOOKMARKS_ID = 103;
+	private static final int MENU_ABOUT_ID = 102;
 	
-	public static final int MENU_EXPORTUSERDICTIONARY_ID = 104;
-	
-	public static final int MENU_EXPORTPLAYLIST_ID = 105;
-	
-	public static final int MENU_EXPORTSETTINGS_ID = 106;
-	
-	public static final int MENU_EXPORTEVERYTHING_ID = 200;
 	
 	private static final int CONTEXTMENU_IMPORT = 21;
 	
 	private static final int CONTEXTMENU_DELETEFILE = 22;
 	
 	private static final int CONTEXTMENU_DELETEDAY = 23;
-	
-	private static final int MENU_ABOUT_ID = 9;
 	
 	private static final int DIALOG_LICENSEAGREEMENT = 1;
 	
@@ -85,7 +80,9 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	public static final String DIR_NAME = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/backup/").toString();
 	
-	public final static File DIR = new File(DIR_NAME);
+	public static final File DIR = new File(DIR_NAME);
+	
+	public static final boolean CANHAVEROOT = checkRoot();
 	
 	public BackupFilesListAdapter listAdapter;
 	
@@ -96,6 +93,10 @@ public class BackupActivity extends ExpandableListActivity {
 	private ProgressDialog exportDialog;
 	
 	private ProgressDialog importDialog;
+	
+	private AlertDialog selectExportsDialog;
+	
+	private ExporterInfos exporterInfos;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -109,14 +110,13 @@ public class BackupActivity extends ExpandableListActivity {
     
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_EXPORTSMS_ID, Menu.NONE, R.string.menu_exportsms).setIcon(android.R.drawable.ic_menu_save);
-		menu.add(0, MENU_EXPORTCALLLOG_ID, Menu.NONE, R.string.menu_exportcalllog).setIcon(android.R.drawable.ic_menu_call);
-		menu.add(0, MENU_EXPORTBOOKMARKS_ID, Menu.NONE, R.string.menu_exportbookmarks).setIcon(android.R.drawable.ic_menu_myplaces);
+		menu.add(0, MENU_EXPORT_ID, Menu.NONE, R.string.menu_export).setIcon(android.R.drawable.ic_menu_save);
 		menu.add(0, MENU_EXPORTEVERYTHING_ID, Menu.NONE, R.string.menu_exporteverything).setIcon(android.R.drawable.ic_menu_directions);
 		menu.add(0, MENU_ABOUT_ID, Menu.NONE, R.string.menu_about).setIcon(android.R.drawable.ic_menu_info_details);
-		menu.add(0, MENU_EXPORTUSERDICTIONARY_ID, Menu.NONE, R.string.menu_exportuserdictionary).setIcon(android.R.drawable.ic_menu_my_calendar);
-		menu.add(0, MENU_EXPORTPLAYLIST_ID, Menu.NONE, R.string.menu_exportplaylists).setIcon(android.R.drawable.ic_menu_recent_history);
 		
+		if (CANHAVEROOT) {
+			// add root options
+		}
 		return true;
 	}
 
@@ -235,12 +235,34 @@ public class BackupActivity extends ExpandableListActivity {
 				deleteDayDialog.setMessage(String.format(getString(R.string.question_deletefile), date.toString()));
 				break;
 			}
-			default: {
-				if (exportDialog == null) {
-					exportDialog = new ProgressDialog(this);
+			case MENU_EXPORT_ID: {
+				if (selectExportsDialog == null) {
+					AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					
+					builder.setIcon(android.R.drawable.ic_dialog_info);
+					builder.setTitle(R.string.dialog_export);
+					
+					exporterInfos = Exporter.getExporterInfos(this);
+					
+					builder.setNegativeButton(android.R.string.cancel, new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.cancel();
+						}
+					});
+					
+					builder.setItems(exporterInfos.names, new OnClickListener() {
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+							if (exportDialog == null) {
+								exportDialog = new ProgressDialog(BackupActivity.this);
+							}
+							checkProgressDialog(exportDialog);
+							new ExportTask(exportDialog, listAdapter).execute(exporterInfos.ids[which]);
+						}
+					});
+					selectExportsDialog = builder.create();
 				}
-				checkProgressDialog(exportDialog);
-				new ExportTask(exportDialog, listAdapter).execute(item.getItemId());
+				selectExportsDialog.show();
 				break;
 			}
 		}
@@ -351,5 +373,22 @@ public class BackupActivity extends ExpandableListActivity {
 				}
 			}
         });
+	}
+	
+	private static boolean checkRoot() {
+		try {
+			Process process = Runtime.getRuntime().exec("/system/bin/ls -l /system/bin/su /system/xbin/su");
+			
+			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			
+			String line = reader.readLine();
+			
+			reader.close();
+			process.destroy();
+			
+			return line != null && line.length() > 9 && line.charAt(9) == 'x';
+		} catch (Exception e) {
+			return false;
+		}
 	}
 }

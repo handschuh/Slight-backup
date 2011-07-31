@@ -30,18 +30,13 @@ import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
 public class EverythingExporter extends Exporter {	
+	public static final int ID = 0;
+	
 	private Exporter[] exporters;
 	
 	public EverythingExporter(Context context, ExportTask exportTask) {
 		super(exportTask);
-		exporters = new Exporter[] {
-				new BookmarkExporter(context, exportTask),
-				new CallLogExporter(context, exportTask),
-				new MessageExporter(context, exportTask),
-				new UserDictionaryExporter(context, exportTask),
-				new PlaylistExporter(context, exportTask),
-				new SettingsExporter(context, exportTask),
-		};
+		exporters = Exporter.getAllExporters(context, exportTask);
 	}
 
 	@Override
@@ -89,7 +84,7 @@ public class EverythingExporter extends Exporter {
 	
 	@Override
 	public int getId() {
-		return BackupActivity.MENU_EXPORTEVERYTHING_ID;
+		return ID;
 	}
 
 	@Override

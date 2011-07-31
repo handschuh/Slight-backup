@@ -25,11 +25,13 @@ package de.shandschuh.slightbackup.exporter;
 
 import android.content.Context;
 import android.provider.CallLog;
-import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public class CallLogExporter extends SimpleExporter {
+	public static final int ID = 2;
+	
+	public static final int NAMEID = R.string.calllogs;
 
 	public CallLogExporter(Context context, ExportTask exportTask) {
 		super(context, Strings.TAG_CALL, CallLog.Calls.CONTENT_URI, exportTask);
@@ -42,12 +44,12 @@ public class CallLogExporter extends SimpleExporter {
 
 	@Override
 	public int getId() {
-		return BackupActivity.MENU_EXPORTCALLLOG_ID;
+		return ID;
 	}
 
 	@Override
 	public int getTranslatedContentName() {
-		return R.string.calllogs;
+		return NAMEID;
 	}
 	
 }

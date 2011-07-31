@@ -23,14 +23,20 @@
 
 package de.shandschuh.slightbackup.exporter;
 
+import java.io.IOException;
+import java.io.Writer;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore.Audio;
-import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public class PlaylistExporter extends SimpleExporter {
+	public static final int ID = 5;
+	
+	public static final int NAMEID = R.string.playlists;
+	
 	private static final String QUERY_ID = Audio.Media._ID+"=?";
 	
 	private static final String ENDQUOTETAG = "\"/>";
@@ -52,11 +58,11 @@ public class PlaylistExporter extends SimpleExporter {
 	}
 
 	@Override
-	public void addText(Cursor cursor, StringBuilder builder) {
+	public void addText(Cursor cursor, Writer writer) throws IOException {
 		if (idPosition < 0) {
 			idPosition = cursor.getColumnIndex(Audio.Playlists._ID);
 		}
-		builder.append('\n');
+		writer.write('\n');
 		
 		Cursor audioIdCursor = context.getContentResolver().query(Audio.Playlists.Members.getContentUri(Strings.EXTERNAL, cursor.getLong(idPosition)), PROJECTION_AUDIOID, null, null, Audio.Playlists.Members.PLAY_ORDER);
 		
@@ -64,13 +70,13 @@ public class PlaylistExporter extends SimpleExporter {
 			Cursor audioFileCursor = context.getContentResolver().query(Audio.Media.EXTERNAL_CONTENT_URI, PROJECTION_DATA, QUERY_ID, new String[] {audioIdCursor.getString(0)}, null);
 			
 			if (audioFileCursor.moveToNext()) {
-				builder.append('<');
-				builder.append(Strings.TAG_FILE);
-				builder.append(' ');
-				builder.append(Audio.Media.DATA);
-				builder.append(EQUALS);
-				builder.append(audioFileCursor.getString(0));
-				builder.append(ENDQUOTETAG);
+				writer.write('<');
+				writer.write(Strings.TAG_FILE);
+				writer.write(' ');
+				writer.write(Audio.Media.DATA);
+				writer.write(EQUALS);
+				writer.write(audioFileCursor.getString(0));
+				writer.write(ENDQUOTETAG);
 			}
 			audioFileCursor.close();
 		}
@@ -79,12 +85,12 @@ public class PlaylistExporter extends SimpleExporter {
 	
 	@Override
 	public int getId() {
-		return BackupActivity.MENU_EXPORTPLAYLIST_ID;
+		return ID;
 	}
 
 	@Override
 	public int getTranslatedContentName() {
-		return R.string.playlists;
+		return NAMEID;
 	}
 
 }

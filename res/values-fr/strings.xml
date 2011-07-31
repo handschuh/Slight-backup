@@ -1,11 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Slight backup</string>
-    <string name="menu_exportsms">Exporter les SMS</string>
-    <string name="menu_exportcalllog">Exporter le journal d\'appels</string>
-    <string name="menu_exportbookmarks">Exporter les signets</string>
-    <string name="menu_exportuserdictionary">Exporter le dictionnaire personnel</string>
-    <string name="menu_exportplaylists">Exporter les listes de lecture</string>
+    <string name="menu_export">Exporter ...</string>
     <string name="menu_exporteverything">Tout exporter</string>
     <string name="menu_about">À propos</string>
     <string name="contextmenu_deletefile">Effacer le fichier</string>

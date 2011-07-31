@@ -29,7 +29,6 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface.OnClickListener;
 import android.widget.Toast;
-import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.BackupFilesListAdapter;
 import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.R;
@@ -52,38 +51,8 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 
 	@Override
 	protected Integer doInBackground(Integer... params) {
-		switch (params[0]) {
-			case BackupActivity.MENU_EXPORTBOOKMARKS_ID: {
-				exporter = new BookmarkExporter(progressDialog.getContext(), this);
-				break;
-			}
-			case BackupActivity.MENU_EXPORTCALLLOG_ID: {
-				exporter = new CallLogExporter(progressDialog.getContext(), this);
-				break;
-			}
-			case BackupActivity.MENU_EXPORTSMS_ID: {
-				exporter = new MessageExporter(progressDialog.getContext(), this);
-				break;
-			}
-			case BackupActivity.MENU_EXPORTUSERDICTIONARY_ID: {
-				exporter = new UserDictionaryExporter(progressDialog.getContext(), this);
-				break;
-			}
-			case BackupActivity.MENU_EXPORTPLAYLIST_ID: {
-				exporter = new PlaylistExporter(progressDialog.getContext(), this);
-				break;
-			}
-			case BackupActivity.MENU_EXPORTSETTINGS_ID: {
-				exporter = new SettingsExporter(progressDialog.getContext(), this);
-				break;
-			}
-			case BackupActivity.MENU_EXPORTEVERYTHING_ID: {
-				exporter = new EverythingExporter(progressDialog.getContext(), this);
-				break;
-			}
-		}
+		exporter = Exporter.getById(params[0], progressDialog.getContext(), this);
 		publishProgress(MESSAGE_TYPE, params[0]);
-		
 		try {
 			return exporter.export(); // checks itself for cancellation 
 		} catch (Exception e) {
@@ -135,7 +104,7 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 	protected void onProgressUpdate(Integer... values) {
 		if (values[0] == MESSAGE_TYPE) {
 			switch (values[1]) {
-				case BackupActivity.MENU_EXPORTEVERYTHING_ID:{
+				case EverythingExporter.ID:{
 					// the case for "everything" is not needed since this is just a set of all available exports
 					break;
 				}

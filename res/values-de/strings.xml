@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="menu_exportsms">SMS exportieren</string>
-    <string name="menu_exportcalllog">Anrufliste exportieren</string>
-    <string name="menu_exportbookmarks">Lesezeichen exportieren</string>
-    <string name="menu_exportuserdictionary">Benutzerwörterbuch exportieren</string>
-    <string name="menu_exportplaylists">Exportiere Playlisten</string>
+    <string name="menu_export">Exportiere ...</string>
     <string name="menu_exporteverything">Exportiere alles</string>
     <string name="menu_about">Info</string>
     <string name="contextmenu_deletefile">Datei löschen</string>

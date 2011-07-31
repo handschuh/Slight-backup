@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="menu_exportsms">SMSエクスポート</string>
-    <string name="menu_exportcalllog">発着信履歴エクスポート</string>
-    <string name="menu_exportbookmarks">ブックマークエクスポート</string>
-    <string name="menu_exportuserdictionary">ユーザー辞書エクスポート</string>
-    <string name="menu_exportplaylists">曲順エクスポート</string>
+    <string name="menu_export">エクスポート...</string>
     <string name="menu_exporteverything">全てエクスポート</string>
     <string name="menu_about">インフメーション</string>
     <string name="contextmenu_deletefile">ファイルを消去します</string>

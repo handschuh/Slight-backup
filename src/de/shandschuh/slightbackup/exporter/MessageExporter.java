@@ -23,6 +23,9 @@
 
 package de.shandschuh.slightbackup.exporter;
 
+import java.io.IOException;
+import java.io.Writer;
+
 import android.content.Context;
 import android.database.Cursor;
 import de.shandschuh.slightbackup.BackupActivity;
@@ -30,6 +33,10 @@ import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public class MessageExporter extends SimpleExporter {
+	public static final int ID = 3;
+	
+	public static final int NAMEID = R.string.messages;
+	
 	private int bodyPosition;
 
 	public MessageExporter(Context context, ExportTask exportTask) {
@@ -38,11 +45,11 @@ public class MessageExporter extends SimpleExporter {
 	}
 	
 	@Override
-	public void addText(Cursor cursor, StringBuilder builder) {
+	public void addText(Cursor cursor, Writer writer) throws IOException {
 		if (bodyPosition == -1) {
 			bodyPosition = cursor.getColumnIndex(Strings.BODY);
 		}
-		builder.append(cursor.getString(bodyPosition).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"));
+		writer.write(cursor.getString(bodyPosition).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"));
 	}
 
 	@Override
@@ -58,12 +65,12 @@ public class MessageExporter extends SimpleExporter {
 	
 	@Override
 	public int getId() {
-		return BackupActivity.MENU_EXPORTSMS_ID;
+		return ID;
 	}
 
 	@Override
 	public int getTranslatedContentName() {
-		return R.string.messages;
+		return NAMEID;
 	}
 
 }
