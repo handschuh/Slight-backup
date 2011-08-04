@@ -3,12 +3,13 @@
     <string name="app_name">Slight backup</string>
     <string name="menu_export">Export ...</string>
     <string name="menu_exporteverything">Export everything</string>
+    <string name="menu_settings">Settings</string>
     <string name="menu_about">About</string>
     <string name="contextmenu_deletefile">Delete file</string>
     <string name="contextmenu_deletedaydata">Delete this days data</string>
     <string name="error_nosdcard">No SD-card present.</string>
     <string name="error_unsupporteddatabasestructure">Unsupported database structure</string>
-    <string name="error_couldnotcreatebackupfolder">Could not create backupfolder on SD-card</string>
+    <string name="error_couldnotcreatebackupfolder">Could not create backupfolder (%s)</string>
     <string name="error_somethingwentwrong">Something went wrong: %s.</string>
     <string name="hint_nobackupsfound">No backups found - press menu-key to create some.</string>
     <string name="hint_noexportdata">No data available for export.</string>
@@ -41,7 +42,10 @@
 		THE SOFTWARE.
 	</string>
 	
-	<string name="license_intro">This software is distributed under the MIT open source license and its source code is available under http://github.com/handschuh/Slight-backup</string>
+	<string name="license_intro">
+	    This software is distributed under the MIT open source license and its source
+	    code is available under http://github.com/handschuh/Slight-backup
+	</string>
     <string name="message_exportedto">Exported into %s.</string>
     <string name="message_importsuccessful">Import successful.</string>
     <plurals name="listentry_items">
@@ -57,7 +61,27 @@
     <string name="userdictionary">user-dictionary</string>
     <string name="playlists">playlists</string>
     <string name="settings">settings</string>
+    <string name="wifisettings">wifi-settings</string>
     <string name="dialog_export">Export</string>
     <string name="dialog_licenseagreement">License</string>
     <string name="question_deletefile">Do you really want to delete the file %s?</string>
+    
+    <string name="settings_category_cyclicbehavior">Cyclic behavior</string>
+    <string name="settings_cyclecount">Cycle count</string>
+    <string name="settings_cyclecount_description">Max. number of backups of one type</string>
+    <string name="settings_category_storage">Storage</string>
+    <string name="settings_storagelocation">Storage location</string>
+    <string name="settings_storagelocation_description">Location of the backup files</string>
+    <string name="settings_storagelocation_hint">Standard external storage</string>
+    
+    <string-array name="settings_cyclecountvalues">
+        <item>All</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
 </resources>

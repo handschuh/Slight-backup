@@ -66,6 +66,10 @@ public final class Strings {
 	
 	public static final String PREFERENCE_LICENSEACCEPTED = "license.accepted";
 	
+	public static final String PREFERENCE_CYCLECOUNT = "cyclecount";
+	
+	public static final String PREFERENCE_STORAGELOCATION = "storage.location";
+	
 	public static final String THREENEWLINES = "\n\n\n";
 	
 	public static final String EMPTY = "";
@@ -82,6 +86,8 @@ public final class Strings {
 	
 	public static final String EXTERNAL = "external";
 	
+	public static final String ZERO = "0";
+	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",
 		"address",
@@ -91,8 +97,6 @@ public final class Strings {
 		"service_center",
 		"locked"
 	};
-
-	
 
 	public static int indexOf(String[] array, String string) {
     	for (int n = 0, i = array != null ? array.length : 0; n < i; n++) {

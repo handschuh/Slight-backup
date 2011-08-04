@@ -6,7 +6,7 @@
     <string name="contextmenu_deletefile">Dosyayı sil</string>
     <string name="error_nosdcard">SD kartı yok.</string>
     <string name="error_unsupporteddatabasestructure">Desteklenmeyen veritabanı yapısı</string>
-    <string name="error_couldnotcreatebackupfolder">SD kartında yedek dosya yaratılamadı</string>
+    <string name="error_couldnotcreatebackupfolder">SD kartında yedek dosya yaratılamadı (%s)</string>
     <string name="error_somethingwentwrong">Bir hata oluştu: %s.</string>
     <string name="hint_nobackupsfound">Hiçbir yedek dosya bulunamadı - Menu tuşuna basıp yaratın.</string>
     <string name="hint_noexportdata">Dışa aktarım için hiçbir veri yok.</string>

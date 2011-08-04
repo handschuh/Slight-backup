@@ -23,7 +23,6 @@
 
 package de.shandschuh.slightbackup.exporter;
 
-import android.content.Context;
 import android.provider.Settings;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
@@ -33,8 +32,8 @@ public class SettingsExporter extends SimpleExporter {
 	
 	public static final int NAMEID = R.string.settings;
 	
-	public SettingsExporter(Context context, ExportTask exportTask) {
-		super(context, Strings.TAG_SETTING, Settings.System.CONTENT_URI, exportTask);
+	public SettingsExporter(ExportTask exportTask) {
+		super(Strings.TAG_SETTING, Settings.System.CONTENT_URI, exportTask);
 	}
 
 	@Override

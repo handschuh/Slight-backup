@@ -6,7 +6,7 @@
     <string name="contextmenu_deletefile">Datei löschen</string>
     <string name="error_nosdcard">Keine SD-Karte vorhanden.</string>
     <string name="error_unsupporteddatabasestructure">Nicht unterstützte Datenbankstruktur</string>
-    <string name="error_couldnotcreatebackupfolder">Konnte den backup-Ordner nicht auf der SD-Karte erstellen</string>
+    <string name="error_couldnotcreatebackupfolder">Konnte den backup-Ordner (%s) nicht erstellen</string>
     <string name="error_somethingwentwrong">Etwas ist schief gelaufen: %s.</string>
     <string name="hint_nobackupsfound">Keine Backups gefunden - zum erstellen, Menüknopf drücken.</string>
     <string name="hint_noexportdata">Keine Daten für den Export vorhanden.</string>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen 
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory 
+        android:title="@string/settings_category_cyclicbehavior">
+        <ListPreference
+            android:title="@string/settings_cyclecount"
+            android:summary="@string/settings_cyclecount_description"
+            android:key="cyclecount" 
+            android:numeric="integer"
+            android:defaultValue="0"
+            android:entries="@array/settings_cyclecountvalues"
+            android:entryValues="@array/settings_cyclecounts" />
+    </PreferenceCategory>
+    <PreferenceCategory 
+        android:title="@string/settings_category_storage">
+        <EditTextPreference
+            android:title="@string/settings_storagelocation"
+            android:summary="@string/settings_storagelocation_description"
+            android:key="storage.location"
+            android:hint="@string/settings_storagelocation_hint" />
+    </PreferenceCategory>
+</PreferenceScreen>

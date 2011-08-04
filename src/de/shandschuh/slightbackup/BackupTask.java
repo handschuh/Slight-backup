@@ -30,6 +30,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
 import android.os.AsyncTask;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 public abstract class BackupTask<A, B> extends AsyncTask<A, Integer, B> {
 	public static final int MESSAGE_TYPE = 0;
@@ -71,6 +72,24 @@ public abstract class BackupTask<A, B> extends AsyncTask<A, Integer, B> {
 			progressDialog.setProgress(values[1]);
 		}
 		super.onProgressUpdate(values);
+	}
+
+	@Override
+	protected void onCancelled() {
+		progressDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		super.onCancelled();
+	}
+
+	@Override
+	protected void onPostExecute(B result) {
+		progressDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		super.onPostExecute(result);
+	}
+
+	@Override
+	protected void onPreExecute() {
+		progressDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		super.onPreExecute();
 	}
 
 }

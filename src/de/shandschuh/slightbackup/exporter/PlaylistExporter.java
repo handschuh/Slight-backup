@@ -26,7 +26,6 @@ package de.shandschuh.slightbackup.exporter;
 import java.io.IOException;
 import java.io.Writer;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore.Audio;
 import de.shandschuh.slightbackup.R;
@@ -47,8 +46,8 @@ public class PlaylistExporter extends SimpleExporter {
 	
 	private int idPosition;
 	
-	public PlaylistExporter(Context context, ExportTask exportTask) {
-		super(context, Strings.TAG_PLAYLIST, Audio.Playlists.EXTERNAL_CONTENT_URI, exportTask);
+	public PlaylistExporter(ExportTask exportTask) {
+		super(Strings.TAG_PLAYLIST, Audio.Playlists.EXTERNAL_CONTENT_URI, exportTask);
 		idPosition = -1;
 	}
 

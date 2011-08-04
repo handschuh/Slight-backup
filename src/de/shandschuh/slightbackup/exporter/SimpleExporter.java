@@ -33,7 +33,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
-import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
@@ -73,9 +72,9 @@ public abstract class SimpleExporter extends Exporter {
 	
 	private String filename;
 	
-	public SimpleExporter(Context context, String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, ExportTask exportTask) {
+	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, ExportTask exportTask) {
 		super(exportTask);
-		this.context = context;
+		this.context = exportTask.getContext();
 		this.tag = tag;
 		this.fields = fields;
 		this.contentUri = contentUri;
@@ -84,23 +83,20 @@ public abstract class SimpleExporter extends Exporter {
 		canceled = false;
 	}
 	
-	public SimpleExporter(Context context, String tag, String[] fields, Uri contentUri, boolean checkFields, ExportTask exportTask) {
-		this(context, tag, fields, contentUri, checkFields, null, exportTask);
+	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, ExportTask exportTask) {
+		this(tag, fields, contentUri, checkFields, null, exportTask);
 	}
 	
-	public SimpleExporter(Context context, String tag, Uri contentUri, String selection, ExportTask exportTask) {
-		this(context, tag, null, contentUri, false, selection, exportTask);
+	public SimpleExporter(String tag, Uri contentUri, String selection, ExportTask exportTask) {
+		this(tag, null, contentUri, false, selection, exportTask);
 	}
 	
-	public SimpleExporter(Context context, String tag, Uri contentUri, ExportTask exportTask) {
-		this(context, tag, contentUri, null, exportTask);
+	public SimpleExporter(String tag, Uri contentUri, ExportTask exportTask) {
+		this(tag, contentUri, null, exportTask);
 	}
 	
 	public final int export(String filename) throws Exception {
 		this.filename = filename;
-		if (!BackupActivity.DIR.exists() && !BackupActivity.DIR.mkdir()) {
-			throw new Exception(context.getString(R.string.error_couldnotcreatebackupfolder));
-		}
 		
 		Cursor cursor = context.getContentResolver().query(contentUri, null, selection, null, null);
 		

@@ -6,7 +6,7 @@
     <string name="contextmenu_deletefile">ファイルを消去します</string>
     <string name="error_nosdcard">SDカードが存在しません。</string>
     <string name="error_unsupporteddatabasestructure">データベースの構成が合いません</string>
-    <string name="error_couldnotcreatebackupfolder">SDカードにバックアップフォルダが作成できませんでした</string>
+    <string name="error_couldnotcreatebackupfolder">バックアップフォルダ（%s）が作成できませんでした</string>
     <string name="error_somethingwentwrong">何か問題がありました：%s</string>
     <string name="hint_nobackupsfound">バックアップデータが見つかりません。作成をするため、メニューボタンを押して下さい。</string>
     <string name="hint_noexportdata">エクスポートをするデータが見つかりません。</string>

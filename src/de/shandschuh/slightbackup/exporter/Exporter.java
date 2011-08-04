@@ -23,8 +23,11 @@
 
 package de.shandschuh.slightbackup.exporter;
 
+import java.util.Vector;
+
 import android.content.Context;
 import de.shandschuh.slightbackup.BackupActivity;
+import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class Exporter {
@@ -46,14 +49,19 @@ public abstract class Exporter {
 	
 	protected ExportTask exportTask;
 	
+	private byte[] password;
+	
 	public Exporter(ExportTask exportTask) {
 		this.exportTask = exportTask;
 	}
 	
-	public abstract int export(String filename) throws Exception;
+	protected abstract int export(String filename) throws Exception;
 	
 	public int export() throws Exception {
-		return export(new StringBuilder(BackupActivity.DIR_NAME).append(getContentName()).append(Strings.FILE_SUFFIX).append(System.currentTimeMillis()).append(Strings.FILE_EXTENSION).toString());
+		if (!BackupActivity.DIR.exists() && !BackupActivity.DIR.mkdir()) {
+			throw new Exception(exportTask.getContext().getString(R.string.error_couldnotcreatebackupfolder, BackupActivity.DIR.toString()));
+		}
+		return export(new StringBuilder(BackupActivity.DIR.toString()).append('/').append(getContentName()).append(Strings.FILE_SUFFIX).append(System.currentTimeMillis()).append(Strings.FILE_EXTENSION).toString());
 	}
 	
 	public abstract String getContentName();
@@ -66,52 +74,76 @@ public abstract class Exporter {
 	
 	public abstract int getId();
 	
-	public static Exporter getById(int id, Context context, ExportTask exportTask) {
+	public boolean isEncrypted() {
+		return false;
+	}
+	
+	public static Exporter getById(int id, ExportTask exportTask) {
 		switch (id) {
 			case BookmarkExporter.ID: 
-				return new BookmarkExporter(context, exportTask);
+				return new BookmarkExporter(exportTask);
 			case CallLogExporter.ID: 
-				return new CallLogExporter(context, exportTask);
+				return new CallLogExporter(exportTask);
 			case MessageExporter.ID: 
-				return new MessageExporter(context, exportTask);
+				return new MessageExporter(exportTask);
 			case UserDictionaryExporter.ID: 
-				return new UserDictionaryExporter(context, exportTask);
+				return new UserDictionaryExporter(exportTask);
 			case PlaylistExporter.ID: 
-				return new PlaylistExporter(context, exportTask);
+				return new PlaylistExporter(exportTask);
 			case SettingsExporter.ID: 
-				return new SettingsExporter(context, exportTask);
+				return new SettingsExporter(exportTask);
+			case WifiSettingsExporter.ID:
+				return new WifiSettingsExporter(exportTask);
 			case EverythingExporter.ID: 
-				return new EverythingExporter(context, exportTask);
+				return new EverythingExporter(exportTask);
 		}
 		return null;
 	}
 	
 	public static ExporterInfos getExporterInfos(Context context) {
-		return new ExporterInfos(new int[] {
-				BookmarkExporter.ID,
-				CallLogExporter.ID,
-				MessageExporter.ID,
-				UserDictionaryExporter.ID,
-				PlaylistExporter.ID,
-				SettingsExporter.ID
-		}, new String[] {
-				context.getString(BookmarkExporter.NAMEID),
-				context.getString(CallLogExporter.NAMEID),
-				context.getString(MessageExporter.NAMEID),
-				context.getString(UserDictionaryExporter.NAMEID),
-				context.getString(PlaylistExporter.NAMEID),
-				context.getString(SettingsExporter.NAMEID)
-		});
+		Vector<Integer> ids = new Vector<Integer>(10);
+		
+		Vector<String> names = new Vector<String>(10);
+		
+		ids.add(BookmarkExporter.ID);
+		names.add(context.getString(BookmarkExporter.NAMEID));
+		ids.add(CallLogExporter.ID);
+		names.add(context.getString(CallLogExporter.NAMEID));
+		ids.add(MessageExporter.ID);
+		names.add(context.getString(MessageExporter.NAMEID));
+		ids.add(UserDictionaryExporter.ID);
+		names.add(context.getString(UserDictionaryExporter.NAMEID));
+		ids.add(PlaylistExporter.ID);
+		names.add(context.getString(PlaylistExporter.NAMEID));
+		ids.add(SettingsExporter.ID);
+		names.add(context.getString(SettingsExporter.NAMEID));
+		if (BackupActivity.CANHAVEROOT) {
+			ids.add(WifiSettingsExporter.ID);
+			names.add(context.getString(WifiSettingsExporter.NAMEID));
+		}
+		
+		int[] intIds = new int[ids.size()];
+		
+		for (int n = 0, i = ids.size(); n < i; n++) {
+			intIds[n] = ids.get(n);
+		}
+		return new ExporterInfos(intIds, names.toArray(new String[0]));
 	}
 	
-	public static Exporter[] getAllExporters(Context context, ExportTask exportTask) {
-		return new Exporter[] {
-				new BookmarkExporter(context, exportTask),
-				new CallLogExporter(context, exportTask),
-				new MessageExporter(context, exportTask),
-				new UserDictionaryExporter(context, exportTask),
-				new PlaylistExporter(context, exportTask),
-				new SettingsExporter(context, exportTask),
-		};
+	public static Vector<Exporter> getAllExporters(ExportTask exportTask) {
+		Vector<Exporter> result = new Vector<Exporter>(10);
+		
+		result.add(new BookmarkExporter(exportTask));
+		result.add(new CallLogExporter(exportTask));
+		result.add(new MessageExporter(exportTask));
+		result.add(new UserDictionaryExporter(exportTask));
+		result.add(new PlaylistExporter(exportTask));
+		result.add(new SettingsExporter(exportTask));
+		
+		if (BackupActivity.CANHAVEROOT) {
+			result.add(new WifiSettingsExporter(exportTask));
+		}
+		return result;
 	}
+	
 }

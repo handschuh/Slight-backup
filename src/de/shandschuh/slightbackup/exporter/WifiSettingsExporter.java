@@ -23,22 +23,46 @@
 
 package de.shandschuh.slightbackup.exporter;
 
-import android.provider.Browser;
 import de.shandschuh.slightbackup.R;
-import de.shandschuh.slightbackup.Strings;
+import android.content.Context;
 
-public class BookmarkExporter extends SimpleExporter {
-	public static final int ID = 1;
+public class WifiSettingsExporter extends Exporter {
+	public static final int ID = 7;
 	
-	public static final int NAMEID = R.string.bookmarks;
+	public static final int NAMEID = R.string.wifisettings;
+	
+	private Context context;
+	
+	private String filename;
+	
+	public WifiSettingsExporter(ExportTask exportTask) {
+		super(exportTask);
+		this.context = exportTask.getContext();
+	}
 
-	public BookmarkExporter(ExportTask exportTask) {
-		super(Strings.TAG_BOOKMARK, Browser.BOOKMARKS_URI, Browser.BookmarkColumns.BOOKMARK+"=1", exportTask);
+	@Override
+	public void cancel() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public int export(String filename) throws Exception {
+		// TODO Auto-generated method stub
+		this.filename = filename;
+		
+		return 0;
 	}
 
 	@Override
 	public String getContentName() {
-		return Strings.BOOKMARKS;
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String[] getExportedFilenames() {
+		return new String[] {filename};
 	}
 
 	@Override
@@ -48,7 +72,13 @@ public class BookmarkExporter extends SimpleExporter {
 
 	@Override
 	public int getTranslatedContentName() {
-		return NAMEID;
+		// TODO Auto-generated method stub
+		return 0;
 	}
-	
+
+	@Override
+	public boolean isEncrypted() {
+		return true;
+	}
+
 }

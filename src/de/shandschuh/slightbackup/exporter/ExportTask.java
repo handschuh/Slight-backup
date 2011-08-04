@@ -27,6 +27,7 @@ import java.io.File;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.widget.Toast;
 import de.shandschuh.slightbackup.BackupFilesListAdapter;
@@ -44,14 +45,18 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 	public ExportTask(ProgressDialog progressDialog, BackupFilesListAdapter listAdapter) {
 		super(progressDialog);
 		this.listAdapter = listAdapter;
-
+		
 		progressDialog.setButton(Dialog.BUTTON_POSITIVE, null, (OnClickListener) null); // disables the positive button
 		progressDialog.setTitle(R.string.dialog_export);
+	}
+	
+	public Context getContext() {
+		return progressDialog.getContext();
 	}
 
 	@Override
 	protected Integer doInBackground(Integer... params) {
-		exporter = Exporter.getById(params[0], progressDialog.getContext(), this);
+		exporter = Exporter.getById(params[0], this);
 		publishProgress(MESSAGE_TYPE, params[0]);
 		try {
 			return exporter.export(); // checks itself for cancellation 

@@ -34,12 +34,16 @@ import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -63,8 +67,9 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	public static final int MENU_EXPORTEVERYTHING_ID = 101;
 	
-	private static final int MENU_ABOUT_ID = 102;
+	private static final int MENU_SETTINGS_ID = 102;
 	
+	private static final int MENU_ABOUT_ID = 110;
 	
 	private static final int CONTEXTMENU_IMPORT = 21;
 	
@@ -78,11 +83,13 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	public static final int DIALOG_EXPORT = 4;
 	
-	public static final String DIR_NAME = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/backup/").toString();
+	public static final String STANDARD_DIRNAME = new StringBuilder(Environment.getExternalStorageDirectory().toString()).append("/backup/").toString();
 	
-	public static final File DIR = new File(DIR_NAME);
+	public static File DIR;
 	
-	public static final boolean CANHAVEROOT = checkRoot();
+	public static final boolean CANHAVEROOT = false && checkRoot(); // not yet ready, forgot to branch
+	
+	public static BackupActivity INSTANCE;
 	
 	public BackupFilesListAdapter listAdapter;
 	
@@ -100,6 +107,7 @@ public class BackupActivity extends ExpandableListActivity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	INSTANCE = this;
         super.onCreate(savedInstanceState);
         if (getPreferences(MODE_PRIVATE).getBoolean(Strings.PREFERENCE_LICENSEACCEPTED, false)) {
         	setContent();
@@ -112,11 +120,9 @@ public class BackupActivity extends ExpandableListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.add(0, MENU_EXPORT_ID, Menu.NONE, R.string.menu_export).setIcon(android.R.drawable.ic_menu_save);
 		menu.add(0, MENU_EXPORTEVERYTHING_ID, Menu.NONE, R.string.menu_exporteverything).setIcon(android.R.drawable.ic_menu_directions);
+		menu.add(0, MENU_SETTINGS_ID, Menu.NONE, R.string.menu_settings).setIcon(android.R.drawable.ic_menu_preferences);
 		menu.add(0, MENU_ABOUT_ID, Menu.NONE, R.string.menu_about).setIcon(android.R.drawable.ic_menu_info_details);
-		
-		if (CANHAVEROOT) {
-			// add root options
-		}
+
 		return true;
 	}
 
@@ -265,6 +271,10 @@ public class BackupActivity extends ExpandableListActivity {
 				selectExportsDialog.show();
 				break;
 			}
+			case MENU_SETTINGS_ID: {
+				startActivity(new Intent(this, ApplicationPreferencesActivity.class));
+				break;
+			}
 		}
 		return true;
 	}	
@@ -358,7 +368,17 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	private void setContent() {
 		setContentView(R.layout.main);
-        listAdapter = new BackupFilesListAdapter(this);
+		
+		SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+		
+		String dirName = preferences.getString(Strings.PREFERENCE_STORAGELOCATION, STANDARD_DIRNAME);
+		
+		if (TextUtils.isEmpty(dirName)) {
+			dirName = STANDARD_DIRNAME;
+		}
+		DIR = new File(dirName);
+		
+        listAdapter = new BackupFilesListAdapter(this, preferences);
         setListAdapter(listAdapter);
         getExpandableListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {

@@ -23,7 +23,6 @@
 
 package de.shandschuh.slightbackup.exporter;
 
-import android.content.Context;
 import android.provider.CallLog;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
@@ -33,8 +32,8 @@ public class CallLogExporter extends SimpleExporter {
 	
 	public static final int NAMEID = R.string.calllogs;
 
-	public CallLogExporter(Context context, ExportTask exportTask) {
-		super(context, Strings.TAG_CALL, CallLog.Calls.CONTENT_URI, exportTask);
+	public CallLogExporter(ExportTask exportTask) {
+		super(Strings.TAG_CALL, CallLog.Calls.CONTENT_URI, exportTask);
 	}
 
 	@Override

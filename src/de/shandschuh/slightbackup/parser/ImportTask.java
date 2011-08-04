@@ -49,7 +49,7 @@ public class ImportTask extends BackupTask<Void, Exception> {
 	public ImportTask(ProgressDialog progressDialog, File file, int count) {
 		super(progressDialog);
 		this.file = file;
-
+		
 		progressDialog.setTitle(R.string.button_import);
 		progressDialog.setMessage(file.toString());
 		progressDialog.setMax(Math.max(0, count));

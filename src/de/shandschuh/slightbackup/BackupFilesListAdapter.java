@@ -37,7 +37,9 @@ import java.util.TimeZone;
 import java.util.Vector;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,16 +65,33 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 	private Context context;
 	
 	private Resources resources;
+	
+	private SharedPreferences preferences;
 
-	public BackupFilesListAdapter(Context context) {
+	public BackupFilesListAdapter(Context context, SharedPreferences preferences) {
 		this.context = context;
+		this.preferences = preferences;
 		resources = context.getResources();
 		layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		dates = new Vector<Date>();
-		data = new HashMap<Date, Vector<File>>();
-		
+		reset(false);
+	}
+	
+	public void reset() {
+		reset(true);
+	}
+	
+	private void reset(boolean notify) {
+		if (dates == null) {
+			dates = new Vector<Date>();
+		} else {
+			dates.clear();
+		}
+		if (data == null) {
+			data = new HashMap<Date, Vector<File>>();
+		} else {
+			data.clear();
+		}
 		File[] files = BackupActivity.DIR.listFiles(new BackupFileNameFilter());
-		
 		
 		if (files != null && files.length > 0) {
 			Arrays.sort(files, new Comparator<File>() {
@@ -85,7 +104,9 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 				add(files[n], false);
 			}
 		}
-		
+		if (notify) {
+			notifyDataSetChanged();
+		}
 	}
 	
 	private static final class BackupFileNameFilter implements FilenameFilter {
@@ -191,17 +212,51 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		
 		Date date = new Date(longDate - (longDate % 86400000l)); // 86400000 == one day in milliseconds
 		
+		Vector<File> vector;
+		
 		if (!dates.contains(date)) {
 			dates.add(date);
 			
-			Vector<File> vector = new Vector<File>();
+			vector = new Vector<File>();
 			
 			vector.add(file);
 			data.put(date, vector);
 		} else {
-			data.get(date).add(file);
+			vector = data.get(date);
+			vector.add(file);
 		}
 		if (notify) {
+			// delete older files under the assumption that the added file is the newest
+			int cycleCount = Integer.parseInt(preferences.getString(Strings.PREFERENCE_CYCLECOUNT, Strings.ZERO));
+			
+			if (cycleCount > 0) {
+				String filename = file.toString();
+				
+				int backuptype = SimpleParser.getTranslatedParserName(filename);
+				Log.d("BackupType", ""+backuptype);
+				/** first, search the vector */
+				for (int n = vector.size()-2; n > -1; n--) {
+					if (backuptype == SimpleParser.getTranslatedParserName(vector.get(n).toString()) && --cycleCount < 1) {
+						vector.remove(n).delete();
+					}
+				}
+				
+				/** second, search the other data */
+				for (int n = dates.size()-2; n > -1; n--) {
+					vector = data.get(dates.get(n));
+					
+					for (int i = vector.size()-1; i >-1; i--) {
+						if (backuptype == SimpleParser.getTranslatedParserName(vector.get(i).toString()) && --cycleCount < 1) {
+							vector.remove(i).delete();
+						}
+					}
+					if (vector.size() == 0) {
+						data.remove(dates.get(n));
+						dates.remove(n);
+					}
+				}
+				
+			}
 			notifyDataSetChanged();
 		}
 	}

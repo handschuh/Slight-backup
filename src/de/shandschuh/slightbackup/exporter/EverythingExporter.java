@@ -25,18 +25,16 @@ package de.shandschuh.slightbackup.exporter;
 
 import java.util.Vector;
 
-import android.content.Context;
-import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
 public class EverythingExporter extends Exporter {	
 	public static final int ID = 0;
 	
-	private Exporter[] exporters;
+	private Vector<Exporter> exporters;
 	
-	public EverythingExporter(Context context, ExportTask exportTask) {
+	public EverythingExporter(ExportTask exportTask) {
 		super(exportTask);
-		exporters = Exporter.getAllExporters(context, exportTask);
+		exporters = Exporter.getAllExporters(exportTask);
 	}
 
 	@Override
@@ -60,7 +58,7 @@ public class EverythingExporter extends Exporter {
 	}
 	
 	private int export(Exporter exporter) throws Exception {
-		return exporter.export(new StringBuilder(BackupActivity.DIR_NAME).append(exporter.getContentName()).append(Strings.FILE_SUFFIX).append(System.currentTimeMillis()).append(Strings.FILE_EXTENSION).toString());
+		return exporter.export();
 	}
 
 	@Override

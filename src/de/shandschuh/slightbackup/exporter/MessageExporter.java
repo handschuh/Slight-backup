@@ -26,7 +26,6 @@ package de.shandschuh.slightbackup.exporter;
 import java.io.IOException;
 import java.io.Writer;
 
-import android.content.Context;
 import android.database.Cursor;
 import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.R;
@@ -39,8 +38,8 @@ public class MessageExporter extends SimpleExporter {
 	
 	private int bodyPosition;
 
-	public MessageExporter(Context context, ExportTask exportTask) {
-		super(context, Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, true, exportTask);
+	public MessageExporter(ExportTask exportTask) {
+		super(Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, true, exportTask);
 		bodyPosition = -1;
 	}
 	
