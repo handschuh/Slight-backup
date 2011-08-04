@@ -30,6 +30,8 @@ import de.shandschuh.slightbackup.Strings;
 public class EverythingExporter extends Exporter {	
 	public static final int ID = 0;
 	
+	private int currentNameId;
+	
 	private Vector<Exporter> exporters;
 	
 	public EverythingExporter(ExportTask exportTask) {
@@ -50,6 +52,7 @@ public class EverythingExporter extends Exporter {
 		int result = 0;
 		
 		for (Exporter exporter : exporters) {
+			currentNameId = exporter.getTranslatedContentName();
 			exportTask.progress(ExportTask.MESSAGE_TYPE, exporter.getId());
 			result += export(exporter);
 		}
@@ -87,7 +90,7 @@ public class EverythingExporter extends Exporter {
 
 	@Override
 	public int getTranslatedContentName() {
-		return 0;
+		return currentNameId;
 	}
 
 }

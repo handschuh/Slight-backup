@@ -254,7 +254,6 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 						dates.remove(n);
 					}
 				}
-				
 			}
 			notifyDataSetChanged();
 		}

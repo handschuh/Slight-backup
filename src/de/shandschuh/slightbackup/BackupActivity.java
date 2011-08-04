@@ -55,6 +55,7 @@ import android.view.View.OnCreateContextMenuListener;
 import android.widget.ExpandableListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import de.shandschuh.slightbackup.exporter.EverythingExporter;
 import de.shandschuh.slightbackup.exporter.ExportTask;
 import de.shandschuh.slightbackup.exporter.Exporter;
 import de.shandschuh.slightbackup.exporter.Exporter.ExporterInfos;
@@ -239,6 +240,14 @@ public class BackupActivity extends ExpandableListActivity {
 					}
 				});
 				deleteDayDialog.setMessage(String.format(getString(R.string.question_deletefile), date.toString()));
+				break;
+			}
+			case MENU_EXPORTEVERYTHING_ID: {
+				if (exportDialog == null) {
+					exportDialog = new ProgressDialog(BackupActivity.this);
+				}
+				checkProgressDialog(exportDialog);
+				new ExportTask(exportDialog, listAdapter).execute(EverythingExporter.ID);
 				break;
 			}
 			case MENU_EXPORT_ID: {
