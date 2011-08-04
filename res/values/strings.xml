@@ -67,7 +67,7 @@
     <string name="question_deletefile">Do you really want to delete the file %s?</string>
     
     <string name="settings_category_cyclicbehavior">Cyclic behavior</string>
-    <string name="settings_cyclecount">Cycle count</string>
+    <string name="settings_cyclecount">Cycle count (experimental)</string>
     <string name="settings_cyclecount_description">Max. number of backups of one type</string>
     <string name="settings_category_storage">Storage</string>
     <string name="settings_storagelocation">Storage location</string>
@@ -75,7 +75,7 @@
     <string name="settings_storagelocation_hint">Standard external storage</string>
     
     <string-array name="settings_cyclecountvalues">
-        <item>All</item>
+        <item>Unlimited</item>
         <item>1</item>
         <item>2</item>
         <item>3</item>

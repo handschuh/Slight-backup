@@ -39,7 +39,6 @@ import java.util.Vector;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -233,7 +232,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 				String filename = file.toString();
 				
 				int backuptype = SimpleParser.getTranslatedParserName(filename);
-				Log.d("BackupType", ""+backuptype);
+
 				/** first, search the vector */
 				for (int n = vector.size()-2; n > -1; n--) {
 					if (backuptype == SimpleParser.getTranslatedParserName(vector.get(n).toString()) && --cycleCount < 1) {

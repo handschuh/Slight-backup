@@ -32,4 +32,23 @@
     <string name="dialog_export">Exportieren</string>
     <string name="dialog_licenseagreement">Lizenz</string>
     <string name="question_deletefile">Wollen Sie wirklich die Datei %s löschen?</string>
+    
+    <string name="settings_category_cyclicbehavior">Zyklisches Verhalten</string>
+    <string name="settings_cyclecount">Zykelanzahl (experimentell) </string>
+    <string name="settings_cyclecount_description">Max. Anzahl eines Backup-types</string>
+    <string name="settings_category_storage">Speicher</string>
+    <string name="settings_storagelocation">Speicherort</string>
+    <string name="settings_storagelocation_description">Ort für die Backups</string>
+    <string name="settings_storagelocation_hint">Externer Standardspeicher</string>
+    
+    <string-array name="settings_cyclecountvalues">
+        <item>Unbegrenzt</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
 </resources>
