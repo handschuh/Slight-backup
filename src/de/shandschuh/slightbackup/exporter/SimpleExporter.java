@@ -105,7 +105,12 @@ public abstract class SimpleExporter extends Exporter {
 				throw new Exception(context.getString(R.string.error_unsupporteddatabasestructure));
 			}
 		} else if (fields == null) {
-			fields = cursor.getColumnNames();
+			if (cursor == null) {
+				this.filename = null;
+				return 0;
+			} else {
+				fields = cursor.getColumnNames();
+			}
 		}
 		
 		int count = cursor.getCount();

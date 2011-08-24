@@ -34,9 +34,12 @@ public class EverythingExporter extends Exporter {
 	
 	private Vector<Exporter> exporters;
 	
+	private Vector<Exporter> failedExporters;
+	
 	public EverythingExporter(ExportTask exportTask) {
 		super(exportTask);
 		exporters = Exporter.getAllExporters(exportTask);
+		failedExporters = new Vector<Exporter>();
 	}
 
 	@Override
@@ -53,8 +56,12 @@ public class EverythingExporter extends Exporter {
 		
 		for (Exporter exporter : exporters) {
 			currentNameId = exporter.getTranslatedContentName();
-			exportTask.progress(ExportTask.MESSAGE_TYPE, exporter.getId());
-			result += export(exporter);
+			exportTask.progress(ExportTask.MESSAGE_TYPE, exporter.getId()); 
+			try {
+				result += export(exporter);
+			} catch (Throwable t) {
+				failedExporters.add(exporter);
+			}
 		}
 		
 		return result;
@@ -74,10 +81,12 @@ public class EverythingExporter extends Exporter {
 		Vector<String> exportedFilenames = new Vector<String>();
 		
 		for (Exporter exporter : exporters) {
-			String[] filenames = exporter.getExportedFilenames();
-			
-			for (String filename : filenames) {
-				exportedFilenames.add(filename);
+			if (!failedExporters.contains(exporter)) {
+				String[] filenames = exporter.getExportedFilenames();
+				
+				for (String filename : filenames) {
+					exportedFilenames.add(filename);
+				}
 			}
 		}
 		return exportedFilenames.toArray(new String[0]);
