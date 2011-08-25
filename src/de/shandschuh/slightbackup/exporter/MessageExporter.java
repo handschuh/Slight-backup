@@ -39,7 +39,7 @@ public class MessageExporter extends SimpleExporter {
 	private int bodyPosition;
 
 	public MessageExporter(ExportTask exportTask) {
-		super(Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, true, exportTask);
+		super(Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, true, "1 order by date", exportTask);
 		bodyPosition = -1;
 	}
 	
