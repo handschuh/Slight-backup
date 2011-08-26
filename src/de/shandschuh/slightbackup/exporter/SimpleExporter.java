@@ -72,7 +72,9 @@ public abstract class SimpleExporter extends Exporter {
 	
 	private String filename;
 	
-	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, ExportTask exportTask) {
+	private String sortOrder;
+	
+	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, String sortOrder, ExportTask exportTask) {
 		super(exportTask);
 		this.context = exportTask.getContext();
 		this.tag = tag;
@@ -80,7 +82,12 @@ public abstract class SimpleExporter extends Exporter {
 		this.contentUri = contentUri;
 		this.selection = selection;
 		this.checkFields = checkFields;
+		this.sortOrder = sortOrder;
 		canceled = false;
+	}
+	
+	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, ExportTask exportTask) {
+		this(tag, fields, contentUri, checkFields, selection, null, exportTask);
 	}
 	
 	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, ExportTask exportTask) {
@@ -98,7 +105,7 @@ public abstract class SimpleExporter extends Exporter {
 	public final int export(String filename) throws Exception {
 		this.filename = filename;
 		
-		Cursor cursor = context.getContentResolver().query(contentUri, null, selection, null, null);
+		Cursor cursor = context.getContentResolver().query(contentUri, null, selection, null, sortOrder);
 		
 		if (checkFields && fields != null) {
 			if (cursor == null || !checkFieldNames(cursor.getColumnNames(), fields)) {
