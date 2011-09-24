@@ -48,7 +48,12 @@ public class MessageExporter extends SimpleExporter {
 		if (bodyPosition == -1) {
 			bodyPosition = cursor.getColumnIndex(Strings.BODY);
 		}
-		writer.write(cursor.getString(bodyPosition).replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"));
+		
+		String body = cursor.getString(bodyPosition);
+		
+		if (body != null) {
+			writer.write(body.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;"));
+		}
 	}
 
 	@Override
