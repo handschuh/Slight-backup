@@ -23,7 +23,7 @@
     <string name="button_import">インポート</string>
     <string name="button_accept">許可する</string>
     <string name="button_decline">許可しない</string>
-    <string name="messages">SMS</string>
+    <string name="smsmessages">SMS</string>
     <string name="calllogs">発着信履歴</string>
     <string name="bookmarks">ブックマーク</string>
     <string name="userdictionary">ユーザー辞書</string>

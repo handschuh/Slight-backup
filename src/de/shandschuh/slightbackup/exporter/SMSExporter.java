@@ -31,14 +31,14 @@ import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
-public class MessageExporter extends SimpleExporter {
+public class SMSExporter extends SimpleExporter {
 	public static final int ID = 3;
 	
-	public static final int NAMEID = R.string.messages;
+	public static final int NAMEID = R.string.smsmessages;
 	
 	private int bodyPosition;
 
-	public MessageExporter(ExportTask exportTask) {
+	public SMSExporter(ExportTask exportTask) {
 		super(Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, true, null, "date", exportTask);
 		bodyPosition = -1;
 	}

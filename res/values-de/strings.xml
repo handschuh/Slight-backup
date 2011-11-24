@@ -23,7 +23,7 @@
     <string name="button_import">Importieren</string>
     <string name="button_accept">Akzeptieren</string>
     <string name="button_decline">Ablehnen</string>
-    <string name="messages">Kurznachrichten</string>
+    <string name="smsmessages">Kurznachrichten</string>
     <string name="calllogs">Anrufliste</string>
     <string name="bookmarks">Lesezeichen</string>
     <string name="userdictionary">Benutzerwörterbuch</string>

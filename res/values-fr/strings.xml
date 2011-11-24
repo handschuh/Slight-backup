@@ -21,7 +21,7 @@
     <string name="button_import">Importer</string>
     <string name="button_accept">Accepter</string>
     <string name="button_decline">Décliner</string>
-    <string name="messages">messages courts</string>
+    <string name="smsmessages">messages courts</string>
     <string name="calllogs">journaux d\'appels</string>
     <string name="bookmarks">signets</string>
     <string name="userdictionary">dictionnaire personnel</string>

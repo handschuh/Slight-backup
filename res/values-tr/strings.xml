@@ -21,7 +21,7 @@
     <string name="button_import">İçe aktar</string>
     <string name="button_accept">Tamam</string>
     <string name="button_decline">İptal et</string>
-    <string name="messages">kısa mesajlar</string>
+    <string name="smsmessages">kısa mesajlar</string>
     <string name="calllogs">arama günlükleri</string>
     <string name="bookmarks">yer imleri</string>
     <string name="userdictionary">kullanıcı sözlüğü</string>

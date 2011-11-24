@@ -55,7 +55,7 @@
     <string name="button_import">Import</string>
     <string name="button_accept">Accept</string>
     <string name="button_decline">Decline</string>
-    <string name="messages">short messages</string>
+    <string name="smsmessages">short messages</string>
     <string name="calllogs">call-logs</string>
     <string name="bookmarks">bookmarks</string>
     <string name="userdictionary">user-dictionary</string>

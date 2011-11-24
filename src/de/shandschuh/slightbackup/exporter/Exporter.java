@@ -84,8 +84,8 @@ public abstract class Exporter {
 				return new BookmarkExporter(exportTask);
 			case CallLogExporter.ID: 
 				return new CallLogExporter(exportTask);
-			case MessageExporter.ID: 
-				return new MessageExporter(exportTask);
+			case SMSExporter.ID: 
+				return new SMSExporter(exportTask);
 			case UserDictionaryExporter.ID: 
 				return new UserDictionaryExporter(exportTask);
 			case PlaylistExporter.ID: 
@@ -109,8 +109,8 @@ public abstract class Exporter {
 		names.add(context.getString(BookmarkExporter.NAMEID));
 		ids.add(CallLogExporter.ID);
 		names.add(context.getString(CallLogExporter.NAMEID));
-		ids.add(MessageExporter.ID);
-		names.add(context.getString(MessageExporter.NAMEID));
+		ids.add(SMSExporter.ID);
+		names.add(context.getString(SMSExporter.NAMEID));
 		ids.add(UserDictionaryExporter.ID);
 		names.add(context.getString(UserDictionaryExporter.NAMEID));
 		ids.add(PlaylistExporter.ID);
@@ -135,7 +135,7 @@ public abstract class Exporter {
 		
 		result.add(new BookmarkExporter(exportTask));
 		result.add(new CallLogExporter(exportTask));
-		result.add(new MessageExporter(exportTask));
+		result.add(new SMSExporter(exportTask));
 		result.add(new UserDictionaryExporter(exportTask));
 		result.add(new PlaylistExporter(exportTask));
 		result.add(new SettingsExporter(exportTask));

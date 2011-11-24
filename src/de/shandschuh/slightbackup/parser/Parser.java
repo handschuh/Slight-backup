@@ -26,8 +26,13 @@ package de.shandschuh.slightbackup.parser;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.content.Context;
-import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
+import de.shandschuh.slightbackup.exporter.BookmarkExporter;
+import de.shandschuh.slightbackup.exporter.CallLogExporter;
+import de.shandschuh.slightbackup.exporter.PlaylistExporter;
+import de.shandschuh.slightbackup.exporter.SMSExporter;
+import de.shandschuh.slightbackup.exporter.SettingsExporter;
+import de.shandschuh.slightbackup.exporter.UserDictionaryExporter;
 
 public abstract class Parser extends DefaultHandler {
 	protected static final String COUNT = "count";
@@ -76,17 +81,17 @@ public abstract class Parser extends DefaultHandler {
 		filename = filename.substring(filename.lastIndexOf('/')+1);
 		
 		if (filename.startsWith(Strings.CALLLOGS)) {
-			return R.string.calllogs;
+			return CallLogExporter.NAMEID;
 		} else if (filename.startsWith(Strings.MESSAGES)) {
-			return R.string.messages;
+			return SMSExporter.NAMEID;
 		} else if (filename.startsWith(Strings.BOOKMARKS)) {
-			return R.string.bookmarks;
+			return BookmarkExporter.NAMEID;
 		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
-			return R.string.userdictionary;
+			return UserDictionaryExporter.NAMEID;
 		} else if (filename.startsWith(Strings.PLAYLISTS)) {
-			return R.string.playlists;
+			return PlaylistExporter.NAMEID;
 		} else if (filename.startsWith(Strings.SETTINGS)) {
-			return R.string.settings;
+			return SettingsExporter.NAMEID;
 		}
 		return android.R.string.unknownName;
 	}
