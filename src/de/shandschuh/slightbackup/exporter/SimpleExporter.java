@@ -1,4 +1,6 @@
 /**
+ * Slight backup - a simple backup tool
+ * 
  * Copyright (c) 2011 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -38,23 +40,9 @@ import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class SimpleExporter extends Exporter {
-	private static final String XML_START = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
-	
 	private static final String REALAMP = "&";
 	
-	private static final String ENDTAG_START = "</";
-	
 	protected static final String EQUALS = "=\"";
-	
-	private static final String TAG_END = ">\n";
-	
-	private static final String S_DATE = "s date=\"";
-	
-	private static final String _COUNT = "\" count=\"";
-	
-	protected static final String TAG_END_QUOTE = "\">\n";
-	
-	private static final String TAGS_END = "s>\n";
 	
 	protected Context context;
 	
@@ -142,15 +130,7 @@ public abstract class SimpleExporter extends Exporter {
     	
     	BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
     	
-    	writer.write(XML_START);
-    	
-    	writer.write('<');
-    	writer.write(tag);
-    	writer.write(S_DATE);
-    	writer.write(Long.toString(System.currentTimeMillis()));
-    	writer.write(_COUNT);
-    	writer.write(Integer.toString(count));
-    	writer.write(TAG_END_QUOTE);
+    	writeXmlStart(writer, tag, count);
     	
     	int position = 0;
     	
@@ -190,9 +170,7 @@ public abstract class SimpleExporter extends Exporter {
     	}
     	cursor.close();
     	
-    	writer.write(ENDTAG_START);
-		writer.write(tag);
-		writer.write(TAGS_END);
+    	writeXmlEnd(writer, tag);
 		writer.close();
     	
     	if (!canceled) {

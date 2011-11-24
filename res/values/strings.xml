@@ -17,7 +17,9 @@
     <string name="hint_existed">\"%s\" existed</string>
     
     <!-- there is no need for a translation of the following string -->
-    <string name="license">Copyright (c) 2011 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
+    <string name="license">Slight backup - a simple backup tool\n\n
+    
+		Copyright (c) 2011 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
 
     	Translators\n
 			 - French: &lt;unnamed&gt;\n
@@ -62,6 +64,7 @@
     <string name="playlists">playlists</string>
     <string name="settings">settings</string>
     <string name="wifisettings">wifi-settings</string>
+    <string name="applicationlist">application-list</string>
     <string name="dialog_export">Export</string>
     <string name="dialog_licenseagreement">License</string>
     <string name="question_deletefile">Do you really want to delete the file %s?</string>

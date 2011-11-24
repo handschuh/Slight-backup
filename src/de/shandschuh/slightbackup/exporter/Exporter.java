@@ -1,4 +1,6 @@
 /**
+ * Slight backup - a simple backup tool
+ * 
  * Copyright (c) 2011 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,6 +25,8 @@
 
 package de.shandschuh.slightbackup.exporter;
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.Vector;
 
 import android.content.Context;
@@ -31,6 +35,20 @@ import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class Exporter {
+	private static final String XML_START = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n";
+	
+	private static final String S_DATE = "s date=\"";
+	
+	private static final String _COUNT = "\" count=\"";
+	
+	protected static final String TAG_END_QUOTE = "\">\n";
+	
+	private static final String TAGS_END = "s>\n";
+	
+	protected static final String ENDTAG_START = "</";
+	
+	protected static final String TAG_END = ">\n";
+	
 	public static class ExporterInfos {
 		public int[] ids;
 		
@@ -48,8 +66,6 @@ public abstract class Exporter {
 	}
 	
 	protected ExportTask exportTask;
-	
-	private byte[] password;
 	
 	public Exporter(ExportTask exportTask) {
 		this.exportTask = exportTask;
@@ -94,6 +110,8 @@ public abstract class Exporter {
 				return new SettingsExporter(exportTask);
 			case WifiSettingsExporter.ID:
 				return new WifiSettingsExporter(exportTask);
+			case ApplicationListExporter.ID:
+				return new ApplicationListExporter(exportTask);
 			case EverythingExporter.ID: 
 				return new EverythingExporter(exportTask);
 		}
@@ -121,6 +139,8 @@ public abstract class Exporter {
 			ids.add(WifiSettingsExporter.ID);
 			names.add(context.getString(WifiSettingsExporter.NAMEID));
 		}
+		ids.add(ApplicationListExporter.ID);
+		names.add(context.getString(ApplicationListExporter.NAMEID));
 		
 		int[] intIds = new int[ids.size()];
 		
@@ -143,7 +163,27 @@ public abstract class Exporter {
 		if (BackupActivity.CANHAVEROOT) {
 			result.add(new WifiSettingsExporter(exportTask));
 		}
+		
+		result.add(new ApplicationListExporter(exportTask));
 		return result;
+	}
+	
+	public static void writeXmlStart(Writer writer, String tag, int count) throws IOException {
+		writer.write(XML_START);
+    	
+    	writer.write('<');
+    	writer.write(tag);
+    	writer.write(S_DATE);
+    	writer.write(Long.toString(System.currentTimeMillis()));
+    	writer.write(_COUNT);
+    	writer.write(Integer.toString(count));
+    	writer.write(TAG_END_QUOTE);
+	}
+	
+	public static void writeXmlEnd(Writer writer, String tag) throws IOException {
+		writer.write(ENDTAG_START);
+		writer.write(tag);
+		writer.write(TAGS_END);
 	}
 	
 }

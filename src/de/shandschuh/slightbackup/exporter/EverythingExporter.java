@@ -1,4 +1,6 @@
 /**
+ * Slight backup - a simple backup tool
+ * 
  * Copyright (c) 2011 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
