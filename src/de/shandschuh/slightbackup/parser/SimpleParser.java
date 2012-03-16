@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
- * 
- * Copyright (c) 2011 Stefan Handschuh
+ *
+ * Copyright (c) 2011, 2012 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup.parser;
@@ -61,7 +61,10 @@ public abstract class SimpleParser extends Parser {
 	/** Update the value if exists; only use it with existanceFields */
 	private boolean updateOnExist;
 	
-	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask, String[] existanceFields, boolean updateOnExist) {
+	/* vectorized nx2 matrix - key-value based */
+	private String[] ignoreValues;
+	
+	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask, String[] existanceFields, boolean updateOnExist, String[] ignoreValues) {
 		super(context, importTask);
 		this.tag = tag;
 		this.fields = fields;
@@ -86,16 +89,28 @@ public abstract class SimpleParser extends Parser {
 		}
 		canceled = false;
 		position = 0;
+		if (ignoreValues != null && ignoreValues.length % 2 != 0) {
+			throw new IllegalArgumentException();
+		}
+		this.ignoreValues = ignoreValues;
+	}
+	
+	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask, String[] existanceFields, boolean updateOnExist) {
+		this(context, tag, fields, contentUri, importTask, existanceFields, updateOnExist, null);
+	}
+	
+	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask, String[] existanceFields, String[] ignoreValues) {
+		this(context, tag, fields, contentUri, importTask, existanceFields, false, ignoreValues);
 	}
 	
 	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask, String[] existanceFields) {
-		this(context, tag, fields, contentUri, importTask, existanceFields, false);
+		this(context, tag, fields, contentUri, importTask, existanceFields, null);
 	}
 	
 	public SimpleParser(Context context, String tag, String[] fields, Uri contentUri, ImportTask importTask) {
 		this(context, tag, fields, contentUri, importTask, null);
 	}
-	
+
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		if (!canceled && !tagEntered) {
@@ -141,6 +156,17 @@ public abstract class SimpleParser extends Parser {
 				availableValues[n] = values[availableIndices.get(n)];
 			}
 			
+			if (ignoreValues != null) {
+				for (int n = 0, i = ignoreValues.length / 2; n < i; n++) {
+					for (int k = 0; k < length; k++) {
+						if (fields[availableIndices.get(k)].equalsIgnoreCase(ignoreValues[n*2]) && availableValues[k].equalsIgnoreCase(ignoreValues[n*2+1])) {
+							addSkippedEntry();
+							return;
+						}
+					}
+				}
+			}
+			
 			Cursor cursor = null;
 			
 			if (existanceFields == null) {
@@ -152,23 +178,17 @@ public abstract class SimpleParser extends Parser {
 				cursor = context.getContentResolver().query(contentUri, null, generateWhereQuery(existanceFields), existanceValues, null);
 			}
 			
+			ContentValues contentValues = new ContentValues();
+			
+			for (int n = 0; n < length; n++) {
+				contentValues.put(fields[availableIndices.get(n)], availableValues[n]);
+			}
+			addExtraContentValues(contentValues);
+			
 			if (!cursor.moveToFirst()) {
-				ContentValues contentValues = new ContentValues();
-				
-				for (int n = 0; n < length; n++) {
-					contentValues.put(fields[availableIndices.get(n)], availableValues[n]);
-				}
-				addExtraContentValues(contentValues);
-				context.getContentResolver().insert(contentUri, contentValues); 
+				context.getContentResolver().insert(contentUri, contentValues);
 			} else if (updateOnExist) {
 				/** Update the existing values */
-				
-				ContentValues contentValues = new ContentValues();
-				
-				for (int n = 0; n < length; n++) {
-					contentValues.put(fields[availableIndices.get(n)], availableValues[n]);
-				}
-				addExtraContentValues(contentValues);
 				context.getContentResolver().update(contentUri, contentValues, generateWhereQuery(existanceFields), existanceValues);
 			}
 			cursor.close();

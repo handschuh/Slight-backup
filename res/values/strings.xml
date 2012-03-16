@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Slight backup</string>
-    <string name="menu_export">Export ...</string>
+    <string name="menu_export">Export &#8230;</string>
     <string name="menu_exporteverything">Export everything</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_about">About</string>
@@ -13,13 +13,13 @@
     <string name="error_somethingwentwrong">Something went wrong: %s.</string>
     <string name="hint_nobackupsfound">No backups found - press menu-key to create some.</string>
     <string name="hint_noexportdata">No data available for export.</string>
-    <string name="hint_exporting">Exporting %s ...</string>
+    <string name="hint_exporting">Exporting %s &#8230;</string>
     <string name="hint_existed">\"%s\" existed</string>
     
     <!-- there is no need for a translation of the following string -->
     <string name="license">Slight backup - a simple backup tool\n\n
     
-		Copyright (c) 2011 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
+		Copyright &#169; 2011, 2012 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
 
     	Translators\n
 			 - French: &lt;unnamed&gt;\n
@@ -50,6 +50,10 @@
 	</string>
     <string name="message_exportedto">Exported into %s.</string>
     <string name="message_importsuccessful">Import successful.</string>
+    <plurals name="message_importsuccessful_skipped">
+        <item quantity="one">Import successful, but skipped 1 entry.</item>
+        <item quantity="other">Import successful, but skipped %d entries.</item>
+    </plurals>
     <plurals name="listentry_items">
         <item quantity="one">1 item in</item>
         <item quantity="other">%d items in</item>
@@ -64,7 +68,6 @@
     <string name="playlists">playlists</string>
     <string name="settings">settings</string>
     <string name="wifisettings">wifi-settings</string>
-    <string name="applicationlist">application-list</string>
     <string name="dialog_export">Export</string>
     <string name="dialog_licenseagreement">License</string>
     <string name="question_deletefile">Do you really want to delete the file %s?</string>

@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
- * 
- * Copyright (c) 2011 Stefan Handschuh
+ *
+ * Copyright (c) 2011, 2012 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup;
@@ -49,8 +49,6 @@ public final class Strings {
 	public static final String PLAYLISTS = "playlists";
 	
 	public static final String SETTINGS = "settings";
-	
-	public static final String APPLICATIONLIST = "applicationlist";
 	
 	public static final String COUNT = "count=\"";
 	
@@ -84,8 +82,6 @@ public final class Strings {
 	
 	public static final String TAG_FILE = "file";
 	
-	public static final String TAG_APPLICATION = "application";
-	
 	public static final String DB_ARG = "=?";
 	
 	public static final String AND = " and ";
@@ -93,6 +89,10 @@ public final class Strings {
 	public static final String EXTERNAL = "external";
 	
 	public static final String ZERO = "0";
+	
+	public static final String NOT_FOUR = "!=4";
+	
+	public static final String FOUR = "4";
 	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",

@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
- * 
- * Copyright (c) 2011 Stefan Handschuh
+ *
+ * Copyright (c) 2011, 2012 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup.exporter;
@@ -56,8 +56,6 @@ public abstract class SimpleExporter extends Exporter {
 	
 	private String selection;
 	
-	boolean canceled;
-	
 	private String filename;
 	
 	private String sortOrder;
@@ -71,7 +69,6 @@ public abstract class SimpleExporter extends Exporter {
 		this.selection = selection;
 		this.checkFields = checkFields;
 		this.sortOrder = sortOrder;
-		canceled = false;
 	}
 	
 	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, ExportTask exportTask) {
@@ -198,10 +195,6 @@ public abstract class SimpleExporter extends Exporter {
 		
 	}
 	
-	public void cancel() {
-		canceled = true;
-	}
-
 	@Override
 	public String[] getExportedFilenames() {
 		return new String[] {filename};

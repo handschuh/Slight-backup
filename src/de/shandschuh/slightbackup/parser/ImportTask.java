@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
- * 
- * Copyright (c) 2011 Stefan Handschuh
+ *
+ * Copyright (c) 2011, 2012 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup.parser;
@@ -33,6 +33,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.util.Xml;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -65,7 +66,9 @@ public class ImportTask extends BackupTask<Void, Exception> {
 		importButton.setEnabled(true);
 		importButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
-				execute();
+				if (getStatus() == AsyncTask.Status.PENDING) {
+					execute();
+				}
 			}
 		}); // we cannot use progressDialog.setButton(Dialog.BUTTON_POSITIVE, ...) since this would cause the dialog to close
 	}
@@ -100,8 +103,8 @@ public class ImportTask extends BackupTask<Void, Exception> {
 	@Override
 	protected void onPostExecute(Exception result) {
 		progressDialog.setProgress(0);
+		progressDialog.dismiss();
 		if (result == null) {
-			progressDialog.dismiss();
 			if (parser.hasHints()) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(progressDialog.getContext());
 				
@@ -114,15 +117,18 @@ public class ImportTask extends BackupTask<Void, Exception> {
 				});
 				builder.create().show();
 			} else {
-				Toast.makeText(progressDialog.getContext(),	R.string.message_importsuccessful, Toast.LENGTH_LONG).show();
+				int skipped = parser.getSkippedEntryCount();
+				
+				if (skipped > 0) {
+					Toast.makeText(progressDialog.getContext(), progressDialog.getContext().getResources().getQuantityString(R.plurals.message_importsuccessful_skipped, skipped, skipped), Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(progressDialog.getContext(), R.string.message_importsuccessful, Toast.LENGTH_LONG).show();
+				}
 			}
 		} else {
-			importButton.setEnabled(true);
-			progressDialog.setProgress(0);
 			Toast.makeText(progressDialog.getContext(),	String.format(progressDialog.getContext().getString(R.string.error_somethingwentwrong), result.getMessage()), Toast.LENGTH_LONG).show();
 		}
 		super.onPostExecute(result);
 	}
-	
 
 }

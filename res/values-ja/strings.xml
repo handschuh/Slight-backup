@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="menu_export">エクスポート...</string>
+    <string name="menu_export">エクスポート&#8230;</string>
     <string name="menu_exporteverything">全てエクスポート</string>
     <string name="menu_about">インフメーション</string>
     <string name="contextmenu_deletefile">ファイルを消去します</string>
@@ -12,9 +12,13 @@
     <string name="hint_noexportdata">エクスポートをするデータが見つかりません。</string>
     <string name="hint_exporting">%sエクスポートをしています。</string>
     <string name="hint_existed">「%s\」は既に存在します</string>
-	<string name="license_intro">このソフトウェアのライセンスは、MIT　Licenseで公示されており、ソースコードは、http://github.com/handschuh/Slight-backupにある</string>
+    <string name="license_intro">このソフトウェアのライセンスは、MIT　Licenseで公示されており、ソースコードは、http://github.com/handschuh/Slight-backupにある</string>
     <string name="message_exportedto">データ %s エクスポート</string>
     <string name="message_importsuccessful">インポート完了</string>
+    <plurals name="message_importsuccessful_skipped">
+        <item quantity="one">インポート完了、未完了項目１。</item>
+        <item quantity="other">インポート完了、未完了項目%d。</item>
+    </plurals>
     <plurals name="listentry_items">
         <item quantity="one">1項目：</item>
         <item quantity="other">%d項目：</item>

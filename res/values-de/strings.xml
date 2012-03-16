@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="menu_export">Exportiere ...</string>
+    <string name="menu_export">Exportiere &#8230;</string>
     <string name="menu_exporteverything">Exportiere alles</string>
     <string name="menu_about">Info</string>
     <string name="contextmenu_deletefile">Datei löschen</string>
@@ -10,11 +10,15 @@
     <string name="error_somethingwentwrong">Etwas ist schief gelaufen: %s.</string>
     <string name="hint_nobackupsfound">Keine Backups gefunden - zum erstellen, Menüknopf drücken.</string>
     <string name="hint_noexportdata">Keine Daten für den Export vorhanden.</string>
-    <string name="hint_exporting">Exportiere %s ...</string>
+    <string name="hint_exporting">Exportiere %s &#8230;</string>
     <string name="hint_existed">\"%s\" existierte</string>
 	<string name="license_intro">Diese Software ist unter der MIT Open-Source-Lizenz veröffentlicht und der Quellcode befindet sich unter http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Nach %s exportiert.</string>
     <string name="message_importsuccessful">Import erfolgreich.</string>
+    <plurals name="message_importsuccessful_skipped">
+        <item quantity="one">Import erfolgreich, aber 1 Eintrag übersprungen.</item>
+        <item quantity="other">Import erfolgreich, aber %d Einträge übersprungen.</item>
+    </plurals>
     <plurals name="listentry_items">
         <item quantity="one">1 Eintrag in</item>
         <item quantity="other">%d Einträge in</item>

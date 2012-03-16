@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="menu_export">Exporter ...</string>
+    <string name="menu_export">Exporter &#8230;</string>
     <string name="menu_exporteverything">Tout exporter</string>
     <string name="menu_about">À propos</string>
     <string name="contextmenu_deletefile">Effacer le fichier</string>
@@ -10,7 +10,7 @@
     <string name="error_somethingwentwrong">Une erreur s\'est produite\U+00A0: %s.</string>
     <string name="hint_nobackupsfound">Aucune sauvegarde trouvée - appuyez sur la touche menu pour en créer une.</string>
     <string name="hint_noexportdata">Aucune donnée à exporter.</string>
-    <string name="hint_exporting">Export de %s en cours...</string>
+    <string name="hint_exporting">Export de %s en cours&#8230;</string>
 	<string name="license_intro">Ce logiciel est distribué sous la licence libre MIT et son code source est disponible sur http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Exporté en %s.</string>
     <string name="message_importsuccessful">L\'import a réussi.</string>

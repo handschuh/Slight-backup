@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
- * 
- * Copyright (c) 2011 Stefan Handschuh
+ *
+ * Copyright (c) 2011, 2012 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup.exporter;
@@ -67,8 +67,11 @@ public abstract class Exporter {
 	
 	protected ExportTask exportTask;
 	
+	protected boolean canceled;
+	
 	public Exporter(ExportTask exportTask) {
 		this.exportTask = exportTask;
+		canceled = false;
 	}
 	
 	protected abstract int export(String filename) throws Exception;
@@ -84,7 +87,9 @@ public abstract class Exporter {
 	
 	public abstract int getTranslatedContentName();
 	
-	public abstract void cancel();
+	public void cancel() {
+		canceled = true;
+	}
 	
 	public abstract String[] getExportedFilenames();
 	
@@ -96,23 +101,21 @@ public abstract class Exporter {
 	
 	public static Exporter getById(int id, ExportTask exportTask) {
 		switch (id) {
-			case BookmarkExporter.ID: 
+			case BookmarkExporter.ID:
 				return new BookmarkExporter(exportTask);
-			case CallLogExporter.ID: 
+			case CallLogExporter.ID:
 				return new CallLogExporter(exportTask);
-			case SMSExporter.ID: 
+			case SMSExporter.ID:
 				return new SMSExporter(exportTask);
-			case UserDictionaryExporter.ID: 
+			case UserDictionaryExporter.ID:
 				return new UserDictionaryExporter(exportTask);
-			case PlaylistExporter.ID: 
+			case PlaylistExporter.ID:
 				return new PlaylistExporter(exportTask);
-			case SettingsExporter.ID: 
+			case SettingsExporter.ID:
 				return new SettingsExporter(exportTask);
 			case WifiSettingsExporter.ID:
 				return new WifiSettingsExporter(exportTask);
-			case ApplicationListExporter.ID:
-				return new ApplicationListExporter(exportTask);
-			case EverythingExporter.ID: 
+			case EverythingExporter.ID:
 				return new EverythingExporter(exportTask);
 		}
 		return null;
@@ -139,8 +142,6 @@ public abstract class Exporter {
 			ids.add(WifiSettingsExporter.ID);
 			names.add(context.getString(WifiSettingsExporter.NAMEID));
 		}
-		ids.add(ApplicationListExporter.ID);
-		names.add(context.getString(ApplicationListExporter.NAMEID));
 		
 		int[] intIds = new int[ids.size()];
 		
@@ -164,7 +165,6 @@ public abstract class Exporter {
 			result.add(new WifiSettingsExporter(exportTask));
 		}
 		
-		result.add(new ApplicationListExporter(exportTask));
 		return result;
 	}
 	
