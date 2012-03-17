@@ -28,6 +28,7 @@ package de.shandschuh.slightbackup;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStreamReader;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.Vector;
 
@@ -42,6 +43,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.PreferenceManager;
@@ -93,6 +95,8 @@ public class BackupActivity extends ExpandableListActivity {
 	public static final boolean CANHAVEROOT = false && checkRoot(); // not yet ready, forgot to branch
 	
 	public static BackupActivity INSTANCE;
+	
+	public static final boolean ICS = Build.VERSION.RELEASE.startsWith("4.");
 	
 	public BackupFilesListAdapter listAdapter;
 	
@@ -241,7 +245,7 @@ public class BackupActivity extends ExpandableListActivity {
 						deleteDayDialog.dismiss();
 					}
 				});
-				deleteDayDialog.setMessage(String.format(getString(R.string.question_deletefile), date.toString()));
+				deleteDayDialog.setMessage(String.format(getString(R.string.question_deletefile), DateFormat.getDateInstance().format(date)));
 				break;
 			}
 			case MENU_EXPORTEVERYTHING_ID: {

@@ -27,6 +27,7 @@ package de.shandschuh.slightbackup.parser;
 
 import android.content.Context;
 import android.provider.CallLog;
+import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
 public class CallLogParser extends SimpleParser {
@@ -39,7 +40,7 @@ public class CallLogParser extends SimpleParser {
 				CallLog.Calls.NEW,
 				CallLog.Calls.NUMBER,
 				CallLog.Calls.TYPE
-		}, CallLog.Calls.CONTENT_URI, importTask, null, new String[] {CallLog.Calls.TYPE, Strings.FOUR});
+		}, CallLog.Calls.CONTENT_URI, importTask, null, BackupActivity.ICS ? new String[] {CallLog.Calls.TYPE, Strings.FOUR} : null);
 	}
 
 }

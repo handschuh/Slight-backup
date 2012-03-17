@@ -26,6 +26,7 @@
 package de.shandschuh.slightbackup.exporter;
 
 import android.provider.CallLog;
+import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
@@ -35,7 +36,7 @@ public class CallLogExporter extends SimpleExporter {
 	public static final int NAMEID = R.string.calllogs;
 
 	public CallLogExporter(ExportTask exportTask) {
-		super(Strings.TAG_CALL, CallLog.Calls.CONTENT_URI, CallLog.Calls.TYPE+Strings.NOT_FOUR, exportTask);
+		super(Strings.TAG_CALL, CallLog.Calls.CONTENT_URI, BackupActivity.ICS ? CallLog.Calls.TYPE+Strings.NOT_FOUR : null, exportTask);
 	}
 
 	@Override

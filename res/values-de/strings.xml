@@ -2,8 +2,10 @@
 <resources>
     <string name="menu_export">Exportiere &#8230;</string>
     <string name="menu_exporteverything">Exportiere alles</string>
+    <string name="menu_settings">Einstellungen</string>
     <string name="menu_about">Info</string>
     <string name="contextmenu_deletefile">Datei löschen</string>
+    <string name="contextmenu_deletedaydata">Lösche Daten dieses Tages</string>
     <string name="error_nosdcard">Keine SD-Karte vorhanden.</string>
     <string name="error_unsupporteddatabasestructure">Nicht unterstützte Datenbankstruktur</string>
     <string name="error_couldnotcreatebackupfolder">Konnte den backup-Ordner (%s) nicht erstellen</string>

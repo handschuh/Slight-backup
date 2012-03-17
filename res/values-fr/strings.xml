@@ -3,6 +3,7 @@
     <string name="menu_export">Exporter &#8230;</string>
     <string name="menu_exporteverything">Tout exporter</string>
     <string name="menu_about">À propos</string>
+    <string name="menu_settings">Réglages</string>
     <string name="contextmenu_deletefile">Effacer le fichier</string>
     <string name="error_nosdcard">Pas de carte SD.</string>
     <string name="error_unsupporteddatabasestructure">Structure de base de données non supportée</string>
@@ -11,9 +12,13 @@
     <string name="hint_nobackupsfound">Aucune sauvegarde trouvée - appuyez sur la touche menu pour en créer une.</string>
     <string name="hint_noexportdata">Aucune donnée à exporter.</string>
     <string name="hint_exporting">Export de %s en cours&#8230;</string>
-	<string name="license_intro">Ce logiciel est distribué sous la licence libre MIT et son code source est disponible sur http://github.com/handschuh/Slight-backup</string>
+    <string name="license_intro">Ce logiciel est distribué sous la licence libre MIT et son code source est disponible sur http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Exporté en %s.</string>
     <string name="message_importsuccessful">L\'import a réussi.</string>
+    <plurals name="message_importsuccessful_skipped">
+        <item quantity="one">L\'import a réussi, mais 1 entrée a été ignorée.</item>
+        <item quantity="other">L\'import a réussi, mais %d entrées ont été ignorées.</item>
+    </plurals>
     <plurals name="listentry_items">
         <item quantity="one">1 élément dans</item>
         <item quantity="other">%d éléments dans</item>

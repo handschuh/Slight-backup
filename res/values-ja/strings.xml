@@ -3,6 +3,7 @@
     <string name="menu_export">エクスポート&#8230;</string>
     <string name="menu_exporteverything">全てエクスポート</string>
     <string name="menu_about">インフメーション</string>
+    <string name="menu_settings">設定</string>
     <string name="contextmenu_deletefile">ファイルを消去します</string>
     <string name="error_nosdcard">SDカードが存在しません。</string>
     <string name="error_unsupporteddatabasestructure">データベースの構成が合いません</string>
@@ -23,7 +24,6 @@
         <item quantity="one">1項目：</item>
         <item quantity="other">%d項目：</item>
     </plurals>
-    <string name="listentry_items"></string>
     <string name="button_import">インポート</string>
     <string name="button_accept">許可する</string>
     <string name="button_decline">許可しない</string>

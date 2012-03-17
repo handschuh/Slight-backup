@@ -3,6 +3,7 @@
     <string name="menu_export">Dışa aktar &#8230;</string>
     <string name="menu_exporteverything">Tümünü dışa aktar</string>
     <string name="menu_about">Hakkında</string>
+    <string name="menu_settings">Ayarlar</string>
     <string name="contextmenu_deletefile">Dosyayı sil</string>
     <string name="error_nosdcard">SD kartı yok.</string>
     <string name="error_unsupporteddatabasestructure">Desteklenmeyen veritabanı yapısı</string>
@@ -11,9 +12,13 @@
     <string name="hint_nobackupsfound">Hiçbir yedek dosya bulunamadı - Menu tuşuna basıp yaratın.</string>
     <string name="hint_noexportdata">Dışa aktarım için hiçbir veri yok.</string>
     <string name="hint_exporting">%s dışa aktarılıyor&#8230;</string>
-	<string name="license_intro">Bu yazılım MIT özgür yazılım lisansı kapsamında yayınlanmıştır ve kaynak kodu şu adreste mevcuttur: http://github.com/handschuh/Slight-backup</string>
+    <string name="license_intro">Bu yazılım MIT özgür yazılım lisansı kapsamında yayınlanmıştır ve kaynak kodu şu adreste mevcuttur: http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">%s olarak dışa aktarıldı.</string>
     <string name="message_importsuccessful">İçe aktarım başarıyla sonuçlandı.</string>
+    <plurals name="message_importsuccessful_skipped">
+        <item quantity="one">İçe aktarım başarılı oldu, ancak 1 unsur atlandı.</item>
+        <item quantity="other">İçe aktarım başarılı oldu, ancak %d unsur atlandı.</item>
+    </plurals>
     <plurals name="listentry_items">
         <item quantity="one">1 unsur şurada</item>
         <item quantity="other">%d unsur şurada</item>
