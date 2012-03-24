@@ -34,6 +34,10 @@ public final class Strings {
 	
 	public static final String AMP = "&amp;";
 	
+	public static final String QUOT = "&quot;";
+	
+	public static final String APOS = "&apos;";
+	
 	public static final String TAG_MESSAGE = "message";
 	
 	public static final String TAG_CALL = "call";

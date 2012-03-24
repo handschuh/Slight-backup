@@ -42,6 +42,14 @@ import de.shandschuh.slightbackup.Strings;
 public abstract class SimpleExporter extends Exporter {
 	private static final String REALAMP = "&";
 	
+	private static final String REALGT = ">";
+	
+	private static final String REALLT = "<";
+	
+	private static final String REALQUOT = "\"";
+	
+	private static final String REALAPOS = "'";
+	
 	protected static final String EQUALS = "=\"";
 	
 	protected Context context;
@@ -149,7 +157,11 @@ public abstract class SimpleExporter extends Exporter {
             			if (index1 > -1 && index2 > index1) {
             				writer.write(string.substring(index1+1, index2));
             			} else {
-            				writer.write(string.replace(REALAMP, Strings.AMP));
+            				writer.write(string.replace(REALAMP, Strings.AMP)
+            						.replace(REALAPOS, Strings.APOS)
+            						.replace(REALGT, Strings.GT)
+            						.replace(REALLT, Strings.LT)
+            						.replace(REALQUOT, Strings.QUOT));
             			}
             			writer.write('"');
         			}
