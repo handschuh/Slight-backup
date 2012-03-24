@@ -40,8 +40,6 @@ import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class SimpleExporter extends Exporter {
-	private static final String REALAMP = "&";
-	
 	protected static final String EQUALS = "=\"";
 	
 	protected Context context;
@@ -149,7 +147,7 @@ public abstract class SimpleExporter extends Exporter {
             			if (index1 > -1 && index2 > index1) {
             				writer.write(string.substring(index1+1, index2));
             			} else {
-            				writer.write(string.replace(REALAMP, Strings.AMP));
+            				writer.write(Strings.sanitize(string));
             			}
             			writer.write('"');
         			}
