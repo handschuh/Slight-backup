@@ -131,8 +131,6 @@ public abstract class SimpleExporter extends Exporter {
     		positions[n] = cursor.getColumnIndex(fields[n]);
     	}
     	
-    	int index1, index2;
-    	
     	BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
     	
     	writeXmlStart(writer, tag, count);
@@ -150,19 +148,7 @@ public abstract class SimpleExporter extends Exporter {
         				writer.write(' ');
         				writer.write(fields[n]);
         				writer.write(EQUALS);
-            			
-            			index1 = string.indexOf('<');
-            			index2 = string.indexOf('>');
-            			
-            			if (index1 > -1 && index2 > index1) {
-            				writer.write(string.substring(index1+1, index2));
-            			} else {
-            				writer.write(string.replace(REALAMP, Strings.AMP)
-            						.replace(REALAPOS, Strings.APOS)
-            						.replace(REALGT, Strings.GT)
-            						.replace(REALLT, Strings.LT)
-            						.replace(REALQUOT, Strings.QUOT));
-            			}
+            			writer.write(excapeCharacters(string));
             			writer.write('"');
         			}
     			} catch (Exception e) {
@@ -216,5 +202,11 @@ public abstract class SimpleExporter extends Exporter {
 		return filename;
 	}
 	
-	
+	public static String excapeCharacters(String string) {
+		return string.replace(REALAMP, Strings.AMP)
+				.replace(REALAPOS, Strings.APOS)
+				.replace(REALGT, Strings.GT)
+				.replace(REALLT, Strings.LT)
+				.replace(REALQUOT, Strings.QUOT);
+	}
 }
