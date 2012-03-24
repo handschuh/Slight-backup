@@ -30,6 +30,7 @@ import java.io.Writer;
 
 import android.database.Cursor;
 import android.provider.MediaStore.Audio;
+import android.text.TextUtils;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
@@ -76,7 +77,7 @@ public class PlaylistExporter extends SimpleExporter {
 				writer.write(' ');
 				writer.write(Audio.Media.DATA);
 				writer.write(EQUALS);
-				writer.write(excapeCharacters(audioFileCursor.getString(0)));
+				writer.write(TextUtils.htmlEncode(audioFileCursor.getString(0)));
 				writer.write(ENDQUOTETAG);
 			}
 			audioFileCursor.close();

@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.Writer;
 
 import android.database.Cursor;
+import android.text.TextUtils;
 import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
@@ -54,7 +55,7 @@ public class SMSExporter extends SimpleExporter {
 		String body = cursor.getString(bodyPosition);
 		
 		if (body != null) {
-			writer.write(excapeCharacters(body));
+			writer.write(TextUtils.htmlEncode(body));
 		}
 	}
 

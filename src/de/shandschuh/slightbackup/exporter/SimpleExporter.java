@@ -35,21 +35,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.text.TextUtils;
 import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class SimpleExporter extends Exporter {
-	private static final String REALAMP = "&";
-	
-	private static final String REALGT = ">";
-	
-	private static final String REALLT = "<";
-	
-	private static final String REALQUOT = "\"";
-	
-	private static final String REALAPOS = "'";
-	
 	protected static final String EQUALS = "=\"";
 	
 	protected Context context;
@@ -148,7 +139,7 @@ public abstract class SimpleExporter extends Exporter {
         				writer.write(' ');
         				writer.write(fields[n]);
         				writer.write(EQUALS);
-            			writer.write(excapeCharacters(string));
+            			writer.write(TextUtils.htmlEncode(string));
             			writer.write('"');
         			}
     			} catch (Exception e) {
@@ -201,12 +192,5 @@ public abstract class SimpleExporter extends Exporter {
 	public String getFilename() {
 		return filename;
 	}
-	
-	public static String excapeCharacters(String string) {
-		return string.replace(REALAMP, Strings.AMP)
-				.replace(REALAPOS, Strings.APOS)
-				.replace(REALGT, Strings.GT)
-				.replace(REALLT, Strings.LT)
-				.replace(REALQUOT, Strings.QUOT);
-	}
+
 }
