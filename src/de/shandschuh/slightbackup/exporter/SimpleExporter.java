@@ -27,8 +27,8 @@ package de.shandschuh.slightbackup.exporter;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.io.Writer;
 import java.util.Vector;
 
@@ -129,7 +129,7 @@ public abstract class SimpleExporter extends Exporter {
     		positions[n] = cursor.getColumnIndex(fields[n]);
     	}
     	
-    	BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+    	BufferedWriter writer = new BufferedWriter(new PrintWriter(filename, Strings.UTF8));
     	
     	writeXmlStart(writer, tag, count);
     	
