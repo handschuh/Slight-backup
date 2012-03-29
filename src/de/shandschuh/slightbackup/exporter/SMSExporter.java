@@ -42,7 +42,7 @@ public class SMSExporter extends SimpleExporter {
 	private int bodyPosition;
 
 	public SMSExporter(ExportTask exportTask) {
-		super(Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, true, null, "date", exportTask);
+		super(Strings.TAG_MESSAGE, Strings.SMS_FIELDS, BackupActivity.SMS_URI, true, null, "date", exportTask, Strings.SMS_FIELDS_OPTIONAL);
 		bodyPosition = -1;
 	}
 	

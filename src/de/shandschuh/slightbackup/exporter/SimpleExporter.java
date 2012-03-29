@@ -30,6 +30,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Vector;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -59,7 +60,9 @@ public abstract class SimpleExporter extends Exporter {
 	
 	private String sortOrder;
 	
-	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, String sortOrder, ExportTask exportTask) {
+	private String[] optionalFields;
+	
+	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, String sortOrder, ExportTask exportTask, String[] optionalFields) {
 		super(exportTask);
 		this.context = exportTask.getContext();
 		this.tag = tag;
@@ -68,10 +71,11 @@ public abstract class SimpleExporter extends Exporter {
 		this.selection = selection;
 		this.checkFields = checkFields;
 		this.sortOrder = sortOrder;
+		this.optionalFields = optionalFields;
 	}
 	
 	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, String selection, ExportTask exportTask) {
-		this(tag, fields, contentUri, checkFields, selection, null, exportTask);
+		this(tag, fields, contentUri, checkFields, selection, null, exportTask, null);
 	}
 	
 	public SimpleExporter(String tag, String[] fields, Uri contentUri, boolean checkFields, ExportTask exportTask) {
@@ -94,6 +98,9 @@ public abstract class SimpleExporter extends Exporter {
 		if (checkFields && fields != null) {
 			if (cursor == null || !checkFieldNames(cursor.getColumnNames(), fields)) {
 				throw new Exception(context.getString(R.string.error_unsupporteddatabasestructure));
+			}
+			if (optionalFields != null && optionalFields.length > 0) {
+				fields = determineFields(cursor.getColumnNames(), fields, optionalFields);
 			}
 		} else if (fields == null) {
 			if (cursor == null) {
@@ -168,6 +175,20 @@ public abstract class SimpleExporter extends Exporter {
     	}
 	}
 	
+	private String[] determineFields(String[] columnNames, String[] fields, String[] optionalFields) {
+		Vector<String> result = new Vector<String>();
+		
+		for (String field : fields) {
+			result.add(field);
+		}
+		for (String field : optionalFields) {
+			if (Strings.indexOf(columnNames, field) > -1) {
+				result.add(field);
+			}
+		}
+		return result.toArray(columnNames);
+	}
+
 	protected boolean checkFieldNames(String[] availableFieldNames, String[] neededFieldNames) {
 		for (int n = 0, i = neededFieldNames != null ? neededFieldNames.length : 0; n < i; n++) {
     		if (Strings.indexOf(availableFieldNames, neededFieldNames[n]) == -1) {
