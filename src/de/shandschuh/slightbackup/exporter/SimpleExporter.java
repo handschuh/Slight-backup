@@ -186,7 +186,7 @@ public abstract class SimpleExporter extends Exporter {
 				result.add(field);
 			}
 		}
-		return result.toArray(columnNames);
+		return result.toArray(new String[0]);
 	}
 
 	protected boolean checkFieldNames(String[] availableFieldNames, String[] neededFieldNames) {
