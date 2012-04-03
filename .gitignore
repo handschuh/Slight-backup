@@ -1,7 +1,8 @@
 bin
 gen
 *.png
-*.properties
 keystore
 .classpath
 .project
+*.zip
+*.tar*
