@@ -68,14 +68,6 @@ import de.shandschuh.slightbackup.parser.ImportTask;
 public class BackupActivity extends ExpandableListActivity {
 	public static final Uri SMS_URI = Uri.parse("content://sms");
 	
-	public static final int MENU_EXPORT_ID = 100;
-	
-	public static final int MENU_EXPORTEVERYTHING_ID = 101;
-	
-	private static final int MENU_SETTINGS_ID = 102;
-	
-	private static final int MENU_ABOUT_ID = 110;
-	
 	private static final int CONTEXTMENU_IMPORT = 21;
 	
 	private static final int CONTEXTMENU_DELETEFILE = 22;
@@ -112,7 +104,8 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	private ExporterInfos exporterInfos;
 	
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public void onCreate(Bundle savedInstanceState) {
     	INSTANCE = this;
         super.onCreate(savedInstanceState);
@@ -125,18 +118,15 @@ public class BackupActivity extends ExpandableListActivity {
     
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		menu.add(0, MENU_EXPORT_ID, Menu.NONE, R.string.menu_export).setIcon(android.R.drawable.ic_menu_save);
-		menu.add(0, MENU_EXPORTEVERYTHING_ID, Menu.NONE, R.string.menu_exporteverything).setIcon(android.R.drawable.ic_menu_directions);
-		menu.add(0, MENU_SETTINGS_ID, Menu.NONE, R.string.menu_settings).setIcon(android.R.drawable.ic_menu_preferences);
-		menu.add(0, MENU_ABOUT_ID, Menu.NONE, R.string.menu_about).setIcon(android.R.drawable.ic_menu_info_details);
-
+		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onMenuItemSelected(int featureId, final MenuItem item) {
 		switch (item.getItemId()) {
-			case MENU_ABOUT_ID: {
+			case R.id.menu_about: {
 				showDialog(DIALOG_ABOUT);
 				break;
 			}
@@ -248,7 +238,7 @@ public class BackupActivity extends ExpandableListActivity {
 				deleteDayDialog.setMessage(String.format(getString(R.string.question_deletefile), DateFormat.getDateInstance().format(date)));
 				break;
 			}
-			case MENU_EXPORTEVERYTHING_ID: {
+			case R.id.menu_exporteverything: {
 				if (exportDialog == null) {
 					exportDialog = new ProgressDialog(BackupActivity.this);
 				}
@@ -256,7 +246,7 @@ public class BackupActivity extends ExpandableListActivity {
 				new ExportTask(exportDialog, listAdapter).execute(EverythingExporter.ID);
 				break;
 			}
-			case MENU_EXPORT_ID: {
+			case R.id.menu_export: {
 				if (selectExportsDialog == null) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					
@@ -286,7 +276,7 @@ public class BackupActivity extends ExpandableListActivity {
 				selectExportsDialog.show();
 				break;
 			}
-			case MENU_SETTINGS_ID: {
+			case R.id.menu_settings: {
 				startActivity(new Intent(this, ApplicationPreferencesActivity.class));
 				break;
 			}
@@ -312,6 +302,7 @@ public class BackupActivity extends ExpandableListActivity {
 		return true;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		if (id == DIALOG_LICENSEAGREEMENT) {
