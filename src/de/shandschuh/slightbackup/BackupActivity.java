@@ -88,7 +88,7 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	public static BackupActivity INSTANCE;
 	
-	public static final boolean ICS = Build.VERSION.RELEASE.startsWith("4.");
+	public static final int API_LEVEL = Integer.parseInt(Build.VERSION.SDK);
 	
 	public BackupFilesListAdapter listAdapter;
 	

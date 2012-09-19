@@ -45,7 +45,7 @@ public class CallLogParser extends SimpleParser {
 				CallLog.Calls.NEW,
 				CallLog.Calls.NUMBER,
 				CallLog.Calls.TYPE
-		}, CallLog.Calls.CONTENT_URI, importTask, null, BackupActivity.ICS ? new String[] {CallLog.Calls.TYPE, Strings.FOUR} : null);
+		}, CallLog.Calls.CONTENT_URI, importTask, null, BackupActivity.API_LEVEL > 13 ? new String[] {CallLog.Calls.TYPE, Strings.FOUR} : null);
 	}
 
 }

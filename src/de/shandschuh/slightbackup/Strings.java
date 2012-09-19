@@ -96,6 +96,10 @@ public final class Strings {
 	
 	public static final String FIELD_NAME = "NAME";
 	
+	public static final String CONTACTS = "contacts";
+	
+	public static final String TAG_CONTACT = "contact";
+	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",
 		"address",

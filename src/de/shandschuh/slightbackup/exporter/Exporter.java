@@ -79,7 +79,9 @@ public abstract class Exporter {
 		if (BackupActivity.CANHAVEROOT) {
 			EXPORTERS.add(WifiSettingsExporter.class);
 		}
-		
+		if (BackupActivity.API_LEVEL > 4) {
+			EXPORTERS.add(ContactsExporter.class);
+		}
 		// don't add the "everything"-exporter here
 	}
 	

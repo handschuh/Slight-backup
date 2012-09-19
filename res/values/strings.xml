@@ -68,6 +68,7 @@
     <string name="playlists">playlists</string>
     <string name="settings">settings</string>
     <string name="wifisettings">wifi-settings</string>
+    <string name="contacts">contacts</string>
     <string name="dialog_export">Export</string>
     <string name="dialog_licenseagreement">License</string>
     <string name="question_deletefile">Do you really want to delete the file %s?</string>

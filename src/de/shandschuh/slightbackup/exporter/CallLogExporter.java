@@ -38,7 +38,7 @@ public class CallLogExporter extends SimpleExporter {
 	public static final String NAME = Strings.CALLLOGS;
 
 	public CallLogExporter(ExportTask exportTask) {
-		super(Strings.TAG_CALL, CallLog.Calls.CONTENT_URI, BackupActivity.ICS ? CallLog.Calls.TYPE+Strings.NOT_FOUR : null, exportTask);
+		super(Strings.TAG_CALL, CallLog.Calls.CONTENT_URI, BackupActivity.API_LEVEL > 13 ? CallLog.Calls.TYPE+Strings.NOT_FOUR : null, exportTask);
 	}
 
 }
