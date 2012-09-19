@@ -35,9 +35,14 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 import de.shandschuh.slightbackup.BackupActivity;
+import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
 public class MessageParser extends SimpleParser {
+	public static final String NAME = Strings.MESSAGES;
+	
+	public static final int NAMEID = R.string.smsmessages;
+	
 	private static final Uri SMSCONVERSATIONSUPDATE_URI = Uri.parse("content://sms/conversations/-1");
 	
 	private StringBuilder messageStringBuilder;

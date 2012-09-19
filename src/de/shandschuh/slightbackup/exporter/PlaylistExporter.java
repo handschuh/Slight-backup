@@ -39,6 +39,8 @@ public class PlaylistExporter extends SimpleExporter {
 	
 	public static final int NAMEID = R.string.playlists;
 	
+	public static final String NAME = Strings.PLAYLISTS;
+	
 	private static final String QUERY_ID = Audio.Media._ID+"=?";
 	
 	private static final String ENDQUOTETAG = "\"/>";
@@ -52,11 +54,6 @@ public class PlaylistExporter extends SimpleExporter {
 	public PlaylistExporter(ExportTask exportTask) {
 		super(Strings.TAG_PLAYLIST, Audio.Playlists.EXTERNAL_CONTENT_URI, exportTask);
 		idPosition = -1;
-	}
-
-	@Override
-	public String getContentName() {
-		return Strings.PLAYLISTS;
 	}
 
 	@Override
@@ -83,16 +80,6 @@ public class PlaylistExporter extends SimpleExporter {
 			audioFileCursor.close();
 		}
 		audioIdCursor.close();
-	}
-	
-	@Override
-	public int getId() {
-		return ID;
-	}
-
-	@Override
-	public int getTranslatedContentName() {
-		return NAMEID;
 	}
 
 }

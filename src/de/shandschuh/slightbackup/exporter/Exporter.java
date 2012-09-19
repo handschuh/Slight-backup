@@ -65,6 +65,24 @@ public abstract class Exporter {
 		
 	}
 	
+	public static Vector<Class<?>> EXPORTERS;
+	
+	static {
+		EXPORTERS = new Vector<Class<?>>();
+
+		EXPORTERS.add(BookmarkExporter.class);
+		EXPORTERS.add(CallLogExporter.class);
+		EXPORTERS.add(SMSExporter.class);
+		EXPORTERS.add(UserDictionaryExporter.class);
+		EXPORTERS.add(PlaylistExporter.class);
+		EXPORTERS.add(SettingsExporter.class);
+		if (BackupActivity.CANHAVEROOT) {
+			EXPORTERS.add(WifiSettingsExporter.class);
+		}
+		
+		// don't add the "everything"-exporter here
+	}
+	
 	protected ExportTask exportTask;
 	
 	protected boolean canceled;
@@ -83,9 +101,29 @@ public abstract class Exporter {
 		return export(new StringBuilder(BackupActivity.DIR.toString()).append('/').append(getContentName()).append(Strings.FILE_SUFFIX).append(System.currentTimeMillis()).append(Strings.FILE_EXTENSION).toString());
 	}
 	
-	public abstract String getContentName();
+	public int getTranslatedContentName() {
+		try {
+			return getClass().getDeclaredField(Strings.FIELD_NAMEID).getInt(null);
+		} catch (Exception e) {
+			return android.R.string.unknownName;
+		}
+	}
 	
-	public abstract int getTranslatedContentName();
+	public String getContentName() {
+		try {
+			return (String) getClass().getDeclaredField(Strings.FIELD_NAME).get(null);
+		} catch (Exception e) {
+			return Strings.EMPTY;
+		}
+	}
+	
+	public int getId() {
+		try {
+			return getClass().getDeclaredField(Strings.FIELD_ID).getInt(null);
+		} catch (Exception e) {
+			return -1;
+		}
+	}
 	
 	public void cancel() {
 		canceled = true;
@@ -93,79 +131,47 @@ public abstract class Exporter {
 	
 	public abstract String[] getExportedFilenames();
 	
-	public abstract int getId();
-	
 	public boolean isEncrypted() {
 		return false;
 	}
 	
 	public static Exporter getById(int id, ExportTask exportTask) {
-		switch (id) {
-			case BookmarkExporter.ID:
-				return new BookmarkExporter(exportTask);
-			case CallLogExporter.ID:
-				return new CallLogExporter(exportTask);
-			case SMSExporter.ID:
-				return new SMSExporter(exportTask);
-			case UserDictionaryExporter.ID:
-				return new UserDictionaryExporter(exportTask);
-			case PlaylistExporter.ID:
-				return new PlaylistExporter(exportTask);
-			case SettingsExporter.ID:
-				return new SettingsExporter(exportTask);
-			case WifiSettingsExporter.ID:
-				return new WifiSettingsExporter(exportTask);
-			case EverythingExporter.ID:
-				return new EverythingExporter(exportTask);
+		if (id == EverythingExporter.ID) {
+			return new EverythingExporter(exportTask);
+		} else {
+			for (Class<?> clazz : EXPORTERS) {
+				try {
+					if (clazz.getDeclaredField(Strings.FIELD_ID).getInt(null) == id) {
+						return (Exporter) clazz.getConstructor(ExportTask.class).newInstance(exportTask);
+					}
+				} catch (Exception e) {
+					
+				}
+			}
 		}
+		
 		return null;
 	}
 	
 	public static ExporterInfos getExporterInfos(Context context) {
-		Vector<Integer> ids = new Vector<Integer>(10);
+		int length = EXPORTERS.size();
 		
-		Vector<String> names = new Vector<String>(10);
+		int ids[] = new int[length];
 		
-		ids.add(BookmarkExporter.ID);
-		names.add(context.getString(BookmarkExporter.NAMEID));
-		ids.add(CallLogExporter.ID);
-		names.add(context.getString(CallLogExporter.NAMEID));
-		ids.add(SMSExporter.ID);
-		names.add(context.getString(SMSExporter.NAMEID));
-		ids.add(UserDictionaryExporter.ID);
-		names.add(context.getString(UserDictionaryExporter.NAMEID));
-		ids.add(PlaylistExporter.ID);
-		names.add(context.getString(PlaylistExporter.NAMEID));
-		ids.add(SettingsExporter.ID);
-		names.add(context.getString(SettingsExporter.NAMEID));
-		if (BackupActivity.CANHAVEROOT) {
-			ids.add(WifiSettingsExporter.ID);
-			names.add(context.getString(WifiSettingsExporter.NAMEID));
+		String[] names = new String[length];
+		
+		try {
+			for (int n = 0; n < length; n++) {
+				Class<?> clazz = EXPORTERS.get(n);
+				
+				ids[n] = clazz.getDeclaredField(Strings.FIELD_ID).getInt(null);
+				names[n] = context.getString(clazz.getDeclaredField(Strings.FIELD_NAMEID).getInt(null));
+			}
+		} catch (Exception e) {
+			
 		}
 		
-		int[] intIds = new int[ids.size()];
-		
-		for (int n = 0, i = ids.size(); n < i; n++) {
-			intIds[n] = ids.get(n);
-		}
-		return new ExporterInfos(intIds, names.toArray(new String[0]));
-	}
-	
-	public static Vector<Exporter> getAllExporters(ExportTask exportTask) {
-		Vector<Exporter> result = new Vector<Exporter>(10);
-		
-		result.add(new BookmarkExporter(exportTask));
-		result.add(new CallLogExporter(exportTask));
-		result.add(new SMSExporter(exportTask));
-		result.add(new UserDictionaryExporter(exportTask));
-		result.add(new PlaylistExporter(exportTask));
-		result.add(new SettingsExporter(exportTask));
-		
-		if (BackupActivity.CANHAVEROOT) {
-			result.add(new WifiSettingsExporter(exportTask));
-		}
-		
-		return result;
+		return new ExporterInfos(ids, names);
 	}
 	
 	public static void writeXmlStart(Writer writer, String tag, int count) throws IOException {

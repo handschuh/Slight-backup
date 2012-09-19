@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
- * 
- * Copyright (c) 2011 Stefan Handschuh
+ *
+ * Copyright (c) 2011, 2012 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup.exporter;
@@ -33,24 +33,11 @@ public class UserDictionaryExporter extends SimpleExporter {
 	public static final int ID = 4;
 	
 	public static final int NAMEID = R.string.userdictionary;
+	
+	public static final String NAME = Strings.USERDICTIONARY;
 
 	public UserDictionaryExporter(ExportTask exportTask) {
 		super(Strings.TAG_WORD, UserDictionary.Words.CONTENT_URI, exportTask);
-	}
-
-	@Override
-	public String getContentName() {
-		return Strings.USERDICTIONARY;
-	}
-	
-	@Override
-	public int getId() {
-		return ID;
-	}
-
-	@Override
-	public int getTranslatedContentName() {
-		return NAMEID;
 	}
 
 }

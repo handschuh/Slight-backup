@@ -39,6 +39,8 @@ public class SMSExporter extends SimpleExporter {
 	
 	public static final int NAMEID = R.string.smsmessages;
 	
+	public static final String NAME = Strings.MESSAGES;
+	
 	private int bodyPosition;
 
 	public SMSExporter(ExportTask exportTask) {
@@ -63,21 +65,6 @@ public class SMSExporter extends SimpleExporter {
 	public boolean checkFieldNames(String[] availableFieldNames, String[] neededFieldNames) {
 		return super.checkFieldNames(availableFieldNames, neededFieldNames) 
 		       && Strings.indexOf(availableFieldNames, Strings.BODY) > -1;
-	}
-
-	@Override
-	public String getContentName() {
-		return Strings.MESSAGES;
-	}
-	
-	@Override
-	public int getId() {
-		return ID;
-	}
-
-	@Override
-	public int getTranslatedContentName() {
-		return NAMEID;
 	}
 
 }

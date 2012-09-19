@@ -25,19 +25,28 @@
 
 package de.shandschuh.slightbackup.parser;
 
+import java.util.Vector;
+
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.content.Context;
 import de.shandschuh.slightbackup.Strings;
-import de.shandschuh.slightbackup.exporter.BookmarkExporter;
-import de.shandschuh.slightbackup.exporter.CallLogExporter;
-import de.shandschuh.slightbackup.exporter.PlaylistExporter;
-import de.shandschuh.slightbackup.exporter.SMSExporter;
-import de.shandschuh.slightbackup.exporter.SettingsExporter;
-import de.shandschuh.slightbackup.exporter.UserDictionaryExporter;
 
 public abstract class Parser extends DefaultHandler {
 	protected static final String COUNT = "count";
+	
+	private static Vector<Class<?>> PARSERS;
+	
+	static {
+		PARSERS = new Vector<Class<?>>();
+		
+		PARSERS.add(BookmarkParser.class);
+		PARSERS.add(CallLogParser.class);
+		PARSERS.add(MessageParser.class);
+		PARSERS.add(PlaylistParser.class);
+		PARSERS.add(SettingsParser.class);
+		PARSERS.add(UserDictionaryParser.class);
+	}
 	
 	protected Context context;
 	
@@ -66,18 +75,14 @@ public abstract class Parser extends DefaultHandler {
 	public static Parser createParserByFilename(String filename, Context context, ImportTask importTask) {
 		filename = filename.substring(filename.lastIndexOf('/')+1);
 		
-		if (filename.startsWith(Strings.CALLLOGS)) {
-			return new CallLogParser(context, importTask);
-		} else if (filename.startsWith(Strings.MESSAGES)) {
-			return new MessageParser(context, importTask);
-		} else if (filename.startsWith(Strings.BOOKMARKS)) {
-			return new BookmarkParser(context, importTask);
-		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
-			return new UserDictionaryParser(context, importTask);
-		} else if (filename.startsWith(Strings.PLAYLISTS)) {
-			return new PlaylistParser(context, importTask);
-		} else if (filename.startsWith(Strings.SETTINGS)) {
-			return new SettingsParser(context, importTask);
+		for (Class<?> clazz : PARSERS) {
+			try {
+				if (filename.startsWith((String) clazz.getDeclaredField(Strings.FIELD_NAME).get(null))) {
+					return (Parser) clazz.getConstructor(Context.class, ImportTask.class).newInstance(context, importTask);
+				}
+			} catch (Exception e) {
+				
+			}
 		}
 		return null;
 	}
@@ -85,18 +90,14 @@ public abstract class Parser extends DefaultHandler {
 	public static int getTranslatedParserName(String filename) {
 		filename = filename.substring(filename.lastIndexOf('/')+1);
 		
-		if (filename.startsWith(Strings.CALLLOGS)) {
-			return CallLogExporter.NAMEID;
-		} else if (filename.startsWith(Strings.MESSAGES)) {
-			return SMSExporter.NAMEID;
-		} else if (filename.startsWith(Strings.BOOKMARKS)) {
-			return BookmarkExporter.NAMEID;
-		} else if (filename.startsWith(Strings.USERDICTIONARY)) {
-			return UserDictionaryExporter.NAMEID;
-		} else if (filename.startsWith(Strings.PLAYLISTS)) {
-			return PlaylistExporter.NAMEID;
-		} else if (filename.startsWith(Strings.SETTINGS)) {
-			return SettingsExporter.NAMEID;
+		for (Class<?> clazz : PARSERS) {
+			try {
+				if (filename.startsWith((String) clazz.getDeclaredField(Strings.FIELD_NAME).get(null))) {
+					return clazz.getDeclaredField(Strings.FIELD_NAMEID).getInt(null);
+				}
+			} catch (Exception e) {
+				
+			}
 		}
 		return android.R.string.unknownName;
 	}

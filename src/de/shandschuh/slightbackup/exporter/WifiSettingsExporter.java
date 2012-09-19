@@ -25,13 +25,16 @@
 
 package de.shandschuh.slightbackup.exporter;
 
-import de.shandschuh.slightbackup.R;
 import android.content.Context;
+import de.shandschuh.slightbackup.R;
+import de.shandschuh.slightbackup.Strings;
 
 public class WifiSettingsExporter extends Exporter {
 	public static final int ID = 7;
 	
 	public static final int NAMEID = R.string.wifisettings;
+	
+	public static final String NAME = Strings.WIFISETTINGS;
 	
 	private Context context;
 	
@@ -51,25 +54,8 @@ public class WifiSettingsExporter extends Exporter {
 	}
 
 	@Override
-	public String getContentName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public String[] getExportedFilenames() {
 		return new String[] {filename};
-	}
-
-	@Override
-	public int getId() {
-		return ID;
-	}
-
-	@Override
-	public int getTranslatedContentName() {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 	@Override

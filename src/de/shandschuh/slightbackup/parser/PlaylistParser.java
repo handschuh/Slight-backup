@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
  * 
- * Copyright (c) 2011 Stefan Handschuh
+ * Copyright (c) 2011, 2012 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup.parser;
@@ -45,6 +45,10 @@ import de.shandschuh.slightbackup.Strings;
  * 
  */
 public class PlaylistParser extends Parser {
+	public static final String NAME = Strings.PLAYLISTS;
+	
+	public static final int NAMEID = R.string.playlists;
+	
 	private String levelOneTag;
 
 	private String levelTwoTag;
@@ -152,10 +156,7 @@ public class PlaylistParser extends Parser {
 
 					Cursor playlistMemberCursor = context
 							.getContentResolver()
-							.query(
-									contentUri,
-									null,
-									levelTwoExistenceSelection,
+							.query(contentUri, null, levelTwoExistenceSelection,
 									new String[] { Long.toString(audioId),
 											Integer.toString(playOrder) }, null);
 

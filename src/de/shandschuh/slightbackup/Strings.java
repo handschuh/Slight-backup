@@ -88,6 +88,14 @@ public final class Strings {
 	
 	public static final String FOUR = "4";
 	
+	public static final String WIFISETTINGS = "wifisettings";
+	
+	public static final String FIELD_ID = "ID";
+	
+	public static final String FIELD_NAMEID = "NAMEID";
+	
+	public static final String FIELD_NAME = "NAME";
+	
 	public static final String[] SMS_FIELDS = new String[] {
 		"date",
 		"address",

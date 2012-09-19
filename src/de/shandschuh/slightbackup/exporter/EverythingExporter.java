@@ -27,7 +27,6 @@ package de.shandschuh.slightbackup.exporter;
 
 import java.util.Vector;
 
-import de.shandschuh.slightbackup.Strings;
 
 public class EverythingExporter extends Exporter {	
 	public static final int ID = 0;
@@ -40,7 +39,16 @@ public class EverythingExporter extends Exporter {
 	
 	public EverythingExporter(ExportTask exportTask) {
 		super(exportTask);
-		exporters = Exporter.getAllExporters(exportTask);
+		exporters = new Vector<Exporter>();
+		for (Class<?> clazz : Exporter.EXPORTERS) {
+			if (clazz != null && !clazz.equals(EverythingExporter.class)) {
+				try {
+					exporters.add((Exporter) clazz.getConstructor(ExportTask.class).newInstance(exportTask));
+				} catch (Exception e) {
+					
+				}
+			}
+		}
 		failedExporters = new Vector<Exporter>();
 	}
 
@@ -59,7 +67,7 @@ public class EverythingExporter extends Exporter {
 		
 		for (Exporter exporter : exporters) {
 			currentNameId = exporter.getTranslatedContentName();
-			exportTask.progress(ExportTask.MESSAGE_TYPE, exporter.getId()); 
+			exportTask.progress(ExportTask.MESSAGE_TYPE, exporter.getId());
 			try {
 				result += export(exporter);
 			} catch (Throwable t) {
@@ -72,11 +80,6 @@ public class EverythingExporter extends Exporter {
 	
 	private int export(Exporter exporter) throws Exception {
 		return exporter.export();
-	}
-
-	@Override
-	public String getContentName() {
-		return Strings.EMPTY; // since we do not use the filename at all
 	}
 
 	@Override
@@ -95,11 +98,6 @@ public class EverythingExporter extends Exporter {
 		return exportedFilenames.toArray(new String[0]);
 	}
 	
-	@Override
-	public int getId() {
-		return ID;
-	}
-
 	@Override
 	public int getTranslatedContentName() {
 		return currentNameId;
