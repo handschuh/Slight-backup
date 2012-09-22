@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Writer;
 
+import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
@@ -42,11 +43,11 @@ public class ContactsExporter extends SimpleExporter {
 	
 	public static final String NAME = Strings.CONTACTS;
 	
-	private static String LOOKUP_FIELDNAME;
+	public static String LOOKUP_FIELDNAME;
 	
-	private static Uri CONTACTS_URI;
+	public static Uri CONTACTS_URI;
 	
-	private static Uri VCARD_URI;
+	public static Uri VCARD_URI;
 	
 	static {
 		try {
@@ -71,8 +72,11 @@ public class ContactsExporter extends SimpleExporter {
 		if (lookupKeyColumn == -1) {
 			lookupKeyColumn = cursor.getColumnIndex(LOOKUP_FIELDNAME);
 		}
-		
-		Uri contactUri = Uri.withAppendedPath(VCARD_URI, cursor.getString(lookupKeyColumn));
+		writer.append(new String(getVcardBytes(context, cursor.getString(lookupKeyColumn))));
+	}
+	
+	public static byte[] getVcardBytes(Context context, String lookupKey) throws IOException {
+		Uri contactUri = Uri.withAppendedPath(VCARD_URI, lookupKey);
 		
 		AssetFileDescriptor assetFileDescriptor = context.getContentResolver().openAssetFileDescriptor(contactUri, "r");
 		
@@ -82,7 +86,8 @@ public class ContactsExporter extends SimpleExporter {
 		
 		fileInputStream.read(buffer);
 		fileInputStream.close();
-		writer.append(new String(buffer));
+		
+		return buffer;
 	}
 
 }

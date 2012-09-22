@@ -48,13 +48,13 @@ public abstract class SimpleParser extends Parser {
 	
 	private Uri contentUri;
 	
-	private String[] existanceFields;
+	private String[] existenceFields;
 	
 	private int[] existancePositions;
 	
 	private int existanceLength;
 	
-	private String[] existanceValues;
+	private String[] existenceValues;
 	
 	private int position;
 	
@@ -73,11 +73,11 @@ public abstract class SimpleParser extends Parser {
 		tagEntered = false;
 		this.contentUri = contentUri;
 		this.importTask = importTask;
-		this.existanceFields = existanceFields;
+		this.existenceFields = existanceFields;
 		if (existanceFields != null) {
 			existanceLength = existanceFields.length;
 			
-			existanceValues = new String[existanceLength];
+			existenceValues = new String[existanceLength];
 			existancePositions = new int[existanceLength];
 			
 			for (int n = 0; n < existanceLength; n++) {
@@ -169,13 +169,13 @@ public abstract class SimpleParser extends Parser {
 			
 			Cursor cursor = null;
 			
-			if (existanceFields == null) {
+			if (existenceFields == null) {
 				cursor = context.getContentResolver().query(contentUri, null, generateWhereQuery(fields, availableIndices), availableValues, null);
 			} else {
 				for (int n = 0; n < existanceLength; n++) {
-					existanceValues[n] = values[existancePositions[n]];
+					existenceValues[n] = values[existancePositions[n]];
 				}
-				cursor = context.getContentResolver().query(contentUri, null, generateWhereQuery(existanceFields), existanceValues, null);
+				cursor = context.getContentResolver().query(contentUri, null, generateWhereQuery(existenceFields), existenceValues, null);
 			}
 			
 			ContentValues contentValues = new ContentValues();
@@ -186,14 +186,22 @@ public abstract class SimpleParser extends Parser {
 			addExtraContentValues(contentValues);
 			
 			if (!cursor.moveToFirst()) {
-				context.getContentResolver().insert(contentUri, contentValues);
+				insert(contentValues);
 			} else if (updateOnExist) {
 				/** Update the existing values */
-				context.getContentResolver().update(contentUri, contentValues, generateWhereQuery(existanceFields), existanceValues);
+				update(contentValues, existenceValues);
 			}
 			cursor.close();
 			importTask.progress(BackupTask.MESSAGE_PROGRESS, ++position);
 		}
+	}
+	
+	public void insert(ContentValues contentValues) {
+		context.getContentResolver().insert(contentUri, contentValues);
+	}
+	
+	public void update(ContentValues contentValues, String[] existenceValues) {
+		context.getContentResolver().update(contentUri, contentValues, generateWhereQuery(existenceFields), existenceValues);
 	}
 	
 	/*

@@ -30,6 +30,7 @@ import java.util.Vector;
 import org.xml.sax.helpers.DefaultHandler;
 
 import android.content.Context;
+import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.Strings;
 
 public abstract class Parser extends DefaultHandler {
@@ -46,6 +47,9 @@ public abstract class Parser extends DefaultHandler {
 		PARSERS.add(PlaylistParser.class);
 		PARSERS.add(SettingsParser.class);
 		PARSERS.add(UserDictionaryParser.class);
+		if (BackupActivity.API_LEVEL > 4) {
+			PARSERS.add(ContactsParser.class);
+		}
 	}
 	
 	protected Context context;
