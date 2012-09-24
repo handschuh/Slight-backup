@@ -27,6 +27,10 @@ package de.shandschuh.slightbackup.exporter;
 
 import java.util.Vector;
 
+import de.shandschuh.slightbackup.Strings;
+
+import android.content.Context;
+
 
 public class EverythingExporter extends Exporter {	
 	public static final int ID = 0;
@@ -101,6 +105,31 @@ public class EverythingExporter extends Exporter {
 	@Override
 	public int getTranslatedContentName() {
 		return currentNameId;
+	}
+
+	@Override
+	public boolean maybeIncomplete() {
+		for (Exporter exporter : exporters) {
+			if (exporter.maybeIncomplete()) {
+				return true;
+			}
+		}
+		return super.maybeIncomplete();
+	}
+
+	@Override
+	public String getIncompleteDataNames(Context context) {
+		StringBuilder stringBuilder = new StringBuilder();
+		
+		for (Exporter exporter : exporters) {
+			if (exporter.maybeIncomplete()) {
+				if (stringBuilder.length() > 0) {
+					stringBuilder.append(Strings.COMMA);
+				}
+				stringBuilder.append(context.getString(exporter.getTranslatedContentName()));
+			}
+		}
+		return stringBuilder.toString();
 	}
 
 }

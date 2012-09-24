@@ -75,6 +75,11 @@ public class ContactsExporter extends SimpleExporter {
 		writer.append(new String(getVcardBytes(context, cursor.getString(lookupKeyColumn))));
 	}
 	
+	@Override
+	public boolean maybeIncomplete() {
+		return true;
+	}
+
 	public static byte[] getVcardBytes(Context context, String lookupKey) throws IOException {
 		Uri contactUri = Uri.withAppendedPath(VCARD_URI, lookupKey);
 		

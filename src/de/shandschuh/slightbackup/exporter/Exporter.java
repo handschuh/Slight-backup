@@ -137,6 +137,17 @@ public abstract class Exporter {
 		return false;
 	}
 	
+	/**
+	 * Override to use.
+	 */
+	public boolean maybeIncomplete() {
+		return false;
+	}
+	
+	public String getIncompleteDataNames(Context context) {
+		return context.getString(getTranslatedContentName());
+	}
+	
 	public static Exporter getById(int id, ExportTask exportTask) {
 		if (id == EverythingExporter.ID) {
 			return new EverythingExporter(exportTask);
@@ -193,5 +204,5 @@ public abstract class Exporter {
 		writer.write(tag);
 		writer.write(TAGS_END);
 	}
-	
+
 }

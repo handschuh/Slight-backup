@@ -37,19 +37,23 @@ import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
-public class ExportTask extends BackupTask<Integer, Integer> {
+public class ExportTask extends BackupTask<Void, Integer> {
 	private Exporter exporter;
 	
 	private Exception exception;
 	
 	private BackupFilesListAdapter listAdapter;
 	
-	public ExportTask(ProgressDialog progressDialog, BackupFilesListAdapter listAdapter) {
+	private int id;
+	
+	public ExportTask(ProgressDialog progressDialog, BackupFilesListAdapter listAdapter, int id) {
 		super(progressDialog);
 		this.listAdapter = listAdapter;
 		
 		progressDialog.setButton(Dialog.BUTTON_POSITIVE, null, (OnClickListener) null); // disables the positive button
 		progressDialog.setTitle(R.string.dialog_export);
+		exporter = Exporter.getById(id, this);
+		this.id = id;
 	}
 	
 	public Context getContext() {
@@ -57,11 +61,10 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 	}
 
 	@Override
-	protected Integer doInBackground(Integer... params) {
-		exporter = Exporter.getById(params[0], this);
-		publishProgress(MESSAGE_TYPE, params[0]);
+	protected Integer doInBackground(Void... params) {
+		publishProgress(MESSAGE_TYPE, id);
 		try {
-			return exporter.export(); // checks itself for cancellation 
+			return exporter.export(); // checks itself for cancellation
 		} catch (Exception e) {
 			exception = e;
 			return -1;
@@ -105,6 +108,10 @@ public class ExportTask extends BackupTask<Integer, Integer> {
 	protected void onPreExecute() {
 		progressDialog.show();
 		super.onPreExecute();
+	}
+	
+	public Exporter getExporter() {
+		return exporter;
 	}
 
 	@Override

@@ -243,7 +243,7 @@ public class BackupActivity extends ExpandableListActivity {
 					exportDialog = new ProgressDialog(BackupActivity.this);
 				}
 				checkProgressDialog(exportDialog);
-				new ExportTask(exportDialog, listAdapter).execute(EverythingExporter.ID);
+				checkExportTaskForIncompleteData(new ExportTask(exportDialog, listAdapter, EverythingExporter.ID));
 				break;
 			}
 			case R.id.menu_export: {
@@ -268,7 +268,7 @@ public class BackupActivity extends ExpandableListActivity {
 								exportDialog = new ProgressDialog(BackupActivity.this);
 							}
 							checkProgressDialog(exportDialog);
-							new ExportTask(exportDialog, listAdapter).execute(exporterInfos.ids[which]);
+							checkExportTaskForIncompleteData(new ExportTask(exportDialog, listAdapter, exporterInfos.ids[which]));
 						}
 					});
 					selectExportsDialog = builder.create();
@@ -282,7 +282,35 @@ public class BackupActivity extends ExpandableListActivity {
 			}
 		}
 		return true;
-	}	
+	}
+	
+	private void checkExportTaskForIncompleteData(final ExportTask exportTask) {
+		Exporter exporter = exportTask.getExporter();
+		
+		if (exporter.maybeIncomplete()) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			
+			builder.setTitle(android.R.string.dialog_alert_title);
+			builder.setMessage(getString(R.string.warning_incompletedata_export, exporter.getIncompleteDataNames(this)));
+			builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+					exportTask.execute();
+				}
+			});
+			builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.cancel();
+				}
+			});
+			builder.setCancelable(true);
+			builder.show();
+		} else {
+			exportTask.execute();
+		}
+	}
 	
 	private void checkProgressDialog(ProgressDialog dialog) {
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);

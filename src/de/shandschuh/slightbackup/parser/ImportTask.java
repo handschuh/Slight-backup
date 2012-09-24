@@ -32,6 +32,7 @@ import java.io.InputStreamReader;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.util.Xml;
@@ -49,7 +50,7 @@ public class ImportTask extends BackupTask<Void, Exception> {
 	
 	private Button importButton;
 
-	public ImportTask(ProgressDialog progressDialog, File file, int count) {
+	public ImportTask(final ProgressDialog progressDialog, final File file, int count) {
 		super(progressDialog);
 		this.file = file;
 		
@@ -67,7 +68,33 @@ public class ImportTask extends BackupTask<Void, Exception> {
 		importButton.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				if (getStatus() == AsyncTask.Status.PENDING) {
-					execute();
+					Context context = progressDialog.getContext();
+					
+					parser = SimpleParser.createParserByFilename(file.toString(), context, ImportTask.this);
+					
+					if (parser.maybeIncomplete()) {
+						AlertDialog.Builder builder = new AlertDialog.Builder(context);
+						
+						builder.setTitle(android.R.string.dialog_alert_title);
+						builder.setMessage(context.getString(R.string.warning_incompletedata_import, context.getString(parser.getTranslatedContentName())));
+						builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.cancel();
+								execute();
+							}
+						});
+						builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								dialog.cancel();
+							}
+						});
+						builder.setCancelable(true);
+						builder.show();
+					} else {
+						execute();
+					}
 				}
 			}
 		}); // we cannot use progressDialog.setButton(Dialog.BUTTON_POSITIVE, ...) since this would cause the dialog to close
@@ -81,8 +108,6 @@ public class ImportTask extends BackupTask<Void, Exception> {
 
 	@Override
 	protected Exception doInBackground(Void... params) {
-		parser = SimpleParser.createParserByFilename(file.toString(), progressDialog.getContext(), this);
-		
 		try {
 			Xml.parse(new InputStreamReader(new FileInputStream(file.toString())), parser);
 			return null;

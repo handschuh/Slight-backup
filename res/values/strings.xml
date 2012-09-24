@@ -81,7 +81,12 @@
     <string name="settings_storagelocation">Storage location</string>
     <string name="settings_storagelocation_description">Location of the backup files</string>
     <string name="settings_storagelocation_hint">Standard external storage</string>
-    
+    <string name="settings_hideincompletedatawarnings">Hide data warnings</string>
+    <string name="settings_hideincompletedatawarnings_description">Hide warnings about incomplete data before im- and export</string>
+
+    <string name="warning_incompletedata_import">The import of the %s will be very likely incomplete.</string>
+    <string name="warning_incompletedata_export">The export of the %s will be very likely incomplete.</string>
+
     <string-array name="settings_cyclecountvalues">
         <item>Unlimited</item>
         <item>1</item>

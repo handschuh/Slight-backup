@@ -149,6 +149,11 @@ public class ContactsParser extends SimpleParser {
 		super.endDocument();
 	}
 	
+	@Override
+	public boolean maybeIncomplete() {
+		return true;
+	}
+
 	private static String getVcardIdentification(String vcard) {
 		String[] vcardRows = vcard.split(NEWLINE_REGEX);
 		

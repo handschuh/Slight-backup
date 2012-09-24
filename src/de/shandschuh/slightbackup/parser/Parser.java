@@ -109,6 +109,14 @@ public abstract class Parser extends DefaultHandler {
 		return android.R.string.unknownName;
 	}
 	
+	public int getTranslatedContentName() {
+		try {
+			return getClass().getDeclaredField(Strings.FIELD_NAMEID).getInt(null);
+		} catch (Exception e) {
+			return android.R.string.unknownName;
+		}
+	}
+	
 	public void addHint(CharSequence charSequence) {
 		if (hintStringBuilder == null) {
 			hintStringBuilder = new StringBuilder(charSequence);
@@ -140,6 +148,13 @@ public abstract class Parser extends DefaultHandler {
 	
 	public int getEntryCount() {
 		return entryCount;
+	}
+
+	/**
+	 * Override to use.
+	 */
+	public boolean maybeIncomplete() {
+		return false;
 	}
 
 }
