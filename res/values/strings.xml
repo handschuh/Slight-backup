@@ -54,6 +54,7 @@
         <item quantity="one">Import successful, but skipped 1 entry.</item>
         <item quantity="other">Import successful, but skipped %d entries.</item>
     </plurals>
+    <string name="message_skippedallentries">Skipped all entries.</string>
     <plurals name="listentry_items">
         <item quantity="one">1 item in</item>
         <item quantity="other">%d items in</item>

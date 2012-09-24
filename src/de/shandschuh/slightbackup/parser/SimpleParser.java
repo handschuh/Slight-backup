@@ -125,7 +125,10 @@ public abstract class SimpleParser extends Parser {
 				
 				if (count != null) {
 					try {
-						importTask.progress(BackupTask.MESSAGE_COUNT, Integer.parseInt(count));
+						int entryCount = Integer.parseInt(count);
+						
+						setEntryCount(entryCount);
+						importTask.progress(BackupTask.MESSAGE_COUNT, entryCount);
 					} catch (Exception e) {
 						
 					}
@@ -190,6 +193,8 @@ public abstract class SimpleParser extends Parser {
 			} else if (updateOnExist) {
 				/** Update the existing values */
 				update(contentValues, existenceValues);
+			} else {
+				addSkippedEntry();
 			}
 			cursor.close();
 			importTask.progress(BackupTask.MESSAGE_PROGRESS, ++position);

@@ -120,7 +120,11 @@ public class ImportTask extends BackupTask<Void, Exception> {
 				int skipped = parser.getSkippedEntryCount();
 				
 				if (skipped > 0) {
-					Toast.makeText(progressDialog.getContext(), progressDialog.getContext().getResources().getQuantityString(R.plurals.message_importsuccessful_skipped, skipped, skipped), Toast.LENGTH_LONG).show();
+					if (skipped == parser.getEntryCount()) {
+						Toast.makeText(progressDialog.getContext(), R.string.message_skippedallentries, Toast.LENGTH_LONG).show();
+					} else {
+						Toast.makeText(progressDialog.getContext(), progressDialog.getContext().getResources().getQuantityString(R.plurals.message_importsuccessful_skipped, skipped, skipped), Toast.LENGTH_LONG).show();
+					}
 				} else {
 					Toast.makeText(progressDialog.getContext(), R.string.message_importsuccessful, Toast.LENGTH_LONG).show();
 				}

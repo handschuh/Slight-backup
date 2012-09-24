@@ -62,10 +62,13 @@ public abstract class Parser extends DefaultHandler {
 	
 	private int skipped;
 	
+	private int entryCount;
+	
 	public Parser(Context context, ImportTask importTask) {
 		this.context = context;
 		this.importTask = importTask;
 		skipped = 0;
+		entryCount = 0;
 	}
 
 	public final void cancel() {
@@ -129,6 +132,14 @@ public abstract class Parser extends DefaultHandler {
 	
 	public int getSkippedEntryCount() {
 		return skipped;
+	}
+	
+	protected void setEntryCount(int entryCount) {
+		this.entryCount = entryCount;
+	}
+	
+	public int getEntryCount() {
+		return entryCount;
 	}
 
 }
