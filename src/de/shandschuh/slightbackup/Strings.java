@@ -66,6 +66,8 @@ public final class Strings {
 	
 	public static final String PREFERENCE_STORAGELOCATION = "storage.location";
 	
+	public static final String PREFERENCE_HIDEDATAWARNINGS = "hideincompletedatawarnings";
+	
 	public static final String THREENEWLINES = "\n\n\n";
 	
 	public static final String EMPTY = "";

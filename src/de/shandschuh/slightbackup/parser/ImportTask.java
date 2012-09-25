@@ -35,6 +35,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.Xml;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,6 +43,7 @@ import android.widget.Button;
 import android.widget.Toast;
 import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.R;
+import de.shandschuh.slightbackup.Strings;
 
 public class ImportTask extends BackupTask<Void, Exception> {
 	private File file;
@@ -72,7 +74,7 @@ public class ImportTask extends BackupTask<Void, Exception> {
 					
 					parser = SimpleParser.createParserByFilename(file.toString(), context, ImportTask.this);
 					
-					if (parser.maybeIncomplete()) {
+					if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Strings.PREFERENCE_HIDEDATAWARNINGS, false) && parser.maybeIncomplete()) {
 						AlertDialog.Builder builder = new AlertDialog.Builder(context);
 						
 						builder.setTitle(android.R.string.dialog_alert_title);

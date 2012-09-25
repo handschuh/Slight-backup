@@ -287,7 +287,7 @@ public class BackupActivity extends ExpandableListActivity {
 	private void checkExportTaskForIncompleteData(final ExportTask exportTask) {
 		Exporter exporter = exportTask.getExporter();
 		
-		if (exporter.maybeIncomplete()) {
+		if (!PreferenceManager.getDefaultSharedPreferences(this).getBoolean(Strings.PREFERENCE_HIDEDATAWARNINGS, false) && exporter.maybeIncomplete()) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			
 			builder.setTitle(android.R.string.dialog_alert_title);
