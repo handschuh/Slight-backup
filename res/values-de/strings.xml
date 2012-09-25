@@ -21,11 +21,11 @@
         <item quantity="one">Import erfolgreich, aber 1 Eintrag übersprungen.</item>
         <item quantity="other">Import erfolgreich, aber %d Einträge übersprungen.</item>
     </plurals>
+    <string name="message_skippedallentries">Alle Einträge übersprungen.</string>
     <plurals name="listentry_items">
         <item quantity="one">1 Eintrag in</item>
         <item quantity="other">%d Einträge in</item>
     </plurals>
-    <string name="listentry_items"></string>
     <string name="button_import">Importieren</string>
     <string name="button_accept">Akzeptieren</string>
     <string name="button_decline">Ablehnen</string>
@@ -35,6 +35,7 @@
     <string name="userdictionary">Benutzerwörterbuch</string>
     <string name="playlists">Playlisten</string>
     <string name="settings">Einstellungen</string>
+    <string name="contacts">Kontakte</string>
     <string name="dialog_export">Exportieren</string>
     <string name="dialog_licenseagreement">Lizenz</string>
     <string name="question_deletefile">Wollen Sie wirklich die Datei %s löschen?</string>
@@ -46,7 +47,12 @@
     <string name="settings_storagelocation">Speicherort</string>
     <string name="settings_storagelocation_description">Ort für die Backups</string>
     <string name="settings_storagelocation_hint">Externer Standardspeicher</string>
-    
+    <string name="settings_hideincompletedatawarnings">Verstecke Datenwarnungen</string>
+    <string name="settings_hideincompletedatawarnings_description">Verstecke Warnungen über unvollständige Daten vor dem Im- und Export</string>
+
+    <string name="warning_incompletedata_import">Der Import der %s wird wahrscheinlich unvollständig sein.</string>
+    <string name="warning_incompletedata_export">Der Export der %s wird wahrscheinlich unvollständig sein.</string>
+
     <string-array name="settings_cyclecountvalues">
         <item>Unbegrenzt</item>
         <item>1</item>
