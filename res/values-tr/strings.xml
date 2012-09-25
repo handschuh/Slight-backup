@@ -5,6 +5,7 @@
     <string name="menu_about">Hakkında</string>
     <string name="menu_settings">Ayarlar</string>
     <string name="contextmenu_deletefile">Dosyayı sil</string>
+    <string name="contextmenu_deletedaydata">Bu günün verilerini sil</string>
     <string name="error_nosdcard">SD kartı yok.</string>
     <string name="error_unsupporteddatabasestructure">Desteklenmeyen veritabanı yapısı</string>
     <string name="error_couldnotcreatebackupfolder">SD kartında yedek dosya yaratılamadı (%s)</string>
@@ -12,6 +13,7 @@
     <string name="hint_nobackupsfound">Hiçbir yedek dosya bulunamadı - Menu tuşuna basıp yaratın.</string>
     <string name="hint_noexportdata">Dışa aktarım için hiçbir veri yok.</string>
     <string name="hint_exporting">%s dışa aktarılıyor&#8230;</string>
+    <string name="hint_existed">\"%s\" mevcuttu</string>
     <string name="license_intro">Bu yazılım MIT özgür yazılım lisansı kapsamında yayınlanmıştır ve kaynak kodu şu adreste mevcuttur: http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">%s olarak dışa aktarıldı.</string>
     <string name="message_importsuccessful">İçe aktarım başarıyla sonuçlandı.</string>
@@ -19,6 +21,7 @@
         <item quantity="one">İçe aktarım başarılı oldu, ancak 1 unsur atlandı.</item>
         <item quantity="other">İçe aktarım başarılı oldu, ancak %d unsur atlandı.</item>
     </plurals>
+    <string name="message_skippedallentries">Tüm unsurlar görmezden gelindi.</string>
     <plurals name="listentry_items">
         <item quantity="one">1 unsur şurada</item>
         <item quantity="other">%d unsur şurada</item>
@@ -32,7 +35,32 @@
     <string name="userdictionary">kullanıcı sözlüğü</string>
     <string name="playlists">çalma listeleri</string>
     <string name="settings">ayarlar</string>
+    <string name="contacts">rehber</string>
     <string name="dialog_export">Dışa aktar</string>
     <string name="dialog_licenseagreement">Lisans</string>
     <string name="question_deletefile">%s dosyasını silmek istediğinizden emin misiniz?</string>
+
+    <string name="settings_category_cyclicbehavior">Döngüsel davranış</string>
+    <string name="settings_cyclecount">Döngü sayımı (deneme safhasında)</string>
+    <string name="settings_cyclecount_description">Belli türde yedeklemenin azami sayısı</string>
+    <string name="settings_category_storage">Yedekleme</string>
+    <string name="settings_storagelocation">Yedekleme konumu</string>
+    <string name="settings_storagelocation_description">Yedekleme dosyalarının konumu</string>
+    <string name="settings_storagelocation_hint">Standart harici depolama</string>
+    <string name="settings_hideincompletedatawarnings">Veri uyarılarını sakla</string>
+    <string name="settings_hideincompletedatawarnings_description">İçe ve dışa aktarımdan önce eksik veriler hakkında uyarıları gösterme</string>
+
+    <string name="warning_incompletedata_import">%s unsurunun içe aktarımı muhtemelen eksik olacak.</string>
+    <string name="warning_incompletedata_export">%s unsurunun dışa aktarımı muhtemelen eksik olacak.</string>
+
+    <string-array name="settings_cyclecountvalues">
+        <item>Sınırsız</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
 </resources>

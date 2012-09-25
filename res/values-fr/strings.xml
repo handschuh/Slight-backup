@@ -5,6 +5,7 @@
     <string name="menu_about">À propos</string>
     <string name="menu_settings">Réglages</string>
     <string name="contextmenu_deletefile">Effacer le fichier</string>
+    <string name="contextmenu_deletedaydata">Effacer les données de ce jour</string>
     <string name="error_nosdcard">Pas de carte SD.</string>
     <string name="error_unsupporteddatabasestructure">Structure de base de données non supportée</string>
     <string name="error_couldnotcreatebackupfolder">Échec de la création du dossier de sauvegarde (%s)</string>
@@ -12,6 +13,7 @@
     <string name="hint_nobackupsfound">Aucune sauvegarde trouvée - appuyez sur la touche menu pour en créer une.</string>
     <string name="hint_noexportdata">Aucune donnée à exporter.</string>
     <string name="hint_exporting">Export de %s en cours&#8230;</string>
+    <string name="hint_existed">Il y avait \"%s\"</string>
     <string name="license_intro">Ce logiciel est distribué sous la licence libre MIT et son code source est disponible sur http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Exporté en %s.</string>
     <string name="message_importsuccessful">L\'import a réussi.</string>
@@ -19,6 +21,7 @@
         <item quantity="one">L\'import a réussi, mais 1 entrée a été ignorée.</item>
         <item quantity="other">L\'import a réussi, mais %d entrées ont été ignorées.</item>
     </plurals>
+    <string name="message_skippedallentries">Toutes les entrées ont été ignorées.</string>
     <plurals name="listentry_items">
         <item quantity="one">1 élément dans</item>
         <item quantity="other">%d éléments dans</item>
@@ -32,7 +35,32 @@
     <string name="userdictionary">dictionnaire personnel</string>
     <string name="playlists">listes de lecture</string>
     <string name="settings">réglages</string>
+    <string name="contacts">contacts</string>
     <string name="dialog_export">Exporter</string>
     <string name="dialog_licenseagreement">Licence</string>
     <string name="question_deletefile">Voulez-vous vraiment effacer le fichier %s?</string>
+
+    <string name="settings_category_cyclicbehavior">Comportement périodique</string>
+    <string name="settings_cyclecount">Nombre de périodes (expérimental)</string>
+    <string name="settings_cyclecount_description">Nombre max. de sauvegardes d\'un type donné</string>
+    <string name="settings_category_storage">Sauvegardes</string>
+    <string name="settings_storagelocation">Emplacement des sauvegardes</string>
+    <string name="settings_storagelocation_description">Emplacement des fichiers de sauvegarde</string>
+    <string name="settings_storagelocation_hint">Stockage externe standard</string>
+    <string name="settings_hideincompletedatawarnings">Cacher les avertissements sur les données</string>
+    <string name="settings_hideincompletedatawarnings_description">Cacher les avertissements sur les données incomplètes avant ex- et importation</string>
+
+    <string name="warning_incompletedata_import">L\'importation de %s sera très probablement incomplète.</string>
+    <string name="warning_incompletedata_export">L\'exportation de %s sera très probablement incomplète.</string>
+
+    <string-array name="settings_cyclecountvalues">
+        <item>Illimité</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
 </resources>
