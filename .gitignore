@@ -1,8 +1,11 @@
 bin
 gen
 *.png
+!res/drawable*/*.png
 keystore
 .classpath
 .project
 *.zip
 *.tar*
+*~
+.settings
