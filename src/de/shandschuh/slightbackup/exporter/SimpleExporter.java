@@ -122,57 +122,57 @@ public abstract class SimpleExporter extends Exporter {
 		exportTask.progress(BackupTask.MESSAGE_PROGRESS, 0);
 
 		int length = fields.length;
-    	
-    	int[] positions = new int[length];
-    	
-    	for (int n = 0; n < length; n++) {
-    		positions[n] = cursor.getColumnIndex(fields[n]);
-    	}
-    	
-    	BufferedWriter writer = new BufferedWriter(new PrintWriter(filename, Strings.UTF8));
-    	
-    	writeXmlStart(writer, tag, count);
-    	
-    	int position = 0;
-    	
-    	while (!canceled && cursor.moveToNext()) {
-    		writer.write('<');
-    		writer.write(tag);
-    		for (int n = 0; n < length; n++) {
-    			try {
-    				String string = cursor.getString(positions[n]);
-        			
-        			if (string != null && !BaseColumns._ID.equals(fields[n])) {
-        				writer.write(' ');
-        				writer.write(fields[n]);
-        				writer.write(EQUALS);
-            			writer.write(TextUtils.htmlEncode(string));
-            			writer.write('"');
-        			}
-    			} catch (Exception e) {
-    				// if there is blob data
-    			}
-    		}
-    		writer.write('>');
-    		addText(cursor, writer);
-    		writer.write(ENDTAG_START);
-    		writer.write(tag);
-    		writer.write(TAG_END);
-    		
-    		exportTask.progress(BackupTask.MESSAGE_PROGRESS, ++position);
-    	}
-    	cursor.close();
-    	
-    	writeXmlEnd(writer, tag);
+		
+		int[] positions = new int[length];
+		
+		for (int n = 0; n < length; n++) {
+			positions[n] = cursor.getColumnIndex(fields[n]);
+		}
+		
+		BufferedWriter writer = new BufferedWriter(new PrintWriter(filename, Strings.UTF8));
+		
+		writeXmlStart(writer, tag, count);
+		
+		int position = 0;
+		
+		while (!canceled && cursor.moveToNext()) {
+			writer.write('<');
+			writer.write(tag);
+			for (int n = 0; n < length; n++) {
+				try {
+					String string = cursor.getString(positions[n]);
+					
+					if (string != null && !BaseColumns._ID.equals(fields[n])) {
+						writer.write(' ');
+						writer.write(fields[n]);
+						writer.write(EQUALS);
+						writer.write(TextUtils.htmlEncode(string));
+						writer.write('"');
+					}
+				} catch (Exception e) {
+					// if there is blob data
+				}
+			}
+			writer.write('>');
+			addText(cursor, writer);
+			writer.write(ENDTAG_START);
+			writer.write(tag);
+			writer.write(TAG_END);
+			
+			exportTask.progress(BackupTask.MESSAGE_PROGRESS, ++position);
+		}
+		cursor.close();
+		
+		writeXmlEnd(writer, tag);
 		writer.close();
-    	
-    	if (!canceled) {
-    		return count;
-    	} else {
-    		new File(filename).delete();
-    		this.filename = null;
-    		return -1;
-    	}
+		
+		if (!canceled) {
+			return count;
+		} else {
+			new File(filename).delete();
+			this.filename = null;
+			return -1;
+		}
 	}
 	
 	private String[] determineFields(String[] columnNames, String[] fields, String[] optionalFields) {
@@ -191,11 +191,11 @@ public abstract class SimpleExporter extends Exporter {
 
 	protected boolean checkFieldNames(String[] availableFieldNames, String[] neededFieldNames) {
 		for (int n = 0, i = neededFieldNames != null ? neededFieldNames.length : 0; n < i; n++) {
-    		if (Strings.indexOf(availableFieldNames, neededFieldNames[n]) == -1) {
-    			return false;
-    		}
-    	}
-    	return true;
+			if (Strings.indexOf(availableFieldNames, neededFieldNames[n]) == -1) {
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/*

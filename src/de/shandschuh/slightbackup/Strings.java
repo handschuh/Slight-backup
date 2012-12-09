@@ -121,12 +121,12 @@ public final class Strings {
 	public static final String UTF8 = "utf-8";
 
 	public static int indexOf(String[] array, String string) {
-    	for (int n = 0, i = array != null ? array.length : 0; n < i; n++) {
-    		if (array[n] != null && array[n].equals(string)) {
-    			return n;
-    		}
-    	}
-    	return -1;
-    }
+		for (int n = 0, i = array != null ? array.length : 0; n < i; n++) {
+			if (array[n] != null && array[n].equals(string)) {
+				return n;
+			}
+		}
+		return -1;
+	}
 	
 }

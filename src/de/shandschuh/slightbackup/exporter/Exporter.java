@@ -189,14 +189,14 @@ public abstract class Exporter {
 	
 	public static void writeXmlStart(Writer writer, String tag, int count) throws IOException {
 		writer.write(XML_START);
-    	
-    	writer.write('<');
-    	writer.write(tag);
-    	writer.write(S_DATE);
-    	writer.write(Long.toString(System.currentTimeMillis()));
-    	writer.write(_COUNT);
-    	writer.write(Integer.toString(count));
-    	writer.write(TAG_END_QUOTE);
+		
+		writer.write('<');
+		writer.write(tag);
+		writer.write(S_DATE);
+		writer.write(Long.toString(System.currentTimeMillis()));
+		writer.write(_COUNT);
+		writer.write(Integer.toString(count));
+		writer.write(TAG_END_QUOTE);
 	}
 	
 	public static void writeXmlEnd(Writer writer, String tag) throws IOException {

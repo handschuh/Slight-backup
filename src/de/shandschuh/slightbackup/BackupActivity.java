@@ -412,9 +412,9 @@ public class BackupActivity extends ExpandableListActivity {
 		}
 		DIR = new File(dirName);
 		
-        listAdapter = new BackupFilesListAdapter(this, preferences);
-        setListAdapter(listAdapter);
-        getExpandableListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+		listAdapter = new BackupFilesListAdapter(this, preferences);
+		setListAdapter(listAdapter);
+		getExpandableListView().setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 			public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 				ExpandableListView.ExpandableListContextMenuInfo expandableInfo = (ExpandableListView.ExpandableListContextMenuInfo) menuInfo;
 				
@@ -426,7 +426,7 @@ public class BackupActivity extends ExpandableListActivity {
 					menu.add(0, CONTEXTMENU_DELETEDAY, Menu.NONE, R.string.contextmenu_deletedaydata);
 				}
 			}
-        });
+		});
 	}
 	
 	private static boolean checkRoot() {

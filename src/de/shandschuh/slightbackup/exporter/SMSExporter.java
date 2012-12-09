@@ -63,8 +63,8 @@ public class SMSExporter extends SimpleExporter {
 
 	@Override
 	public boolean checkFieldNames(String[] availableFieldNames, String[] neededFieldNames) {
-		return super.checkFieldNames(availableFieldNames, neededFieldNames) 
-		       && Strings.indexOf(availableFieldNames, Strings.BODY) > -1;
+		return super.checkFieldNames(availableFieldNames, neededFieldNames)
+				&& Strings.indexOf(availableFieldNames, Strings.BODY) > -1;
 	}
 
 }
