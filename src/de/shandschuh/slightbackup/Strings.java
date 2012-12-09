@@ -108,14 +108,14 @@ public final class Strings {
 		"type",
 		"read",
 		"status",
-		"service_center"
 	};
 
 	public static final String[] SMS_FIELDS_OPTIONAL = new String[] {
 		"locked",
 		"date_sent",
 		"seen",
-		"error_code"
+		"error_code",
+		"service_center",
 	};
 
 	public static final String UTF8 = "utf-8";

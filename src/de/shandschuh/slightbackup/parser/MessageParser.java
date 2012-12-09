@@ -83,19 +83,19 @@ public class MessageParser extends SimpleParser {
 		Vector<String> fields = new Vector<String>();
 		
 		for (String field : Strings.SMS_FIELDS) {
-			if (Strings.indexOf(Strings.SMS_FIELDS, field) == -1) {
+			if (Strings.indexOf(availableFields, field) == -1) {
 				throw new IllegalArgumentException();
 			} else {
 				fields.add(field);
 			}
 		}
-		for (String field : Strings.SMS_FIELDS) {
-			if (Strings.indexOf(Strings.SMS_FIELDS_OPTIONAL, field) > -1) {
+		for (String field : Strings.SMS_FIELDS_OPTIONAL) {
+			if (Strings.indexOf(availableFields, field) > -1) {
 				fields.add(field);
 			}
 		}
 		
-		return fields.toArray(availableFields);
+		return fields.toArray(new String[0]);
 	}
 	
 }

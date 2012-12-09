@@ -176,7 +176,13 @@ public abstract class SimpleParser extends Parser {
 				cursor = context.getContentResolver().query(contentUri, null, generateWhereQuery(fields, availableIndices), availableValues, null);
 			} else {
 				for (int n = 0; n < existanceLength; n++) {
-					existenceValues[n] = values[existancePositions[n]];
+					if (values[existancePositions[n]] == null) {
+						// this means that not all required fields are non-null
+						addSkippedEntry();
+						return;
+					} else {
+						existenceValues[n] = values[existancePositions[n]];
+					}
 				}
 				cursor = context.getContentResolver().query(contentUri, null, generateWhereQuery(existenceFields), existenceValues, null);
 			}
