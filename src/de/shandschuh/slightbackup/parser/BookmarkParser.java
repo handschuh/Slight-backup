@@ -34,7 +34,7 @@ public class BookmarkParser extends SimpleParser {
 	public static final String NAME = Strings.BOOKMARKS;
 	
 	public static final int NAMEID = R.string.bookmarks;
-
+	
 	public BookmarkParser(Context context, ImportTask importTask) {
 		super(context, Strings.TAG_BOOKMARK, new String[] {Browser.BookmarkColumns.BOOKMARK,
 				Browser.BookmarkColumns.CREATED,
@@ -43,8 +43,8 @@ public class BookmarkParser extends SimpleParser {
 				Browser.BookmarkColumns.URL,
 				Browser.BookmarkColumns.VISITS
 		}, Browser.BOOKMARKS_URI, importTask, new String[] {Browser.BookmarkColumns.TITLE,
-				Browser.BookmarkColumns.URL, 
+				Browser.BookmarkColumns.URL,
 				Browser.BookmarkColumns.BOOKMARK});
 	}
-
+	
 }

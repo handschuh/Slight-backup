@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup;
@@ -65,7 +65,7 @@ public abstract class BackupTask<A, B> extends AsyncTask<A, Integer, B> {
 	public void progress(Integer... params) {
 		publishProgress(params);
 	}
-
+	
 	@Override
 	protected void onProgressUpdate(Integer... values) {
 		if (values[0] == MESSAGE_COUNT) {
@@ -75,19 +75,19 @@ public abstract class BackupTask<A, B> extends AsyncTask<A, Integer, B> {
 		}
 		super.onProgressUpdate(values);
 	}
-
+	
 	@Override
 	protected void onCancelled() {
 		progressDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		super.onCancelled();
 	}
-
+	
 	@Override
 	protected void onPostExecute(B result) {
 		progressDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		super.onPostExecute(result);
 	}
-
+	
 	@Override
 	protected void onPreExecute() {
 		progressDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);

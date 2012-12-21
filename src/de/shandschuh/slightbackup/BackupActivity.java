@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup;
@@ -104,24 +104,24 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	private ExporterInfos exporterInfos;
 	
-    @SuppressWarnings("deprecation")
+	@SuppressWarnings("deprecation")
 	@Override
-    public void onCreate(Bundle savedInstanceState) {
-    	INSTANCE = this;
-        super.onCreate(savedInstanceState);
-        if (getPreferences(MODE_PRIVATE).getBoolean(Strings.PREFERENCE_LICENSEACCEPTED, false)) {
-        	setContent();
-        } else {
-        	showDialog(DIALOG_LICENSEAGREEMENT);
-        }
-    }
-    
-    @Override
+	public void onCreate(Bundle savedInstanceState) {
+		INSTANCE = this;
+		super.onCreate(savedInstanceState);
+		if (getPreferences(MODE_PRIVATE).getBoolean(Strings.PREFERENCE_LICENSEACCEPTED, false)) {
+			setContent();
+		} else {
+			showDialog(DIALOG_LICENSEAGREEMENT);
+		}
+	}
+	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onMenuItemSelected(int featureId, final MenuItem item) {
@@ -136,11 +136,11 @@ public class BackupActivity extends ExpandableListActivity {
 				long packedPosition = ((ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo()).packedPosition;
 				
 				if (ExpandableListView.getPackedPositionType(packedPosition) != ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-					break; 
+					break;
 				}
 				
 				final File file = listAdapter.getChild(ExpandableListView.getPackedPositionGroup(packedPosition), ExpandableListView.getPackedPositionChild(packedPosition));
-					
+				
 				if (deleteFileDialog == null) {
 					AlertDialog.Builder builder = new AlertDialog.Builder(this);
 					
@@ -179,7 +179,7 @@ public class BackupActivity extends ExpandableListActivity {
 				long packedPosition = menuInfo.packedPosition;
 				
 				if (ExpandableListView.getPackedPositionType(packedPosition) != ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-					break; 
+					break;
 				}
 				if (importDialog == null) {
 					importDialog = new ProgressDialog(this);
@@ -192,7 +192,7 @@ public class BackupActivity extends ExpandableListActivity {
 				long packedPosition = ((ExpandableListView.ExpandableListContextMenuInfo) item.getMenuInfo()).packedPosition;
 				
 				if (ExpandableListView.getPackedPositionType(packedPosition) != ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
-					break; 
+					break;
 				}
 				
 				final int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
@@ -216,7 +216,7 @@ public class BackupActivity extends ExpandableListActivity {
 					});
 					builder.setMessage(Strings.EMPTY); // just so that the string is available
 					deleteDayDialog = builder.create();
-				} 
+				}
 				deleteDayDialog.show();
 				deleteDayDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -313,7 +313,7 @@ public class BackupActivity extends ExpandableListActivity {
 	}
 	
 	private void checkProgressDialog(ProgressDialog dialog) {
-        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+		dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		dialog.setProgress(0);
 		dialog.setMax(100);
 		dialog.setMessage(Strings.EMPTY); // we just have to set some non-null value to enable the title
@@ -326,10 +326,10 @@ public class BackupActivity extends ExpandableListActivity {
 		}
 		checkProgressDialog(importDialog);
 		new ImportTask(importDialog, listAdapter.getChild(groupPosition, childPosition), (Integer) v.getTag());
-
+		
 		return true;
 	}
-
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	protected Dialog onCreateDialog(int id) {
@@ -371,9 +371,9 @@ public class BackupActivity extends ExpandableListActivity {
 		} else if (id == DIALOG_ABOUT) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 			
-			builder.setIcon(android.R.drawable.ic_dialog_info);		
+			builder.setIcon(android.R.drawable.ic_dialog_info);
 			builder.setTitle(R.string.menu_about);
-			setupLicenseText(builder);			
+			setupLicenseText(builder);
 			builder.setPositiveButton(android.R.string.ok, new OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					dialog.cancel();

@@ -1,6 +1,6 @@
 /**
  * Slight backup - a simple backup tool
- * 
+ *
  * Copyright (c) 2011, 2012 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -40,9 +40,9 @@ import de.shandschuh.slightbackup.Strings;
 /**
  * This parser is currently only usable for the playlist but the fields are
  * prepared to be generalized in case this is needed later.
- * 
+ *
  * @author Stefan Handschuh
- * 
+ *
  */
 public class PlaylistParser extends Parser {
 	public static final String NAME = Strings.PLAYLISTS;
@@ -50,29 +50,29 @@ public class PlaylistParser extends Parser {
 	public static final int NAMEID = R.string.playlists;
 	
 	private String levelOneTag;
-
+	
 	private String levelTwoTag;
-
+	
 	private boolean levelOneTagEntered;
-
+	
 	private boolean levelTwoTagEntered;
-
+	
 	private long levelOneId;
-
+	
 	private String[] levelOneProjection;
-
+	
 	private String levelOneSelection;
-
+	
 	private String[] levelTwoProjection;
-
+	
 	private String levelTwoSelection;
-
+	
 	private String levelTwoExistenceSelection;
-
+	
 	private int position;
-
+	
 	private int playOrder;
-
+	
 	public PlaylistParser(Context context, ImportTask importTask) {
 		super(context, importTask);
 		levelOneTag = Strings.TAG_PLAYLIST;
@@ -87,7 +87,7 @@ public class PlaylistParser extends Parser {
 				.append(Strings.DB_ARG).toString();
 		position = 0;
 	}
-
+	
 	@Override
 	public void endElement(String uri, String localName, String qName)
 			throws SAXException {
@@ -102,7 +102,7 @@ public class PlaylistParser extends Parser {
 			levelTwoTagEntered = false;
 		}
 	}
-
+	
 	@Override
 	public void startElement(String uri, String localName, String qName,
 			Attributes attributes) throws SAXException {
@@ -111,16 +111,16 @@ public class PlaylistParser extends Parser {
 		}
 		if (!levelOneTagEntered && localName.equals(levelOneTag)) {
 			levelOneTagEntered = true;
-
+			
 			String name = attributes.getValue(Strings.EMPTY,
 					Audio.Playlists.NAME);
-
+			
 			if (name != null) {
 				Cursor playlistCursor = context.getContentResolver().query(
 						Audio.Playlists.EXTERNAL_CONTENT_URI,
 						levelOneProjection, levelOneSelection,
 						new String[] { name }, null);
-
+				
 				if (playlistCursor.moveToNext()) {
 					
 					addHint(context.getString(R.string.hint_existed, name));
@@ -128,7 +128,7 @@ public class PlaylistParser extends Parser {
 					levelOneTagEntered = false;
 				} else {
 					ContentValues values = new ContentValues();
-
+					
 					values.put(Audio.Playlists.NAME, name);
 					levelOneId = Long.parseLong(context.getContentResolver()
 							.insert(Audio.Playlists.EXTERNAL_CONTENT_URI,
@@ -140,29 +140,29 @@ public class PlaylistParser extends Parser {
 		} else if (!levelTwoTagEntered && localName.equals(levelTwoTag)
 				&& levelOneTagEntered) {
 			levelTwoTagEntered = true;
-
+			
 			String data = attributes.getValue(Strings.EMPTY, Audio.Media.DATA);
-
+			
 			if (data != null) {
 				Cursor audioCursor = context.getContentResolver().query(
 						Audio.Media.EXTERNAL_CONTENT_URI, levelTwoProjection,
 						levelTwoSelection, new String[] { data }, null);
-
+				
 				if (audioCursor.moveToNext()) {
 					long audioId = audioCursor.getLong(0);
-
+					
 					Uri contentUri = Audio.Playlists.Members.getContentUri(
 							Strings.EXTERNAL, levelOneId);
-
+					
 					Cursor playlistMemberCursor = context
 							.getContentResolver()
 							.query(contentUri, null, levelTwoExistenceSelection,
 									new String[] { Long.toString(audioId),
 											Integer.toString(playOrder) }, null);
-
+					
 					if (!playlistMemberCursor.moveToNext()) {
 						ContentValues values = new ContentValues();
-
+						
 						values.put(Audio.Playlists.Members.AUDIO_ID, audioId);
 						values.put(Audio.Playlists.Members.PLAY_ORDER,
 								playOrder);
@@ -173,16 +173,16 @@ public class PlaylistParser extends Parser {
 				}
 				audioCursor.close();
 			}
-
+			
 		} else {
 			String count = attributes.getValue(Strings.EMPTY, COUNT);
-
+			
 			if (count != null) {
 				try {
 					importTask.progress(BackupTask.MESSAGE_COUNT, Integer
 							.parseInt(count));
 				} catch (Exception e) {
-
+					
 				}
 			}
 		}

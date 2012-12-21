@@ -1,6 +1,6 @@
 /**
  * Slight backup - a simple backup tool
- * 
+ *
  * Copyright (c) 2011 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup.exporter;
@@ -59,7 +59,7 @@ public class ExportTask extends BackupTask<Void, Integer> {
 	public Context getContext() {
 		return progressDialog.getContext();
 	}
-
+	
 	@Override
 	protected Integer doInBackground(Void... params) {
 		publishProgress(MESSAGE_TYPE, id);
@@ -70,7 +70,7 @@ public class ExportTask extends BackupTask<Void, Integer> {
 			return -1;
 		}
 	}
-
+	
 	@Override
 	protected void onPostExecute(Integer result) {
 		progressDialog.setProgress(0);
@@ -103,7 +103,7 @@ public class ExportTask extends BackupTask<Void, Integer> {
 		progressDialog.setProgress(0);
 		super.onCancelled();
 	}
-
+	
 	@Override
 	protected void onPreExecute() {
 		progressDialog.show();
@@ -113,7 +113,7 @@ public class ExportTask extends BackupTask<Void, Integer> {
 	public Exporter getExporter() {
 		return exporter;
 	}
-
+	
 	@Override
 	protected void onProgressUpdate(Integer... values) {
 		if (values[0] == MESSAGE_TYPE) {

@@ -20,7 +20,7 @@
  * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
- * 
+ *
  */
 
 package de.shandschuh.slightbackup;
@@ -68,7 +68,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 	private Resources resources;
 	
 	private SharedPreferences preferences;
-
+	
 	public BackupFilesListAdapter(Context context, SharedPreferences preferences) {
 		this.context = context;
 		this.preferences = preferences;
@@ -115,15 +115,15 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 			return filename.endsWith(Strings.FILE_EXTENSION) && filename.indexOf(Strings.FILE_SUFFIX) > 0;
 		}
 	}
-
+	
 	public File getChild(int groupPosition, int childPosition) {
 		return data.get(dates.get(groupPosition)).get(childPosition);
 	}
-
+	
 	public long getChildId(int groupPosition, int childPosition) {
 		return childPosition;
 	}
-
+	
 	public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 		View view = convertView == null ? layoutInflater.inflate(android.R.layout.simple_expandable_list_item_2, null) : convertView;
 		
@@ -134,62 +134,62 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		String filename = file.toString();
 		
 		TextView text2 = (TextView) view.findViewById(android.R.id.text2);
-
+		
 		text2.setText(filename);
-
+		
 		int count = -1;
-
+		
 		try {
 			InputStreamReader reader = new InputStreamReader(new FileInputStream(file));
-
+			
 			char[] buffer = new char[100]; // the info should be within the first 100 characters
-
+			
 			reader.read(buffer);
 			reader.close();
-
+			
 			String string = new String(buffer);
-
+			
 			int index = string.indexOf(Strings.COUNT);
-
+			
 			if (index > 0) {
 				count = Integer.parseInt(string.substring(index+7, string.indexOf('"', index+8)));
 				text2.setText(new StringBuilder(resources.getQuantityString(R.plurals.listentry_items, count, count)).append(' ').append(filename));
-			} 
+			}
 			index = string.indexOf(Strings.DATE);
 			if (index > 0) {
 				date = Long.parseLong(string.substring(index+6, string.indexOf('"', index+7)));
 			} else {
 				date = Long.parseLong(filename.substring(filename.lastIndexOf('_')+1, filename.lastIndexOf(Strings.FILE_EXTENSION)));
 			}
-
+			
 		} catch (Exception e) {
-
+			
 		}
-
+		
 		view.setTag(count);
 		((TextView) view.findViewById(android.R.id.text1)).setText(new StringBuilder(timeFormat.format(new Date(date))).append(DASH).append(context.getString(SimpleParser.getTranslatedParserName(filename))));
 		return view;
 	}
-
+	
 	public int getChildrenCount(int groupPosition) {
 		return getChildren(groupPosition).size();
 	}
-
+	
 	public Date getGroup(int groupPosition) {
 		return dates.get(groupPosition);
 	}
-
+	
 	public int getGroupCount() {
 		return data.size();
 	}
-
+	
 	public long getGroupId(int groupPosition) {
 		return groupPosition;
 	}
-
+	
 	public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 		View view = convertView == null ? layoutInflater.inflate(android.R.layout.simple_expandable_list_item_1, null) : convertView;
-
+		
 		if (isExpanded) {
 			((TextView) view.findViewById(android.R.id.text1)).setText(dateFormat.format(getGroup(groupPosition)));
 		} else {
@@ -197,15 +197,15 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		}
 		return view;
 	}
-
+	
 	public boolean hasStableIds() {
 		return true;
 	}
-
+	
 	public boolean isChildSelectable(int groupPosition, int childPosition) {
 		return true;
 	}
-
+	
 	public void add(File file, boolean notify) {
 		long longDate = getFileDate(file);
 		
@@ -234,7 +234,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 				String filename = file.toString();
 				
 				int backuptype = SimpleParser.getTranslatedParserName(filename);
-
+				
 				/** first, search the vector */
 				for (int n = vector.size()-2; n > -1; n--) {
 					if (backuptype == SimpleParser.getTranslatedParserName(vector.get(n).toString()) && --cycleCount < 1) {
@@ -260,7 +260,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 			notifyDataSetChanged();
 		}
 	}
-
+	
 	public void add(File file) {
 		add(file, true);
 	}
@@ -297,7 +297,7 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		for (File file : files) {
 			remove(file, false);
 		}
-		notifyDataSetChanged();		
+		notifyDataSetChanged();
 	}
 	
 	private static long getFileDate(File file) {

@@ -31,8 +31,7 @@ import de.shandschuh.slightbackup.Strings;
 
 import android.content.Context;
 
-
-public class EverythingExporter extends Exporter {	
+public class EverythingExporter extends Exporter {
 	public static final int ID = 0;
 	
 	private int currentNameId;
