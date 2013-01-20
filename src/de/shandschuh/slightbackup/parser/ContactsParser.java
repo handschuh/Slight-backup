@@ -44,6 +44,18 @@ import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 import de.shandschuh.slightbackup.exporter.ContactsExporter;
 
+/**
+ * This parser reads the contacts from the exported xml file and imports them.
+ *
+ * The procedure is as follows:
+ *  1. Fetch all contacts that are currently stored in the phones database
+ *  2. While reading the contacts from the xml file, test of they are already in
+ *     the phones storage with the information that has been gathered in step 1.
+ *     Put the contacts that are new into a list to avoid duplicates
+ *  3. Create one vcf file that contains all new contacts
+ *  4. Give the newly created vcf file to the android systems vcard importer and
+ *     let it do all the actual import work
+ */
 public class ContactsParser extends SimpleParser {
 	public static final String NAME = Strings.CONTACTS;
 	
@@ -136,6 +148,7 @@ public class ContactsParser extends SimpleParser {
 		try {
 			vcardsFileOutputStream.close();
 			if (!isCanceled() && hasEntries) {
+				/* Ask the android system to import the vcf file */
 				Intent intent = new Intent(Intent.ACTION_VIEW).setDataAndType(Uri.fromFile(vcardsFile), VCARD_TYPE);
 				
 				context.startActivity(intent);
@@ -151,9 +164,23 @@ public class ContactsParser extends SimpleParser {
 	
 	@Override
 	public boolean maybeIncomplete() {
+		/**
+		 * Since the vcard export itself may be incomplete, the import
+		 * may also lack certain field values.
+		 * For instance there seems to be no way to store the "starred"
+		 * property in a vcard entry.
+		 */
 		return true;
 	}
 
+	/**
+	 * This method returns a string which we can use to identify a contact.
+	 * As this is only a heuristic, there may be duplicates if there are
+	 * small differences in the string that this method generates.
+	 *
+	 * The vcard values N and FN are being used to generate the
+	 * identification.
+	 */
 	private static String getVcardIdentification(String vcard) {
 		String[] vcardRows = vcard.split(NEWLINE_REGEX);
 		

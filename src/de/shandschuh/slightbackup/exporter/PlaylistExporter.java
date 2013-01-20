@@ -34,6 +34,11 @@ import android.text.TextUtils;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
+/**
+ * This exporter stores the information that is contained in a playlist.
+ *
+ * Only the file names are saved instead of the files itself.
+ */
 public class PlaylistExporter extends SimpleExporter {
 	public static final int ID = 5;
 	

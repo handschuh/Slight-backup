@@ -38,6 +38,14 @@ public abstract class Parser extends DefaultHandler {
 	
 	private static Vector<Class<?>> PARSERS;
 	
+	/**
+	 * This is the list of all importers that are available in this backup
+	 * program.
+	 * Each importer has to be added here to be registered by the this
+	 * program.
+	 * There is a file recognition that tries to find the importer that
+	 * should be used to import a certain file.
+	 */
 	static {
 		PARSERS = new Vector<Class<?>>();
 		
@@ -151,7 +159,9 @@ public abstract class Parser extends DefaultHandler {
 	}
 
 	/**
-	 * Override to use.
+	 * By overriding this method and returning "true", the program will give
+	 * a warning before the import that the data that should be imported,
+	 * may be incomplete.
 	 */
 	public boolean maybeIncomplete() {
 		return false;

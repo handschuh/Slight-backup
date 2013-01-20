@@ -53,8 +53,16 @@ public class PlaylistParser extends Parser {
 	
 	private String levelTwoTag;
 	
+	/**
+	 * The level one flag is used determine the current xml tree depth to
+	 * distinguish between the playlists and the playlist entries.
+	 */
 	private boolean levelOneTagEntered;
 	
+	/**
+	 * Flag to determine whether we are at the playlist level or at the file
+	 * level of a playlist.
+	 */
 	private boolean levelTwoTagEntered;
 	
 	private long levelOneId;

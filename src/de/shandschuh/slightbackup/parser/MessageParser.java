@@ -43,6 +43,19 @@ public class MessageParser extends SimpleParser {
 	
 	public static final int NAMEID = R.string.smsmessages;
 	
+	/**
+	 * We have to trigger MmsSmsDatabaseHelper.updateAllThreads which itself
+	 * is called from the MmsSmsDatabaseHelper.updateThread method, if the
+	 * thread id < 0.
+	 *
+	 * MmsSmsDatabaseHelper.updateThread is called from
+	 * MmsSmsProvider.delete by using ContentResolver.delete with this
+	 * content uri.
+	 *
+	 * The classes MmsSmsDatabaseHelper and MmsSmsProvider are part of the
+	 * android libraries but they are not an official api such that they can
+	 * change or even vanish in some android versions.
+	 */
 	private static final Uri SMSCONVERSATIONSUPDATE_URI = Uri.parse("content://sms/conversations/-1");
 	
 	private StringBuilder messageStringBuilder;

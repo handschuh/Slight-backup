@@ -67,6 +67,13 @@ public abstract class Exporter {
 	
 	public static Vector<Class<?>> EXPORTERS;
 	
+	/**
+	 * This is the list of all exporters that are available to this backup
+	 * program.
+	 * Each new exporter has to be added here in order to be recognized by
+	 * this program.
+	 * All menu items and so on are created dynamically.
+	 */
 	static {
 		EXPORTERS = new Vector<Class<?>>();
 
@@ -138,7 +145,8 @@ public abstract class Exporter {
 	}
 	
 	/**
-	 * Override to use.
+	 * By overriding this method, the program will show a warning before the
+	 * export that the resulting exported data may be incomplete.
 	 */
 	public boolean maybeIncomplete() {
 		return false;

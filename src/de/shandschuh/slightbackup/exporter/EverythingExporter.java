@@ -31,6 +31,12 @@ import de.shandschuh.slightbackup.Strings;
 
 import android.content.Context;
 
+/**
+ * This exporter simply bundles all the existing exporters by creating a dummy
+ * exporter that performs a wrapping of the existing ones.
+ *
+ * The list of the exporters is Exporter.EXPORTERS.
+ */
 public class EverythingExporter extends Exporter {
 	public static final int ID = 0;
 	
