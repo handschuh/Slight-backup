@@ -77,10 +77,20 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		reset(false);
 	}
 	
+	/**
+	 * Equivalent to reset(true);.
+	 */
 	public void reset() {
 		reset(true);
 	}
 	
+	/**
+	 * This method resets the data structures that contain the information
+	 * about the available backups.
+	 *
+	 * @param notify if set to "true", the change of the underlying dataset
+	 *               will be notified
+	 */
 	private void reset(boolean notify) {
 		if (dates == null) {
 			dates = new Vector<Date>();
@@ -110,6 +120,10 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		}
 	}
 	
+	/**
+	 * This filename filter accepts all files with ".xml" extension that
+	 * have a proper name (i.e. not ".xml" as full name).
+	 */
 	private static final class BackupFileNameFilter implements FilenameFilter {
 		public boolean accept(File dir, String filename) {
 			return filename.endsWith(Strings.FILE_EXTENSION) && filename.indexOf(Strings.FILE_SUFFIX) > 0;
@@ -261,14 +275,27 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		}
 	}
 	
+	/**
+	 * Equivalent to add(file, true).
+	 */
 	public void add(File file) {
 		add(file, true);
 	}
 	
+	/**
+	 * Equivalent to remove(file, true).
+	 */
 	public void remove(File file) {
 		remove(file, true);
 	}
 	
+	/**
+	 * Removes a file from the corresponding data set.
+	 * Please note that the file itself is not deleted.
+	 *
+	 * @param file   the file which should be removed from the data store
+	 * @param notify if "true", the change of the data set will be notified
+	 */
 	public void remove(File file, boolean notify) {
 		long longDate = getFileDate(file);
 		
@@ -293,6 +320,10 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		return data.get(dates.get(groupPosition));
 	}
 	
+	/**
+	 * Remove all files of the given vector from the data sets and notify
+	 * the change of the data set.
+	 */
 	public void remove(Vector<File> files) {
 		for (File file : files) {
 			remove(file, false);
@@ -300,6 +331,10 @@ public class BackupFilesListAdapter extends BaseExpandableListAdapter {
 		notifyDataSetChanged();
 	}
 	
+	/**
+	 * Returns the date of an export based on the timestamp that is stored
+	 * in the filename.
+	 */
 	private static long getFileDate(File file) {
 		try {
 			String filename = file.toString();

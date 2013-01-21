@@ -25,6 +25,11 @@
 
 package de.shandschuh.slightbackup;
 
+/**
+ * This class is just used as a "storage" for strings that are available to the
+ * whole program. By having them as "static final" objects, memory for these
+ * strings is only allocated once.
+ */
 public final class Strings {
 	public static final String BODY = "body";
 	

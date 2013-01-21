@@ -109,6 +109,11 @@ public class BackupActivity extends ExpandableListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		INSTANCE = this;
 		super.onCreate(savedInstanceState);
+		
+		/**
+		 * Only show the content, if the license has been shown and
+		 * accepted before.
+		 */
 		if (getPreferences(MODE_PRIVATE).getBoolean(Strings.PREFERENCE_LICENSEACCEPTED, false)) {
 			setContent();
 		} else {
@@ -384,6 +389,12 @@ public class BackupActivity extends ExpandableListActivity {
 		return super.onCreateDialog(id);
 	}
 	
+	/**
+	 * This method sets all the needed values in an AlertDialog.Builder that
+	 * are needed to show the license.
+	 * No buttons are set up such that we can use this method both for the
+	 * agreement and the showing of the license.
+	 */
 	private void setupLicenseText(AlertDialog.Builder builder) {
 		ScrollView scrollView = new ScrollView(this);
 		
@@ -400,6 +411,10 @@ public class BackupActivity extends ExpandableListActivity {
 		builder.setView(scrollView);
 	}
 	
+	/**
+	 * Sets up the main content of the application (i.e. loads the list of
+	 * available backups and generates the context menu).
+	 */
 	private void setContent() {
 		setContentView(R.layout.main);
 		
@@ -429,6 +444,10 @@ public class BackupActivity extends ExpandableListActivity {
 		});
 	}
 	
+	/**
+	 * In order to perform certain backups (such as the wifi settings), we
+	 * need root to access the corresponding configuration files.
+	 */
 	private static boolean checkRoot() {
 		try {
 			Process process = Runtime.getRuntime().exec("/system/bin/ls -l /system/bin/su /system/xbin/su");
