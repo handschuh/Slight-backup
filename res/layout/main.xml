@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical"
 	android:id="@+id/main_layout">
-    	<ExpandableListView android:id="@android:id/list" android:layout_width="fill_parent"
-    		android:layout_height="wrap_content"
-    		android:layout_gravity="fill"
-    		android:drawSelectorOnTop="false" />
-		<TextView 
+	<ExpandableListView android:id="@android:id/list" android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_gravity="fill"
+		android:drawSelectorOnTop="false" />
+		<TextView
 			android:id="@id/android:empty"
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"

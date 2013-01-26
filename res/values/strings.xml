@@ -18,13 +18,13 @@
     
     <!-- there is no need for a translation of the following string -->
     <string name="license">Slight backup - a simple backup tool\n\n
-    
+
 		Copyright &#169; 2011, 2012 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
 
-    	Translators\n
+		Translators\n
 			 - French: &lt;unnamed&gt;\n
 			 - Turkish: &lt;unnamed&gt;\n\n
-			 
+			
 		Permission is hereby granted, free of charge, to any person obtaining a copy
 		of this software and associated documentation files (the "Software"), to deal
 		in the Software without restriction, including without limitation the rights
@@ -42,12 +42,8 @@
 		LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 		OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 		THE SOFTWARE.
-	</string>
-	
-	<string name="license_intro">
-	    This software is distributed under the MIT open source license and its source
-	    code is available under http://github.com/handschuh/Slight-backup
-	</string>
+    </string>
+    <string name="license_intro">This software is distributed under the MIT open source license and its source code is available under http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Exported into %s.</string>
     <string name="message_importsuccessful">Import successful.</string>
     <plurals name="message_importsuccessful_skipped">

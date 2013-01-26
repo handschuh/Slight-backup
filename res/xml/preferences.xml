@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen 
+<PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
     <CheckBoxPreference
         android:title="@string/settings_hideincompletedatawarnings"
         android:summary="@string/settings_hideincompletedatawarnings_description"
         android:key="hideincompletedatawarnings"/>
-    <PreferenceCategory 
+    <PreferenceCategory
         android:title="@string/settings_category_cyclicbehavior">
         <ListPreference
             android:title="@string/settings_cyclecount"
             android:summary="@string/settings_cyclecount_description"
-            android:key="cyclecount" 
+            android:key="cyclecount"
             android:numeric="integer"
             android:defaultValue="0"
             android:entries="@array/settings_cyclecountvalues"
             android:entryValues="@array/settings_cyclecounts" />
     </PreferenceCategory>
-    <PreferenceCategory 
+    <PreferenceCategory
         android:title="@string/settings_category_storage">
         <EditTextPreference
             android:title="@string/settings_storagelocation"

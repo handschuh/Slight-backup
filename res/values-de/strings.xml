@@ -14,7 +14,7 @@
     <string name="hint_noexportdata">Keine Daten für den Export vorhanden.</string>
     <string name="hint_exporting">Exportiere %s &#8230;</string>
     <string name="hint_existed">\"%s\" existierte</string>
-	<string name="license_intro">Diese Software ist unter der MIT Open-Source-Lizenz veröffentlicht und der Quellcode befindet sich unter http://github.com/handschuh/Slight-backup</string>
+    <string name="license_intro">Diese Software ist unter der MIT Open-Source-Lizenz veröffentlicht und der Quellcode befindet sich unter http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Nach %s exportiert.</string>
     <string name="message_importsuccessful">Import erfolgreich.</string>
     <plurals name="message_importsuccessful_skipped">
