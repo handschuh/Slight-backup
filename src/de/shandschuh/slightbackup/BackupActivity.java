@@ -65,6 +65,10 @@ import de.shandschuh.slightbackup.exporter.Exporter;
 import de.shandschuh.slightbackup.exporter.Exporter.ExporterInfos;
 import de.shandschuh.slightbackup.parser.ImportTask;
 
+/**
+ * This class is the main activity of the backup program. From this view, the
+ * user can trigger all imports and all exports.
+ */
 public class BackupActivity extends ExpandableListActivity {
 	public static final Uri SMS_URI = Uri.parse("content://sms");
 	
@@ -289,6 +293,17 @@ public class BackupActivity extends ExpandableListActivity {
 		return true;
 	}
 	
+	/**
+	 * Checks if the exporter that is attached to the given ExportTask may
+	 * produce incomplete data and shows a warning if this is the case and
+	 * if the user wants to get notified. Note that the standard setting is
+	 * to show the warning.
+	 * The user may also cancel the warning dialog which results in the
+	 * export to be not performed.
+	 *
+	 * @param exportTask task whose exporter is checked w.r.t. incomplete
+	 *                   exports
+	 */
 	private void checkExportTaskForIncompleteData(final ExportTask exportTask) {
 		Exporter exporter = exportTask.getExporter();
 		
@@ -317,6 +332,11 @@ public class BackupActivity extends ExpandableListActivity {
 		}
 	}
 	
+	/**
+	 * Here, the given progress dialog will be reset.
+	 *
+	 * @param dialog progress dialog to be reset
+	 */
 	private void checkProgressDialog(ProgressDialog dialog) {
 		dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 		dialog.setProgress(0);
@@ -394,6 +414,9 @@ public class BackupActivity extends ExpandableListActivity {
 	 * are needed to show the license.
 	 * No buttons are set up such that we can use this method both for the
 	 * agreement and the showing of the license.
+	 *
+	 * @param builder dialog builder that will be used to generate the
+	 *                license text dialog
 	 */
 	private void setupLicenseText(AlertDialog.Builder builder) {
 		ScrollView scrollView = new ScrollView(this);
@@ -447,6 +470,9 @@ public class BackupActivity extends ExpandableListActivity {
 	/**
 	 * In order to perform certain backups (such as the wifi settings), we
 	 * need root to access the corresponding configuration files.
+	 *
+	 * @return true if <i>root</i> access can be obtained, <i>false</i>
+	 *         otherwise
 	 */
 	private static boolean checkRoot() {
 		try {
