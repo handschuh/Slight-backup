@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
  *
- * Copyright (c) 2012 Stefan Handschuh
+ * Copyright (c) 2012, 2013 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,6 +33,7 @@ import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.database.Cursor;
 import android.net.Uri;
+import android.text.TextUtils;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
 
@@ -72,7 +73,7 @@ public class ContactsExporter extends SimpleExporter {
 		if (lookupKeyColumn == -1) {
 			lookupKeyColumn = cursor.getColumnIndex(LOOKUP_FIELDNAME);
 		}
-		writer.append(new String(getVcardBytes(context, cursor.getString(lookupKeyColumn))));
+		writer.append(TextUtils.htmlEncode(new String(getVcardBytes(context, cursor.getString(lookupKeyColumn)))));
 	}
 	
 	@Override
