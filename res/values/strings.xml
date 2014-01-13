@@ -15,11 +15,12 @@
     <string name="hint_noexportdata">No data available for export.</string>
     <string name="hint_exporting">Exporting %s &#8230;</string>
     <string name="hint_existed">\"%s\" existed</string>
+    <string name="hint_smsairplanemode">The to import the SMS, please enable the airplane mode and try importing the messages again.</string>
     
     <!-- there is no need for a translation of the following string -->
     <string name="license">Slight backup - a simple backup tool\n\n
 
-		Copyright &#169; 2011-2013 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
+		Copyright &#169; 2011-2014 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
 
 		Translators\n
 			 - French: &lt;unnamed&gt;\n
@@ -82,6 +83,11 @@
 
     <string name="warning_incompletedata_import">The import of the %s will be very likely incomplete.</string>
     <string name="warning_incompletedata_export">The export of the %s will be very likely incomplete.</string>
+    <string name="warning_defaultsmsapplication">If you don\'t change the default Messaging application to the value before the change that was needed for the SMS import, all incomming messages will be lost since Slight backup cannot process incomming messages.</string>
+    <string name="warning_enableairplanemode">Enable the airplanemode while Slight backup is the default Messaging application. Slight backup cannot process incomming messages such that they will be lost.</string>
+    <string name="warning_aftersmsimport">In order to import SMS, Slight backup has to be defined as the default Messaging application. Since Slight backup cannot process incomming messages, the airplane mode has to be activated while Slight backup is the default
+                                          Messaging application. After the import, the prior Messaging application has to be set as the standard Messaging application again to prevent the loss of incomming messages. After Slight backup is not the standard Messaging application anymore,
+                                          the airplane mode can be disabled.</string>
 
     <string-array name="settings_cyclecountvalues">
         <item>Unlimited</item>

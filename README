@@ -1,13 +1,13 @@
 Slight backup android program
 
-Copyright (c) 2011-2013 Stefan Handschuh
+Copyright (c) 2011-2014 Stefan Handschuh
 
 The file "LICENSE" contains the license information for the program.
 
 
 This small program allows you to backup and restore specific data of your
 android device:
- * SMS (only if the standard application is used)
+ * SMS (only if the standard application is used; complicated for android 4.4 and likely above)
  * Call-logs (no voicemails)
  * Settings (experimental)
  * Bookmarks (only stock browser; no folders are supported)
@@ -36,3 +36,26 @@ import.
 
 Since the vcs texts do not contain information about the "starred" property of a
 certain contact, this property will *not* be restored during the import.
+
+
+SMS import for android >= 4.4
+=============================
+
+In android 4.4, an official public SMS api has been introduced. This new api only
+allows the standard messaging application to write to the SMS database. Therefore,
+if one wants to import SMS, Slight backup has to be the standard messaging
+application. In order to be recognized as a possible standard messaging application,
+several functionalities have to be provided such as receiving SMS. Slight backup
+however only defines dummy receivers for SMS to fulfill the minimal requirements
+theoretically. Slight backup IS NOT ABLE TO PROCESS RECEIVED MESSAGES SUCH THAT
+THEY WILL BE LOST IF THEY ARE RECEIVED WHILE Slight backup IS THE STANDARD
+MESSAGING APPLICATION.
+
+Therefore, the following procedure might be a solution to this problem:
+  1. enable airplane mode such that messages won't be received
+  2. set Slight backup as the default messaging application
+  3. import SMS
+  4. change the default messaging application back to its original value
+  5. disable airplane mode
+This however, is also not a secure solution since the meaning of airplane mode
+might change.

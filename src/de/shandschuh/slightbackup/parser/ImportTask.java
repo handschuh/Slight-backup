@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
  *
- * Copyright (c) 2011, 2012 Stefan Handschuh
+ * Copyright (c) 2011-2014 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -41,6 +41,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
+import de.shandschuh.slightbackup.BackupActivity;
 import de.shandschuh.slightbackup.BackupTask;
 import de.shandschuh.slightbackup.R;
 import de.shandschuh.slightbackup.Strings;
@@ -51,7 +52,7 @@ public class ImportTask extends BackupTask<Void, Exception> {
 	private Parser parser;
 	
 	private Button importButton;
-
+	
 	public ImportTask(final ProgressDialog progressDialog, final File file, int count) {
 		super(progressDialog);
 		this.file = file;
@@ -65,41 +66,46 @@ public class ImportTask extends BackupTask<Void, Exception> {
 			}
 		});
 		progressDialog.show();
-		importButton = progressDialog.getButton(Dialog.BUTTON_POSITIVE);
-		importButton.setEnabled(true);
-		importButton.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				if (getStatus() == AsyncTask.Status.PENDING) {
-					Context context = progressDialog.getContext();
-					
-					parser = SimpleParser.createParserByFilename(file.toString(), context, ImportTask.this);
-					
-					if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Strings.PREFERENCE_HIDEDATAWARNINGS, false) && parser.maybeIncomplete()) {
-						AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		
+		parser = SimpleParser.createParserByFilename(file.toString(), progressDialog.getContext(), ImportTask.this);
+		
+		if (!parser.isPrepared()) {
+			cancel(true);
+		} else {
+			importButton = progressDialog.getButton(Dialog.BUTTON_POSITIVE);
+			importButton.setEnabled(true);
+			importButton.setOnClickListener(new OnClickListener() {
+				public void onClick(View v) {
+					if (getStatus() == AsyncTask.Status.PENDING) {
+						Context context = progressDialog.getContext();
 						
-						builder.setTitle(android.R.string.dialog_alert_title);
-						builder.setMessage(context.getString(R.string.warning_incompletedata_import, context.getString(parser.getTranslatedContentName())));
-						builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.cancel();
-								execute();
-							}
-						});
-						builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								dialog.cancel();
-							}
-						});
-						builder.setCancelable(true);
-						builder.show();
-					} else {
-						execute();
+						if (!PreferenceManager.getDefaultSharedPreferences(context).getBoolean(Strings.PREFERENCE_HIDEDATAWARNINGS, false) && parser.maybeIncomplete()) {
+							AlertDialog.Builder builder = new AlertDialog.Builder(context);
+							
+							builder.setTitle(android.R.string.dialog_alert_title);
+							builder.setMessage(context.getString(R.string.warning_incompletedata_import, context.getString(parser.getTranslatedContentName())));
+							builder.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									dialog.cancel();
+									execute();
+								}
+							});
+							builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									dialog.cancel();
+								}
+							});
+							builder.setCancelable(true);
+							builder.show();
+						} else {
+							execute();
+						}
 					}
 				}
-			}
-		}); // we cannot use progressDialog.setButton(Dialog.BUTTON_POSITIVE, ...) since this would cause the dialog to close
+			}); // we cannot use progressDialog.setButton(Dialog.BUTTON_POSITIVE, ...) since this would cause the dialog to close
+		}
 	}
 	
 	@Override
@@ -131,6 +137,7 @@ public class ImportTask extends BackupTask<Void, Exception> {
 	protected void onPostExecute(Exception result) {
 		progressDialog.setProgress(0);
 		progressDialog.dismiss();
+		parser.cleanup();
 		if (result == null) {
 			if (parser.hasHints()) {
 				AlertDialog.Builder builder = new AlertDialog.Builder(progressDialog.getContext());

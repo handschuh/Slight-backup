@@ -14,6 +14,7 @@
     <string name="hint_noexportdata">Keine Daten für den Export vorhanden.</string>
     <string name="hint_exporting">Exportiere %s &#8230;</string>
     <string name="hint_existed">\"%s\" existierte</string>
+    <string name="hint_smsairplanemode">Um die SMS zu importieren, aktivieren Sie bitte den Flugmodus und starten den Import erneut.</string>
     <string name="license_intro">Diese Software ist unter der MIT Open-Source-Lizenz veröffentlicht und der Quellcode befindet sich unter http://github.com/handschuh/Slight-backup</string>
     <string name="message_exportedto">Nach %s exportiert.</string>
     <string name="message_importsuccessful">Import erfolgreich.</string>
@@ -52,6 +53,12 @@
 
     <string name="warning_incompletedata_import">Der Import der %s wird wahrscheinlich unvollständig sein.</string>
     <string name="warning_incompletedata_export">Der Export der %s wird wahrscheinlich unvollständig sein.</string>
+    <string name="warning_defaultsmsapplication">Wenn Sie die Standard SMS Applikation, die vor dem SMS Omport festgelegt war, nicht wieder als Standard SMS Applikation einstellen, werden Sie keine Nachrichten mehr empfangen können, da Slight backup keine einkommenden Nachrichten verarbeiten kann.</string>
+    <string name="warning_enableairplanemode">Aktivieren Sie den Flugmodus solange Slight backup die Standard SMS Applikation ist. Slight backup kann eingehende Nachrichten nicht verarbeiten so dass diese verloren gehen.</string>
+    <string name="warning_aftersmsimport">Um SMS importieren zu können, muss Slight backup als die Standard SMS Applikation festgelegt sein.
+                                          Da Slight backup eingehene Nachrichten nicht verarbeiten kann, muss der Flugmodus aktiviert sein solange Slight backup die Standard SMS Applikation ist.
+                                          Nach dem Import muss die vorherige Standard SMS Applikation wieder eingestellt werden, um den Verlust eingehender Nachrichten zu verhindern.
+                                          Wenn Slight backup nicht mehr die Standard SMS Applikation ist, kann der Flugmodus deaktiviert werden.</string>
 
     <string-array name="settings_cyclecountvalues">
         <item>Unbegrenzt</item>

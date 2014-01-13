@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
  *
- * Copyright (c) 2011 Stefan Handschuh
+ * Copyright (c) 2011-2014 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,17 +30,19 @@ import java.io.File;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.Properties;
 import java.util.Vector;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ExpandableListActivity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.DialogInterface.OnClickListener;
 import android.content.DialogInterface.OnKeyListener;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
 import android.os.Build;
@@ -50,11 +52,11 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.ExpandableListView;
 import android.widget.ScrollView;
@@ -94,6 +96,8 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	public static final int API_LEVEL = Integer.parseInt(Build.VERSION.SDK);
 	
+	public static final int REQUEST_CHANGEDEFAULTSMSAPPLICATIONTOORIGINAL = 1;
+	
 	public BackupFilesListAdapter listAdapter;
 	
 	private AlertDialog deleteFileDialog;
@@ -108,12 +112,14 @@ public class BackupActivity extends ExpandableListActivity {
 	
 	private ExporterInfos exporterInfos;
 	
+	private Properties properties;
+	
 	@SuppressWarnings("deprecation")
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		INSTANCE = this;
 		super.onCreate(savedInstanceState);
-		
+		properties = new Properties();
 		/**
 		 * Only show the content, if the license has been shown and
 		 * accepted before.
@@ -467,6 +473,21 @@ public class BackupActivity extends ExpandableListActivity {
 		});
 	}
 	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+			case REQUEST_CHANGEDEFAULTSMSAPPLICATIONTOORIGINAL : {
+				if (resultCode != RESULT_OK) {
+					showWarningDialog(this, R.string.warning_defaultsmsapplication, null);
+				}
+				break;
+			}
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+		
+	}
+
+	
 	/**
 	 * In order to perform certain backups (such as the wifi settings), we
 	 * need root to access the corresponding configuration files.
@@ -489,5 +510,34 @@ public class BackupActivity extends ExpandableListActivity {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	public void addProperty(String key, String value) {
+		properties.put(key, value);
+	}
+	
+	public String getProperty(String key) {
+		return properties.getProperty(key);
+	}
+	
+	public static Dialog showWarningDialog(Context context, int textId, OnClickListener onClickListener) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+		
+		builder.setIcon(android.R.drawable.ic_dialog_alert);
+		builder.setTitle(android.R.string.dialog_alert_title);
+		builder.setMessage(textId);
+		
+		if (onClickListener == null) {
+			builder.setPositiveButton(android.R.string.ok, new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					dialog.dismiss();
+				}
+				
+			});
+		} else {
+			builder.setPositiveButton(android.R.string.ok, onClickListener);
+		}
+		return builder.show();
 	}
 }

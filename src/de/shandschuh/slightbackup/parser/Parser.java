@@ -1,7 +1,7 @@
 /**
  * Slight backup - a simple backup tool
  *
- * Copyright (c) 2011, 2012 Stefan Handschuh
+ * Copyright (c) 2011-2014 Stefan Handschuh
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -81,6 +81,7 @@ public abstract class Parser extends DefaultHandler {
 
 	public final void cancel() {
 		canceled = true;
+		cleanup();
 	}
 	
 	public boolean isCanceled() {
@@ -165,6 +166,28 @@ public abstract class Parser extends DefaultHandler {
 	 */
 	public boolean maybeIncomplete() {
 		return false;
+	}
+	
+	/**
+	 * Override to use.
+	 * @return
+	 */
+	public int getDescriptionId() {
+		return 0;
+	}
+	
+	/**
+	 * Override to use
+	 */
+	public boolean isPrepared() {
+		return true;
+	}
+	
+	/**
+	 * Override to use
+	 */
+	public void cleanup() {
+		
 	}
 
 }
