@@ -98,7 +98,7 @@ public class MessageParser extends SimpleParser {
 				final String defaultSmsPackage = (String) Class.forName("android.provider.Telephony$Sms").getMethod("getDefaultSmsPackage", Context.class).invoke(null, context);
 				
 				if (defaultSmsPackage.equalsIgnoreCase(context.getPackageName())) {
-					if ((Integer) Class.forName("android.provider.Settings$Global").getMethod("getInt", ContentResolver.class, String.class, int.class).invoke(null, context.getContentResolver(), "airplane_mode_on", 1) == 1) {
+					if ((Integer) Class.forName("android.provider.Settings$Global").getMethod("getInt", ContentResolver.class, String.class, int.class).invoke(null, context.getContentResolver(), "airplane_mode_on", 1) == 0) {
 						BackupActivity.showWarningDialog(context, R.string.warning_enableairplanemode, null);
 					}
 					return true;
