@@ -57,7 +57,7 @@
     <string name="warning_enableairplanemode">Aktivieren Sie den Flugmodus solange Slight backup die Standard SMS Applikation ist. Slight backup kann eingehende Nachrichten nicht verarbeiten so dass diese verloren gehen.</string>
     <string name="warning_aftersmsimport">Um SMS importieren zu können, muss Slight backup als die Standard SMS Applikation festgelegt sein.
                                           Da Slight backup eingehene Nachrichten nicht verarbeiten kann, muss der Flugmodus aktiviert sein solange Slight backup die Standard SMS Applikation ist.
-                                          Nach dem Import muss die vorherige Standard SMS Applikation wieder eingestellt werden, um den Verlust eingehender Nachrichten zu verhindern.
+                                          Nachdem Slight backup als Standard SMS Applikation festgelegt wurde, tippen Sie erneut auf die Backupdatei um den Import zu initiieren. Nach dem Import muss die vorherige Standard SMS Applikation wieder eingestellt werden, um den Verlust eingehender Nachrichten zu verhindern (Slight backup versucht, den Wechsel zu initiieren).
                                           Wenn Slight backup nicht mehr die Standard SMS Applikation ist, kann der Flugmodus deaktiviert werden.</string>
 
     <string-array name="settings_cyclecountvalues">

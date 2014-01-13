@@ -86,7 +86,7 @@
     <string name="warning_defaultsmsapplication">If you don\'t change the default Messaging application to the value before the change that was needed for the SMS import, all incomming messages will be lost since Slight backup cannot process incomming messages.</string>
     <string name="warning_enableairplanemode">Enable the airplanemode while Slight backup is the default Messaging application. Slight backup cannot process incomming messages such that they will be lost.</string>
     <string name="warning_aftersmsimport">In order to import SMS, Slight backup has to be defined as the default Messaging application. Since Slight backup cannot process incomming messages, the airplane mode has to be activated while Slight backup is the default
-                                          Messaging application. After the import, the prior Messaging application has to be set as the standard Messaging application again to prevent the loss of incomming messages. After Slight backup is not the standard Messaging application anymore,
+                                          Messaging application. After the change of the standard Messaging application, tap on the backupfile again to initiate the import. After the import, the prior Messaging application has to be set as the standard Messaging application again to prevent the loss of incomming messages (Slight backup will try to initiate the change). After Slight backup is not the standard Messaging application anymore,
                                           the airplane mode can be disabled.</string>
 
     <string-array name="settings_cyclecountvalues">
