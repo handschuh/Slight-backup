@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Slight backup</string>
+    <string name="menu_export">Exportar &#8230;</string>
+    <string name="menu_exporteverything">Exportar todo</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="menu_about">Acerca de...</string>
+    <string name="contextmenu_deletefile">Borrar archivo</string>
+    <string name="contextmenu_deletedaydata">Borrar los datos de estos días</string>
+    <string name="error_nosdcard">No se encuentra la SD-card.</string>
+    <string name="error_unsupporteddatabasestructure">Estructura de base de datos no soportada</string>
+    <string name="error_couldnotcreatebackupfolder">No se pudo crear la carpeta de copia de seguridad (%s)</string>
+    <string name="error_somethingwentwrong">Algo fue mal: %s.</string>
+    <string name="hint_nobackupsfound">No se encontraron copias de seguridad - pulsa el botón de menú para crear alguna.</string>
+    <string name="hint_noexportdata">No hay datos disponibles para exportar.</string>
+    <string name="hint_exporting">Exportando %s &#8230;</string>
+    <string name="hint_existed">\"%s\" existía</string>
+    
+    <!-- there is no need for a translation of the following string -->
+    <string name="license">Slight backup - una herramienta sencilla de copia de seguridad\n\n
+
+		Copyright &#169; 2011-2013 Stefan Handschuh (handschuh.stefan@googlemail.com)\n\n
+
+		Traductores\n
+			 - Francés: &lt;unnamed&gt;\n
+			 - Turco: &lt;unnamed&gt;\n
+			 - Español: &lt;Laura Arjona Reina&gt;\n\n
+			
+		Licencia MIT (TRADUCCIÓN NO OFICIAL NI AUTORIZADA PARA SU USO COMO LICENCIA LEGAL)
+
+Se concede permiso por la presente, de forma gratuita, a cualquier persona
+que obtenga una copia de este software y de los archivos de documentación
+asociados (el "Software"), para utilizar el Software sin restricción,
+incluyendo sin limitación los derechos de usar, copiar, modificar, fusionar,
+publicar, distribuir, sublicenciar, y/o vender copias de este Software, y
+para permitir a las personas a las que se les proporcione el Software a
+hacer lo mismo, sujeto a las siguientes condiciones:
+
+El aviso de copyright anterior y este aviso de permiso se incluirán en todas
+las copias o partes sustanciales del Software.
+
+EL SOFTWARE SE PROPORCIONA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA
+O IMPLÍCITA, INCLUYENDO PERO NO LIMITADO A GARANTÍAS DE COMERCIALIZACIÓN,
+IDONEIDAD PARA UN PROPÓSITO PARTICULAR Y NO INFRACCIÓN. EN NINGÚN CASO LOS
+AUTORES O TITULARES DEL COPYRIGHT SERÁN RESPONSABLES DE NINGUNA RECLAMACIÓN,
+DAÑOS U OTRAS RESPONSABILIDADES, YA SEA EN UN LITIGIO, AGRAVIO O DE OTRO MODO,
+QUE SURJA DE O EN CONEXIÓN CON EL SOFTWARE O EL USO U OTRO TIPO DE ACCIONES EN
+EL SOFTWARE.
+    </string>
+    <string name="license_intro">Este software se distribuye bajo la licencia de software libre MIT y el código fuente está disponbile en http://github.com/handschuh/Slight-backup</string>
+    <string name="message_exportedto">Exportado a %s.</string>
+    <string name="message_importsuccessful">Importación correcta.</string>
+    <plurals name="message_importsuccessful_skipped">
+        <item quantity="one">Importación correcta, pero se ha saltado 1 entrada.</item>
+        <item quantity="other">Importación correcta, pero se han saltado %d entradas.</item>
+    </plurals>
+    <string name="message_skippedallentries">Se han saltado todas las entradas.</string>
+    <plurals name="listentry_items">
+        <item quantity="one">1 ítem en</item>
+        <item quantity="other">%d ítems en</item>
+    </plurals>
+    <string name="button_import">Importar</string>
+    <string name="button_accept">Aceptar</string>
+    <string name="button_decline">Declinar</string>
+    <string name="smsmessages">mensajes cortos</string>
+    <string name="calllogs">registro de llamadas</string>
+    <string name="bookmarks">marcadores</string>
+    <string name="userdictionary">diccionario de usuario</string>
+    <string name="playlists">listas de reproducción</string>
+    <string name="settings">ajustes</string>
+    <string name="wifisettings">ajustes de wifi</string>
+    <string name="contacts">contactos</string>
+    <string name="dialog_export">Exportar</string>
+    <string name="dialog_licenseagreement">Licencia</string>
+    <string name="question_deletefile">¿Realmente deseas borrar el archivo %s?</string>
+    
+    <string name="settings_category_cyclicbehavior">Comportamiento cíclico</string>
+    <string name="settings_cyclecount">Cuenta de ciclo (experimental)</string>
+    <string name="settings_cyclecount_description">Máx. número de copias de seguridad de un tipo</string>
+    <string name="settings_category_storage">Almacenamiento</string>
+    <string name="settings_storagelocation">Lugar de almacenamiento</string>
+    <string name="settings_storagelocation_description">Localización de los archivos de copia de seguridad</string>
+    <string name="settings_storagelocation_hint">Almacenamiento externo estándar</string>
+    <string name="settings_hideincompletedatawarnings">Ocultar los avisos sobre datos</string>
+    <string name="settings_hideincompletedatawarnings_description">Ocultar los avisos sobre datos incompletos antes de importar o exportar</string>
+
+    <string name="warning_incompletedata_import">La importación de %s probablemente no será completa.</string>
+    <string name="warning_incompletedata_export">La exportación de %s probablemente no será completa.</string>
+
+    <string-array name="settings_cyclecountvalues">
+        <item>Ilimitado</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+</resources>
