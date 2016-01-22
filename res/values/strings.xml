@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Slight backup</string>
-    <string name="menu_export">Export &#8230;</string>
+    <string name="menu_export">Export&#8230;</string>
     <string name="menu_exporteverything">Export everything</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_about">About</string>
     <string name="contextmenu_deletefile">Delete file</string>
-    <string name="contextmenu_deletedaydata">Delete this days data</string>
+    <string name="contextmenu_deletedaydata">Delete data on this day</string>
     <string name="error_nosdcard">No SD-card present.</string>
     <string name="error_unsupporteddatabasestructure">Unsupported database structure</string>
-    <string name="error_couldnotcreatebackupfolder">Could not create backupfolder (%s)</string>
+    <string name="error_couldnotcreatebackupfolder">Could not create backup folder (%s)</string>
     <string name="error_somethingwentwrong">Something went wrong: %s.</string>
     <string name="hint_nobackupsfound">No backups found - press menu-key to create some.</string>
     <string name="hint_noexportdata">No data available for export.</string>
-    <string name="hint_exporting">Exporting %s &#8230;</string>
+    <string name="hint_exporting">Exporting %s&#8230;</string>
     <string name="hint_existed">\"%s\" existed</string>
     
     <!-- there is no need for a translation of the following string -->
@@ -23,6 +23,7 @@
 
 		Translators\n
 			 - French: &lt;unnamed&gt;\n
+			 - Italian: airon90 (https://github.com/airon90)\n
 			 - Turkish: &lt;unnamed&gt;\n\n
 			
 		Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -58,14 +59,14 @@
     <string name="button_import">Import</string>
     <string name="button_accept">Accept</string>
     <string name="button_decline">Decline</string>
-    <string name="smsmessages">short messages</string>
-    <string name="calllogs">call-logs</string>
-    <string name="bookmarks">bookmarks</string>
-    <string name="userdictionary">user-dictionary</string>
-    <string name="playlists">playlists</string>
-    <string name="settings">settings</string>
-    <string name="wifisettings">wifi-settings</string>
-    <string name="contacts">contacts</string>
+    <string name="smsmessages">SMS</string>
+    <string name="calllogs">Call logs</string>
+    <string name="bookmarks">Bookmarks</string>
+    <string name="userdictionary">User dictionary</string>
+    <string name="playlists">Playlists</string>
+    <string name="settings">Settings</string>
+    <string name="wifisettings">Wifi settings</string>
+    <string name="contacts">Contacts</string>
     <string name="dialog_export">Export</string>
     <string name="dialog_licenseagreement">License</string>
     <string name="question_deletefile">Do you really want to delete the file %s?</string>
