@@ -1,6 +1,10 @@
-Slight backup android program
+# Slight backup android program
 
-Copyright (c) 2011-2013 Stefan Handschuh
+[<img src="https://f-droid.org/badge/get-it-on.png"
+      alt="Get it on F-Droid"
+      height="80">](https://f-droid.org/packages/de.shandschuh.slightbackup/)
+
+Copyright (c) 2011-2013 [Stefan Handschuh](https://github.com/handschuh)
 
 The file "LICENSE" contains the license information for the program.
 
@@ -18,8 +22,7 @@ android device:
 The backups are stored unencrypted in an editable location (standard: sdcard).
 
 
-Contacts import/ export
-=======================
+## Contacts import/ export
 
 The contacts import and export is performed via the android internal vcs
 capabilities.
@@ -36,3 +39,7 @@ import.
 
 Since the vcs texts do not contain information about the "starred" property of a
 certain contact, this property will *not* be restored during the import.
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/handschuh/Slight-backup.
