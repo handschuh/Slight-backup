@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="menu_export">Exportar&#8230;</string>
+    <string name="menu_exporteverything">Exportar tudo</string>
+    <string name="menu_settings">Configurações</string>
+    <string name="menu_about">About</string>
+    <string name="contextmenu_deletefile">Deletar arquivo</string>
+    <string name="contextmenu_deletedaydata">Deletar os dados deste dia</string>
+    <string name="error_nosdcard">Nenhum cartão SD foi detectado</string>
+    <string name="error_unsupporteddatabasestructure">Esta estrutra de base de dados não é suportada</string>
+    <string name="error_couldnotcreatebackupfolder">Não foi possível criar o arquivo de backup(%s)</string>
+    <string name="error_somethingwentwrong">Algo deu errado: %s.</string>
+    <string name="hint_nobackupsfound">Nenhum backup foi encontrado- aperte a tecla menu para fazer backups.</string>
+    <string name="hint_noexportdata">Não há dados disponíveis para exportação.</string>
+    <string name="hint_exporting">Exportando %s &#8230;</string>
+    <string name="hint_existed">\"%s\" existia</string>
+    <string name="license_intro">Este software é distribuído sob a licença MIT Open-Source e seu código fonte está disponível em http://github.com/handschuh/Slight-backup</string>
+    <string name="message_exportedto">Exportado para %s.</string>
+    <string name="message_importsuccessful">A importação foi bem sucedida.</string>
+    <plurals name="message_importsuccessful_skipped">
+        <item quantity="one">A importação foi bem sucedida, mas 1 item foi pulado.</item>
+        <item quantity="other">A importação foi bem sucedida, mas %d itens foram pulados.</item>
+    </plurals>
+    <string name="message_skippedallentries">Todas as entradas foram puladas.</string>
+    <plurals name="listentry_items">
+        <item quantity="one">1 item em</item>
+        <item quantity="other">%d itens em</item>
+    </plurals>
+    <string name="button_import">Importar</string>
+    <string name="button_accept">Aceitar</string>
+    <string name="button_decline">Recusar</string>
+    <string name="smsmessages">Mensagens de texto</string>
+    <string name="calllogs">Registros telefônicos</string>
+    <string name="bookmarks">Páginas marcadas</string>
+    <string name="userdictionary">Dicionário do usuário</string>
+    <string name="playlists">Playlists</string>
+    <string name="settings">Configurações</string>
+    <string name="wifisettings">Configurações de wi-fi</string>
+    <string name="contacts">Contatos</string>
+    <string name="dialog_export">Exportar</string>
+    <string name="dialog_licenseagreement">Licença</string>
+    <string name="question_deletefile">WVocê tem certeza que quer deletar o arquivo %s?</string>
+    <string name="settings_category_cyclicbehavior">Comportamento cíclico</string>
+    <string name="settings_cyclecount">Contador de  ciclos (experimental) </string>
+    <string name="settings_cyclecount_description">Quantidade máxima de backups de um tipo</string>
+    <string name="settings_category_storage">Armazenamento</string>
+    <string name="settings_storagelocation">Local de armazenamento</string>
+    <string name="settings_storagelocation_description">Local dos arquivos de backup</string>
+    <string name="settings_storagelocation_hint">Armazenamento externo padrão</string>
+    <string name="settings_hideincompletedatawarnings">Ocultar avisos de dados</string>
+    <string name="settings_hideincompletedatawarnings_description">Ocultar avisos de dados incompletos antes de im- e exportação</string>
+    <string name="warning_incompletedata_import">É altamente provável que a importação de %s fique incompleta.</string>
+    <string name="warning_incompletedata_export">É altamente provável que a exportação de %s fique incompleta</string>
+    <string-array name="settings_cyclecountvalues">
+        <item>Ilimitado</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+    </string-array>
+</resources>
